@@ -1,0 +1,8 @@
+  <svg viewBox="0 0 20 20" fill="none" 
+  width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+    <rect width="20" height="20" rx="10" fill="#ACACAC" />
+    <path
+      d="M15.25 5.8075L14.1925 4.75L10 8.9425L5.8075 4.75L4.75 5.8075L8.9425 10L4.75 14.1925L5.8075 15.25L10 11.0575L14.1925 15.25L15.25 14.1925L11.0575 10L15.25 5.8075Z"
+      fill="white"
+    />
+  </svg>

@@ -1,0 +1,10 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "emmet.triggerExpansionOnTab": true, // html emmet 기능 활성화
+  "prettier.printWidth": 160,
+  "prettier.semi": false,
+  "prettier.singleQuote": true, // single 쿼테이션 사용 여부
+  "files.eol": "\n",
+  "git.ignoreLimitWarning": true // 새 파일 생성시 기본 상태가 LF
+}
