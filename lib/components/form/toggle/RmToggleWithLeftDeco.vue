@@ -2,7 +2,7 @@
 import { toRefs } from 'vue'
 import { IconQuestionMark } from '@/components/icon'
 import { useError, useFunctionRef } from '@/composables'
-import { RmError } from '@/components/element/error'
+import { PxError } from '@/components/element/error'
 import RmToggle from './RmToggle.vue'
 
 const props = defineProps({
@@ -39,7 +39,7 @@ const { error } = useError(id, element)
       <RmToggle :id="id" :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)" :options="options" :disabled="disabled"></RmToggle>
     </div>
     <div v-if="error">
-      <RmError :id="id"></RmError>
+      <PxError :id="id"></PxError>
     </div>
   </div>
 </template>

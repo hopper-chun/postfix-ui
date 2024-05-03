@@ -1,7 +1,7 @@
 <script setup>
 import { toRefs, ref, watchEffect } from 'vue'
 import { useError, useFunctionRef } from '@/composables'
-import { RmError } from '@/components/element/error'
+import { PxError } from '@/components/element/error'
 import RmToggle from './RmToggle.vue'
 
 const props = defineProps({
@@ -46,7 +46,7 @@ const handleClick = () => {
       </div>
     </div>
     <div v-if="error">
-      <RmError :id="id"></RmError>
+      <PxError :id="id"></PxError>
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@ import * as Icons from '@/components/icon/index.js'
 
 const props = defineProps({
   name: { type: String, required: true },
-  isLocal: { type: Boolean },
+  isLib: { type: Boolean },
 })
 
 const IconComponent = computed(() => {
@@ -13,23 +13,18 @@ const IconComponent = computed(() => {
 
   // convert first letter to uppercase
   const componentName = camelName.charAt(0).toUpperCase() + camelName.slice(1)
-  if (props.isLocal) {
-    return componentName
+
+  // isLib을 쓰면 라이브러리 것을 가져와서 씀
+  if (props.isLib) {
+    return Icons[componentName]
   } else {
-    if (!Icons[componentName]) {
-      return componentName
-    } else {
-      return Icons[componentName]
-    }
+    return componentName
   }
-  // 일단 내걸 먼저 뒤지고나서 여길 와야 함
-  // 근데 지금은 여길 먼저 뒤지고 없으면 내걸 가지고 옴
-  //
 })
 </script>
 
 <template>
-  <div class="rm-icon">
+  <div class="px-icon">
     <component :is="IconComponent"></component>
   </div>
 </template>

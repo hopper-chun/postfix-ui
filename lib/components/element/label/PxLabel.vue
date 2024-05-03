@@ -9,12 +9,11 @@ const props = defineProps({
 })
 </script>
 <template>
-  <div style="color: orange">label: {{ label }}</div>
-  <!-- <div v-if="label" class="rm-label">
-    <label :for="id" class="rm-label--text">
+  <div v-if="label" class="px-label">
+    <label :for="id" class="px-label--text">
       {{ label }}
-      <span v-if="required" class="rm-label--required"></span>
+      <span v-if="required" class="px-label--required"></span>
     </label>
-    <div v-if="labelHelper" class="rm-label--helper">{{ labelHelper }}</div>
-  </div> -->
+    <div v-if="labelHelper" class="px-label--helper">{{ labelHelper }}</div>
+  </div>
 </template>

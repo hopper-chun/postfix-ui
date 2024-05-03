@@ -1,7 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useTheme } from '@/composables'
-import { RmError } from '@/components/element/error'
+import { PxError } from '@/components/element/error'
 
 const props = defineProps({
   id: { type: String },
@@ -11,22 +9,20 @@ const props = defineProps({
   localValue: { type: [String, Number] },
   error: { type: String },
 })
-
-const theme = useTheme(computed(() => {}))
 </script>
 <template>
-  <div class="rm-helperText">
-    <div class="rm-helperText--wrapper">
+  <div class="px-helperText">
+    <div class="px-helperText--wrapper">
       <template v-if="error">
-        <RmError :id="id"></RmError>
+        <PxError :id="id"></PxError>
       </template>
       <template v-else>
-        <div v-if="helperIcon" class="rm-helperText--icon">
+        <div v-if="helperIcon" class="px-helperText--icon">
           <slot name="helperIcon"></slot>
         </div>
-        <div class="rm-helperText--text" v-html="helperText"></div
+        <div class="px-helperText--text" v-html="helperText"></div
       ></template>
     </div>
-    <div v-if="maxLength" class="rm-helperText--length" :class="theme.subFontSize">{{ localValue.length }}/{{ maxLength }}</div>
+    <div v-if="maxLength" class="px-helperText--length">{{ localValue.length }}/{{ maxLength }}</div>
   </div>
 </template>

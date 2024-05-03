@@ -23,15 +23,6 @@ const { functionRef, element } = useFunctionRef()
 const { id, modelValue } = toRefs(props)
 const { error } = useError(id, element)
 const { localValue, handleCheck } = useMultiCheckbox(id, modelValue, emit)
-const theme = useTheme(computed(() => {}))
-// 라벨, 옵션,
-const shape = computed(() => {
-  if (!props.circle) {
-    return 'w-[18px] h-[18px] rounded-[2px]'
-  } else {
-    return 'w-[24px] h-[24px] rounded-full'
-  }
-})
 
 const selected = (value) => {
   const found = localValue.value.findIndex((v) => v === value)
@@ -44,7 +35,7 @@ const selected = (value) => {
 }
 </script>
 <template>
-  <div class="rm-multiCheckbox" :class="[{ isRow }]">
+  <div class="px-multiCheckbox" :class="[{ isRow }]">
     <div v-for="(option, index) in options" style="font-size: 0px">
       <input
         :ref="functionRef"
@@ -57,9 +48,9 @@ const selected = (value) => {
         :value="optionsValue(option)"
       />
       <label :for="`${id}_${index}_${optionsValue(option)}`" style="display: inline-block">
-        <div class="rm-checkbox--wrapper">
-          <div class="rm-checkbox--box" :class="[{ disabled }, { error }, { selected: selected(optionsValue(option)) }]"></div>
-          <div class="rm-checkbox--text" :class="[{ error }, { hasText: optionsLabel(option) }]">
+        <div class="px-checkbox--wrapper">
+          <div class="px-checkbox--box" :class="[{ disabled }, { error }, { selected: selected(optionsValue(option)) }]"></div>
+          <div class="px-checkbox--text" :class="[{ error }, { hasText: optionsLabel(option) }]">
             {{ optionsLabel(option) }}
           </div>
         </div>

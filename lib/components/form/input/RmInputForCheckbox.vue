@@ -77,6 +77,6 @@ const randomId = useMakeId()
       </div>
       <div class="text-[12px] text-[#737373]" v-html="helperText"></div>
     </div>
-    <RmError :id="id"></RmError>
+    <PxError :id="id"></PxError>
   </div>
 </template>

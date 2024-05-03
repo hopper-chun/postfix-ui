@@ -83,12 +83,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="rm-dropdown" :ref="functionRef">
-    <div ref="containerRef" @click="handleClick" @mouseover="handleHover('on')" @mouseleave="handleHover('off')" class="rm-dropdown--container">
+  <div class="px-dropdown" :ref="functionRef">
+    <div ref="containerRef" @click="handleClick" @mouseover="handleHover('on')" @mouseleave="handleHover('off')" class="px-dropdown--container">
       <slot></slot>
-      <div ref="listRef" class="rm-dropdown--lists" :class="[direction, { open }]">
+      <div ref="listRef" class="px-dropdown--lists" :class="[direction, { open }]">
         <div class="expandable">
-          <div class="rm-dropdown--list" v-for="option in options" @click="handleSelect(option)">
+          <div class="px-dropdown--list" v-for="option in options" @click="handleSelect(option)">
             <slot name="content" :option="option" :optionsLabel="optionsLabel(option)" :optionsValue="optionsValue(option)">
               {{ optionsLabel(option) }}
             </slot>

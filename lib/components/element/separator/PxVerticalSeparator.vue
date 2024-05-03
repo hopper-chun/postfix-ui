@@ -45,16 +45,16 @@ const moveRange = computed(() => {
 })
 </script>
 <template>
-  <div class="rm-verticalSeparator" @mousemove="handleMouseMove" @mouseup="handleMouseUp">
-    <div class="rm-verticalSeparator--left">
+  <div class="px-verticalSeparator" @mousemove="handleMouseMove" @mouseup="handleMouseUp">
+    <div class="px-verticalSeparator--left">
       <slot name="left"></slot>
     </div>
-    <div draggable="false" class="rm-verticalSeparator--bar" @mousedown="handleMouseDown" :style="`right: ${moveRange}px`">
-      <div class="rm-verticalSeparator--bar_container">
-        <div class="rm-verticalSeparator--icon"></div>
+    <div draggable="false" class="px-verticalSeparator--bar" @mousedown="handleMouseDown" :style="`right: ${moveRange}px`">
+      <div class="px-verticalSeparator--bar_container">
+        <div class="px-verticalSeparator--icon"></div>
       </div>
     </div>
-    <div class="rm-verticalSeparator--right" :style="`width: ${moveRange}px`">
+    <div class="px-verticalSeparator--right" :style="`width: ${moveRange}px`">
       <slot name="right"></slot>
     </div>
   </div>

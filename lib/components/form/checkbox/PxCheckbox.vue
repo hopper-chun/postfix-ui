@@ -1,6 +1,6 @@
 <script setup>
-import { computed, toRefs, useSlots } from 'vue'
-import { useError, useCheckbox, useFunctionRef, useTheme } from '@/composables'
+import { toRefs, useSlots } from 'vue'
+import { useError, useCheckbox, useFunctionRef } from '@/composables'
 
 const slots = useSlots()
 
@@ -25,12 +25,12 @@ const handleCheck = () => {
 }
 </script>
 <template>
-  <div class="rm-checkbox">
+  <div class="px-checkbox">
     <input :ref="functionRef" type="checkbox" :id="id" :checked="localValue" @input="handleCheck" :disabled="disabled" style="display: none" />
     <label :for="id" style="display: inline-block">
-      <div class="rm-checkbox--wrapper" :class="[{ disabled }]">
-        <div class="rm-checkbox--box" :class="[{ selected: localValue }, { disabled }, { error }]"></div>
-        <div class="rm-checkbox--text" :class="[{ error }, { hasText: slots.default }]">
+      <div class="px-checkbox--wrapper" :class="[{ disabled }]">
+        <div class="px-checkbox--box" :class="[{ selected: localValue }, { disabled }, { error }]"></div>
+        <div class="px-checkbox--text" :class="[{ error }, { hasText: slots.default }]">
           <slot></slot>
         </div>
       </div>

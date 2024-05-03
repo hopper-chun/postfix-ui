@@ -1,6 +1,4 @@
 <script setup>
-import { computed, watchEffect } from 'vue'
-import { useTheme } from '@/composables'
 const props = defineProps({
   type: { type: String, default: 'button' },
   color: { type: String, default: 'pri' },
@@ -17,19 +15,19 @@ const props = defineProps({
 <template>
   <template v-if="hasLabel">
     <div>
-      <RmLabel label="&nbsp;"></RmLabel>
+      <PxLabel label="&nbsp;"></PxLabel>
       <button
         :type="type"
-        class="rm-btn"
+        class="px-btn"
         :disabled="disabled || isDoing"
         :class="[{ isWide: isWide }, { disabled: disabled || isDoing }, { rounded: rounded }, color, size]"
       >
-        <div v-if="isDoing" style="flex-shrink: 0; display: flex; align-items: center">
+        <div v-if="isDoing" class="px-btn--container">
           <div class="SEARCHING">
-            <RmIcon name="icon-refresh" class="rm-adminTable--refresh_icon"></RmIcon>
+            <PxIcon name="icon-refresh" isLib class="px-adminTable--refresh_icon"></PxIcon>
           </div>
         </div>
-        <div v-else style="flex-shrink: 0; display: flex; align-items: center">
+        <div v-else class="px-btn--container">
           <slot></slot>
         </div>
       </button>
@@ -38,16 +36,16 @@ const props = defineProps({
   <button
     v-else
     :type="type"
-    class="rm-btn"
+    class="px-btn"
     :disabled="disabled || isDoing"
     :class="[{ isWide: isWide }, { disabled: disabled || isDoing }, { rounded: rounded }, color, size]"
   >
-    <div v-if="isDoing" style="flex-shrink: 0; display: flex; align-items: center">
+    <div v-if="isDoing" class="px-btn--container">
       <div class="SEARCHING">
-        <RmIcon name="icon-refresh" class="rm-adminTable--refresh_icon"></RmIcon>
+        <PxIcon name="icon-refresh" isLib class="px-adminTable--refresh_icon"></PxIcon>
       </div>
     </div>
-    <div v-else style="flex-shrink: 0; display: flex; align-items: center">
+    <div v-else class="px-btn--container">
       <slot></slot>
     </div>
   </button>

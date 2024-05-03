@@ -1,6 +1,6 @@
 <script setup>
-import { toRefs, nextTick, ref, watch, computed } from 'vue'
-import { useError, useTheme } from '@/composables'
+import { toRefs, nextTick, ref, watch } from 'vue'
+import { useError } from '@/composables'
 
 const props = defineProps({
   id: { type: String },
@@ -10,10 +10,10 @@ const props = defineProps({
 const { id } = toRefs(props)
 
 const { error } = useError(id)
-const theme = useTheme(computed(() => {}))
+
 const mySelf = ref(null)
 
-// 필요한 경우 RmError 자체에 focus가 될 수 있도록 tabindex를 0을 주고 ref 에 focus를 준다
+// 필요한 경우 PxError 자체에 focus가 될 수 있도록 tabindex를 0을 주고 ref 에 focus를 준다
 if (props.isFocusable && props.id) {
   watch(error, () => {
     if (error.value) {
@@ -27,7 +27,7 @@ if (props.isFocusable && props.id) {
 }
 </script>
 <template>
-  <p v-if="error" class="rm-error" :tabindex="isFocusable ? 0 : -1" ref="mySelf">
+  <p v-if="error" class="px-error" :tabindex="isFocusable ? 0 : -1" ref="mySelf">
     {{ staticErrorMessage || error }}
   </p>
 </template>

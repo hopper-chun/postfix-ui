@@ -1,8 +1,7 @@
 <script setup>
 import { toRefs, ref, onMounted, computed, watchEffect, nextTick, useSlots } from 'vue'
-import { useError, useInput, useTheme, useFunctionRef, useMakeId } from '@/composables'
+import { useError, useInput, useFunctionRef, useMakeId } from '@/composables'
 import HelperText from '@/components/form/components/HelperText.vue'
-import RmLabel from '@/components/element/label/RmLabel.vue'
 
 const props = defineProps({
   id: { type: String },
@@ -27,6 +26,7 @@ const props = defineProps({
   maxCount: { type: Number },
   inputFilter: { type: String },
 })
+
 const emit = defineEmits(['update:modelValue', 'onBlur', 'onClear'])
 const slots = useSlots()
 const unitWidth = ref(0)
@@ -105,30 +105,30 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="rm-input">
+  <div class="px-input">
     <template v-if="viewMode">
-      <div class="rm-input--view" :class="[{ viewMode }]">
-        <RmLabel :id="id" :label="label" :labelHelper="labelHelper"> </RmLabel>
+      <div class="px-input--view" :class="[{ viewMode }]">
+        <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
 
-        <div v-if="format" class="rm-input--view_text">
+        <div v-if="format" class="px-input--view_text">
           <span>
             <slot name="prefix"></slot>
           </span>
           {{ format(modelValue) }} {{ unit ? unit : null }}
         </div>
-        <div v-else class="rm-input--view_text">{{ modelValue }} {{ unit ? unit : null }}</div>
+        <div v-else class="px-input--view_text">{{ modelValue }} {{ unit ? unit : null }}</div>
       </div>
     </template>
     <template v-else>
-      <div class="rm-input--edit">
-        <div class="relative">
-          <RmLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId"></RmLabel>
-          <div class="relative">
+      <div class="px-input--edit">
+        <div style="position: relative">
+          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId"></PxLabel>
+          <div style="position: relative">
             <input
               :ref="inputRefFunc"
               :id="randomId"
               :style="`padding-right:${unitPadding}; padding-left:${prefixPadding}`"
-              class="rm-input--field"
+              class="px-input--field"
               :class="[{ disabled }, { error }, { inputIcon }]"
               :type="type"
               :placeholder="placeholder"
@@ -142,12 +142,12 @@ const randomId = useMakeId()
               autocomplete="off"
               :maxlength="maxLength"
             />
-            <div :ref="prefixRefFunc" class="rm-input--prefix">
+            <div :ref="prefixRefFunc" class="px-input--prefix">
               <slot name="prefix"></slot>
             </div>
-            <div :ref="unitRefFunc" class="rm-input--funcWrapper">
-              <div v-if="unit" class="rm-input--unit">{{ unit }}</div>
-              <div class="rm-input--button">
+            <div :ref="unitRefFunc" class="px-input--funcWrapper">
+              <div v-if="unit" class="px-input--unit">{{ unit }}</div>
+              <div class="px-input--button">
                 <button v-if="showPassword" @click="handleShow" class="show_password">
                   <div v-if="passwordInputState === 'password'" class="show_password__icon pw_show"></div>
                   <div v-else class="show_password__icon pw_hidden"></div>
@@ -159,7 +159,7 @@ const randomId = useMakeId()
                 </button>
               </div>
             </div>
-            <div v-if="inputIcon" class="rm-input--inputIcon">
+            <div v-if="inputIcon" class="px-input--inputIcon">
               <slot name="inputIcon"></slot>
             </div>
           </div>
