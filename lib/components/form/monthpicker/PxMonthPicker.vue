@@ -1,7 +1,6 @@
 <script setup>
-import { computed, ref, watchEffect, onMounted, onUnmounted } from 'vue'
+import { ref, watchEffect, onMounted, onUnmounted, useSlots } from 'vue'
 import { format, parse, isValid } from 'date-fns'
-import { IconClose } from '@/components/icon'
 import { useFunctionRef } from '@/composables'
 import MonthPickerPanel from './component/MonthPickerPanel.vue'
 
@@ -13,9 +12,17 @@ const props = defineProps({
   isClear: { type: Boolean },
   disabled: { type: Boolean },
   label: { type: String },
+  id: { type: String },
+  labelHelper: { type: String },
+  required: { type: Boolean },
   placeholder: { type: String },
+  viewMode: { type: Boolean, default: false },
+  useHover: { type: Boolean, default: true },
+  lang: { type: String, default: 'ko' },
 })
 const emit = defineEmits(['update:modelValue'])
+const slots = useSlots()
+
 const localValue = ref()
 const { functionRef, element } = useFunctionRef()
 
@@ -63,16 +70,28 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="rm-datepicker" :ref="functionRef">
-    <div ref="inputRef" class="rm-datepicker--input_Wrapper" @click="handleClick">
-      <RmInput type="text" v-model="localValue" @keypress.enter="handlerKeyEnter" :disabled="disabled" :label="label" :placeholder="placeholder"></RmInput>
-      <div v-if="isClear" class="rm-datepicker--clear" @click="handleClear"></div>
-      <div class="rm-datepicker--icon">
-        <slot name="icon"></slot>
-      </div>
+  <div class="px-datepicker" :ref="functionRef">
+    <PxLabel :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required" :id="id">
+      <template v-if="!!slots.tooltip" #tooltip>
+        <slot name="tooltip"></slot>
+      </template>
+    </PxLabel>
+    <div @click="handleClick" ref="inputRef" class="px-datepicker--input_Wrapper">
+      <PxInput
+        type="text"
+        :viewMode="viewMode"
+        v-model="localValue"
+        @keypress.enter="handlerKeyEnter"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        isDatePicker
+        :clear="isClear"
+        @onClear="handleClear"
+      >
+      </PxInput>
     </div>
-    <div class="rm-datepicker--panel_wrapper _absolute _z-10 _bg-gray-300" v-if="show">
-      <MonthPickerPanel :isYear="props.isYear" :modelValue="modelValue" @update:modelValue="handleClose($event)"></MonthPickerPanel>
+    <div class="px-datepicker--panel_wrapper" v-if="show">
+      <MonthPickerPanel :isYear="props.isYear" :modelValue="modelValue" :lang="lang" @update:modelValue="handleClose($event)"></MonthPickerPanel>
     </div>
   </div>
 </template>

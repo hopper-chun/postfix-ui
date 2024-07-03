@@ -25,6 +25,8 @@ const props = defineProps({
   viewMode: { type: Boolean, default: false },
   maxCount: { type: Number },
   inputFilter: { type: String },
+  useHover: { type: Boolean, default: true },
+  isDatePicker: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:modelValue', 'onBlur', 'onClear'])
@@ -47,8 +49,9 @@ const prefixPadding = computed(() => {
   }
 })
 
-const handleClear = () => {
-  emit('onClear')
+const handleClear = (e) => {
+  emit('onClear', e)
+
   // localValue.value = ''
   // emit('update:modelValue', localValue.value)
 }
@@ -70,7 +73,6 @@ const { functionRef: inputRefFunc, element: inputRef } = useFunctionRef()
 const { id, modelValue, format } = toRefs(props)
 const { error } = useError(id, inputRef)
 const { localValue, handleInput, handleFocus, handleBlur, handleHashtags, handleFocusout, handleKeyupPress } = useInput(id, modelValue, format, emit)
-// 반응성을 주기 위해 useTheme에 넘기는 데이터를 computed로 하였음. 그 이유로 usetheme에서 보내는 theme 자체도 usetheme 안에서 computed로 인해 reactivity를 가지며, .value를 붙여야 함
 
 const unitObserver = new ResizeObserver((entries) => {
   if (entries.length === 0) {
@@ -122,7 +124,14 @@ const randomId = useMakeId()
     <template v-else>
       <div class="px-input--edit">
         <div style="position: relative">
-          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId"></PxLabel>
+          <div class="px-input--labelwrapper">
+            <PxLabel :label="label" :useHover="useHover" :labelHelper="labelHelper" :required="required" :id="randomId" style="flex: 1 1 0">
+              <template v-if="!!slots.tooltip" #tooltip>
+                <slot name="tooltip"></slot>
+              </template>
+            </PxLabel>
+          </div>
+
           <div style="position: relative">
             <input
               :ref="inputRefFunc"
@@ -156,6 +165,9 @@ const randomId = useMakeId()
                 <button v-if="clear" @click="handleClear" class="clear">
                   <div class="clear__icon"></div>
                   <!-- <IconCloseCircleFilled class="w-[16px] text-black/30"></IconCloseCircleFilled> -->
+                </button>
+                <button v-if="isDatePicker" class="date">
+                  <div class="date__icon"></div>
                 </button>
               </div>
             </div>

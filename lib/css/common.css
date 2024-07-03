@@ -61,15 +61,15 @@
   padding: 0 var(--px-padding-x);
   border-radius: var(--px-radius);
   font-size: 14px;
-  transition: all 300ms;
+  transition: background-color 300ms;
   box-sizing: border-box;
   border: 1px solid transparent;
 }
 
-.px-btn .px-btn--container {
-  flex-shrink: 0;
+.px-btn--container {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .px-btn.rounded {
@@ -340,6 +340,14 @@
   color: black;
 }
 
+.px-multiSectionWrapper .px-label--text {
+  text-decoration: underline;
+  text-decoration-color: #e2e8f0;
+  text-decoration-thickness: 4px;
+  text-underline-offset: -2px;
+  /* underline decoration-slate-200 decoration-4 underline-offset-[-2px] */
+}
+
 .px-label--required {
   position: absolute;
   top: 5px;
@@ -362,6 +370,69 @@
   font-weight: 500;
   /* font-weight: 700; */
   color: #4c5769;
+}
+
+.px-labelwrapper {
+  display: flex;
+  align-items: center;
+}
+
+.px-label--tooltipContainer {
+  margin-left: auto;
+}
+
+.viewMode .px-label--tooltipContainer {
+  display: none;
+}
+
+.px-label--tooltipWrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 4px);
+  display: none;
+}
+
+.px-label--tooltip {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #302e2e;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  min-width: 64px;
+  width: auto;
+}
+
+.px-label--tooltipIcon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url('../assets/icons/icon-question.svg') center / 18px;
+  margin-left: 4px;
+  /* margin-bottom: 4px; */
+  position: relative;
+  cursor: pointer;
+  place-self: end;
+}
+
+.px-label--tooltipIcon::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  rotate: 45deg;
+  position: absolute;
+  left: 3px;
+  top: -13px;
+  background: #302e2e;
+  display: none;
+}
+
+.px-label .isHover .px-label--tooltipIcon ~ .px-label--tooltipWrapper,
+.px-label .isHover .px-label--tooltipIcon::before {
+  display: inline-block;
 }
 
 /* form - formForView */
@@ -494,6 +565,61 @@
   }
 }
 
+/* .px-input--labelwrapper {
+  display: flex;
+  align-items: center;
+}
+
+.px-input .px-input--tooltipWrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 4px);
+
+  display: none;
+}
+
+.px-input .px-input--tooltip {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #302e2e;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  min-width: 64px;
+  width: auto;
+}
+
+.px-input .px-input--tooltipIcon {
+  width: 18px;
+  height: 18px;
+  background: url('../assets/icons/icon-question.svg') center / 18px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  position: relative;
+  cursor: pointer;
+  place-self: end;
+}
+
+.px-input .px-input--tooltipIcon::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  rotate: 45deg;
+  position: absolute;
+  left: 3px;
+  top: -13px;
+  background: #302e2e;
+  display: none;
+}
+
+.px-input .isHover .px-input--tooltipIcon ~ .px-input--tooltipWrapper,
+.px-input .isHover .px-input--tooltipIcon::before {
+  display: inline-block;
+} */
+
 .px-input--field {
   font-size: var(--px-text-sm);
   color: black;
@@ -611,6 +737,12 @@
   background: url('../assets/icons/icon-close-circle-filled.svg') center / cover;
 }
 
+.px-input--button .date__icon {
+  width: 20px;
+  height: 20px;
+  background: url('../assets/icons/icon-calendar.svg') center / cover;
+}
+
 .px-input--inputIcon {
   position: absolute;
   top: 0px;
@@ -629,6 +761,8 @@
   width: 100%;
   word-break: break-all;
   border: 1px solid transparent;
+  /* border-bottom: 1px solid #ccc;  */
+  /* 2024-05-04 천희완 */
   padding-left: 8px;
   font-size: 15px;
   line-height: 160%;
@@ -697,10 +831,6 @@
 .px-textarea textarea.error {
   color: var(--px-error-600);
   border: 1px solid var(--px-error-600);
-}
-
-.px-textarea textarea.error:focus {
-  /* border: 1px solid var(--px-error-600); */
 }
 
 /* form - float textarea */
@@ -927,7 +1057,7 @@
   cursor: pointer;
   height: 24px;
 }
-
+.px-checkbox--wrapper.viewMode,
 .px-checkbox--wrapper.disabled {
   cursor: default;
 }
@@ -941,10 +1071,22 @@
   border-radius: 2px;
   border: 1px solid var(--px-slate-400);
   background: url('../assets/icons/icon-check-gray.svg') center / 18px;
+  flex-shrink: 0;
+}
+
+.px-checkbox--wrapper.viewMode .px-checkbox--box {
+  /* background: none; */
+  opacity: 50%;
+  border-color: transparent;
+}
+
+.px-checkbox--wrapper.viewMode .px-checkbox--box.selected {
+  opacity: 50%;
 }
 
 .px-checkbox--box.selected {
   background: url('../assets/icons/icon-check-white.svg') center / 18px;
+  opacity: 100%;
   background-color: var(--px-pri-600);
   border: none;
 }
@@ -1018,8 +1160,16 @@
   flex-wrap: wrap;
 }
 
+.viewMode .px-radio--wrapper > label {
+  pointer-events: none;
+}
+
 .px-radio--wrapper > label {
   cursor: pointer;
+}
+
+.viewMode .px-radio--wrapper > label {
+  cursor: default;
 }
 
 .px-radio--wrapper > label:not(:last-child) {
@@ -1043,6 +1193,14 @@
 
 .px-radio--wrapper.error .px-radio-box {
   border-color: var(--px-error-600);
+}
+
+.viewMode .px-radio--wrapper .px-radio-box {
+  opacity: 50%;
+}
+
+.viewMode .px-radio--wrapper .px-radio-box.selected {
+  border-color: var(--px-pri-600);
 }
 
 .px-radio--wrapper.error .px-radio-box.selected .dot {
@@ -1081,6 +1239,11 @@
 }
 
 /* form - inputRadio */
+.px-inputRadio > div {
+  width: 100%;
+  position: relative;
+}
+
 .px-inputRadio .px-input--field {
   display: flex;
   align-items: center;
@@ -1107,8 +1270,8 @@
 }
 
 .px-toggle--box {
-  width: 44px;
-  height: 24px;
+  width: 36px;
+  height: 20px;
   border-radius: 999px;
   padding: 2px;
   transition: all 200ms;
@@ -1116,8 +1279,8 @@
 }
 
 .px-toggle--box .dot {
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
   border-radius: 100%;
   transition: all 200ms;
   background-color: white;
@@ -1125,6 +1288,11 @@
 
 .px-toggle--box.selected {
   background-color: var(--px-pri-600);
+}
+
+/* 2024-05-15 천희완 */
+.viewMode .px-toggle--box.selected {
+  opacity: 50%;
 }
 
 .px-toggle--box.error {
@@ -1137,6 +1305,31 @@
 
 .px-toggle--box.disabled {
   opacity: 40%;
+}
+
+.px-toggle-form {
+  position: relative;
+}
+
+.px-toggle-form .px-input--field {
+  display: flex;
+  align-items: center;
+  cursor: default;
+  /* 디스크립션 때문에 높이를 오토로 하면 인풋들의 높이가 통일이 안됨. 일단 제외  */
+  /* height: auto;
+  min-height: var(--px-height); */
+}
+
+.px-toggle--description {
+  flex: 1 1 0;
+  color: var(--px-placeholder);
+  padding-right: 4px;
+  /* 브레이크 하지 않으면 띄어쓰기 없을 시 맛이 감. 두줄쓰기를 허용할거면 이거도 고려 */
+  word-break: break-all;
+}
+
+.viewMode .px-input--field {
+  border-color: transparent;
 }
 
 /* form - datePicker */
@@ -1160,21 +1353,47 @@
   background: url('../assets/icons/icon-close-gray.svg') no-repeat center / 18px;
 }
 
-.px-datepicker--icon {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  font-size: 0px;
-}
-
 .px-datepicker--panel_wrapper {
   position: absolute;
   z-index: 10;
   top: calc(100% + 8px);
 }
 
+/* form - datePicker panel */
+.px-datepicker--panel {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.px-datepicker--panel_container {
+  background-color: white;
+  padding: 32px;
+  /* border-top-left-radius: 4px;
+  border-top-right-radius: 4px; */
+}
+
+.px-datepicker--panel .isDot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  font-weight: 600;
+  color: white !important;
+  outline: none;
+  background: #fccb05;
+}
+
 @media screen and (max-width: 639px) {
+  .px-datepicker--panel_container {
+    padding: 20px;
+  }
+
   .px-datepicker--panel_wrapper {
     position: fixed;
     top: 50%;
@@ -1183,74 +1402,54 @@
   }
 }
 
-/* form - datePicker panel */
-.px-datepiccker--panel {
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
-
-.px-datepiccker--panel_container {
-  background-color: white;
-  padding: 32px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
-@media screen and (max-width: 639px) {
-  .px-datepiccker--panel_container {
-    padding: 20px;
-  }
-}
-
-.px-datepiccker--panel_nav {
+.px-datepicker--panel_nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
 }
 
-.px-datepiccker--panel_nav .month {
+.px-datepicker--panel_nav .month {
   font-size: 18px;
   font-weight: 700;
   color: var(--px-slate-800);
 }
 
-.px-datepiccker--panel_nav .month:focus {
+.px-datepicker--panel_nav .month:focus {
   outline: none;
 }
 
-.px-datepiccker--panel_nav .button_wrapper {
+.px-datepicker--panel_nav .button_wrapper {
   display: flex;
   align-items: center;
 }
 
-.px-datepiccker--panel_nav .button_wrapper button {
+.px-datepicker--panel_nav .button_wrapper button {
   height: 24px;
   width: 24px;
 }
 
-.px-datepiccker--panel_nav .button_wrapper button:not(:first-child) {
+.px-datepicker--panel_nav .button_wrapper button:not(:first-child) {
   margin-left: 8px;
 }
 
-.px-datepiccker--panel_nav .button_wrapper .month_prev {
+.px-datepicker--panel_nav .button_wrapper .month_prev {
   background: url('../assets/icons/icon-chevron-left-40.svg') center / 24px;
 }
 
-.px-datepiccker--panel_nav .button_wrapper .month_next {
+.px-datepicker--panel_nav .button_wrapper .month_next {
   background: url('../assets/icons/icon-chevron-right-40.svg') center / 24px;
 }
 
-.px-datepiccker--panel_nav .button_wrapper .month_prev:hover {
+.px-datepicker--panel_nav .button_wrapper .month_prev:hover {
   background: url('../assets/icons/icon-chevron-left-100.svg') center / 24px;
 }
 
-.px-datepiccker--panel_nav .button_wrapper .month_next:hover {
+.px-datepicker--panel_nav .button_wrapper .month_next:hover {
   background: url('../assets/icons/icon-chevron-right-100.svg') center / 24px;
 }
 
-.px-datepiccker--panel_calendar {
+.px-datepicker--panel_calendar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1258,27 +1457,73 @@
   padding-top: 20px;
 }
 
-.px-datepiccker--panel_calendar table {
+.month .px-datepicker--panel_calendar {
+  width: 220px;
+}
+
+.px-datepicker--panel_calendar table {
   width: 100%;
 }
 
-.px-datepiccker--panel_calendar table th div {
+.px-datepicker--panel_calendar table th div {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.px-datepiccker--panel_calendar table th .day_week {
+.px-datepicker--panel_calendar table th .day_week {
   text-align: center;
   font-size: var(--px-text-sm);
   color: var(--px-slate-800);
 }
 
-.px-datepiccker--panel_calendar table td {
+.month .px-datepicker--panel_calendar > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.month.isYear .px-datepicker--panel_calendar > div {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.month .px-datepicker--panel_calendar .day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: var(--px-text-md);
+  font-weight: 600;
+  word-break: keep-all;
+  color: var(--px-slate-500);
+}
+
+.month .px-datepicker--panel_calendar .day.isSelectedDay {
+  color: white;
+  background-color: var(--px-error-600);
+}
+
+.month .px-datepicker--panel_calendar .day.isSelectedDay:hover {
+  background-color: var(--px-error-500);
+}
+
+.month .px-datepicker--panel_calendar .day.isCurrMonth {
+  color: white;
+  background-color: var(--px-slate-500);
+}
+
+.month .px-datepicker--panel_calendar .day.isCurrMonth:hover {
+  background-color: var(--px-slate-400);
+}
+
+.px-datepicker--panel_calendar table td {
   padding-top: 8px;
 }
 
-.px-datepiccker--panel_calendar table td .day {
+.px-datepicker--panel_calendar table td .day {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1289,7 +1534,7 @@
   font-size: var(--px-text-md);
 }
 
-.px-datepiccker--panel_calendar table td .day > p {
+.px-datepicker--panel_calendar table td .day > p {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1299,12 +1544,12 @@
   color: var(--px-slate-500);
 }
 
-.px-datepiccker--panel_calendar table td .day p.isBlur {
+.px-datepicker--panel_calendar table td .day p.isBlur {
   font-weight: 400;
   color: var(--px-slate-400);
 }
 
-.px-datepiccker--panel_calendar table td .day a {
+.px-datepicker--panel_calendar table td .day a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1317,15 +1562,15 @@
   background-color: var(--px-slate-500);
 }
 
-.px-datepiccker--panel_calendar table td .day a:hover {
+.px-datepicker--panel_calendar table td .day a:hover {
   background-color: var(--px-slate-400);
 }
 
-.px-datepiccker--panel_calendar table td .day a.isSelectedDay {
+.px-datepicker--panel_calendar table td .day a.isSelectedDay {
   background-color: var(--px-error-600);
 }
 
-.px-datepiccker--panel_calendar table td .day a.isSelectedDay:hover {
+.px-datepicker--panel_calendar table td .day a.isSelectedDay:hover {
   background-color: var(--px-error-500);
 }
 
@@ -2100,6 +2345,8 @@
 
 .px-adminTable .dialog_searchFilter {
   height: auto;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
   width: 560px;
   padding-bottom: 22px;
   font-size: 14px;
@@ -2656,7 +2903,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 52px;
   width: 100%;
   border-bottom: 1px solid var(--px-slate-400);
   background-color: var(--px-slate-100);
@@ -2746,45 +2993,105 @@
   transform: rotate(90deg);
 }
 
-.px-sectionWrapper--body {
+.px-sectionWrapper .px-sectionWrapper--body {
   margin-left: -1px;
 }
-.px-sectionWrapper--body > * {
+.px-sectionWrapper .px-sectionWrapper--body > * {
   padding: 0 24px 20px 24px;
 }
 
 /* isWide면 자식요소들의 패딩 제거 */
-.px-sectionWrapper--body.isWide > * {
+.px-sectionWrapper .px-sectionWrapper--body.isWide > * {
   padding: 0;
 }
 
-.px-sectionWrapper--body.isGrid {
+.px-sectionWrapper .px-sectionWrapper--body.isGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.px-sectionWrapper--body.isGrid > *:not(:first-child) {
+.px-sectionWrapper .px-sectionWrapper--body.isGrid > *:not(:first-child) {
   border-left: 1px solid rgb(216, 216, 216);
 }
 
 @media (max-width: 1584px) {
-  .px-sectionWrapper--body > * {
+  .px-sectionWrapper .px-sectionWrapper--body > * {
     padding: 0 12px 20px 12px;
   }
 
-  .px-sectionWrapper--body.isGrid {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .px-sectionWrapper--body.isGrid > *:nth-child(even) {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid > *:nth-child(even) {
     border-left: 1px solid rgb(216, 216, 216);
   }
 }
 
 @media (max-width: 639px) {
-  .px-sectionWrapper--body.isGrid {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-  .px-sectionWrapper--body.isGrid > *:nth-child(even) {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid > *:nth-child(even) {
+    border-left: 1px solid rgb(216, 216, 216);
+  }
+}
+
+/* layout  multi sectionWrapper */
+.px-multiSectionWrapper {
+  margin-bottom: 20px;
+  border: 1px solid var(--px-slate-400);
+  background-color: white;
+}
+.px-multiSectionWrapper .px-sectionWrapper--body {
+  margin: 0 16px;
+}
+
+.px-multiSectionWrapper .px-sectionWrapper--body > * {
+  padding: 16px 0;
+}
+
+.px-multiSectionWrapper .px-sectionWrapper--body > *:not(:last-child) {
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.px-multiSectionWrapper .px-sectionWrapper--body > * > * {
+  padding: 0 24px 20px 24px;
+}
+
+/* isWide면 자식요소들의 패딩 제거 */
+.px-multiSectionWrapper .px-sectionWrapper--body.isWide > * > * {
+  padding: 0;
+}
+.px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* 왜 clip만 유효한건지 모르겠음 */
+  overflow-x: clip;
+}
+
+.px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * > * {
+  margin-left: -1px;
+  border-left: 1px solid rgb(216, 216, 216);
+}
+
+@media (max-width: 1584px) {
+  .px-multiSectionWrapper .px-sectionWrapper--body > * > * {
+    padding: 0 12px 20px 12px;
+  }
+
+  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
+    border-left: 1px solid rgb(216, 216, 216);
+  }
+}
+
+@media (max-width: 639px) {
+  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
     border-left: 1px solid rgb(216, 216, 216);
   }
 }

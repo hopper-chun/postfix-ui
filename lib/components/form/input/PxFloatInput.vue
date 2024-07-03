@@ -1,8 +1,7 @@
 <script setup>
-import { toRefs, ref, computed, onMounted, watchEffect } from 'vue'
-import { useError, useInput, useTheme, useFunctionRef, useMakeId } from '@/composables'
+import { toRefs, ref, computed, onMounted } from 'vue'
+import { useError, useInput, useFunctionRef, useMakeId } from '@/composables'
 import HelperText from '@/components/form/components/HelperText.vue'
-import element from '@/pages/element'
 
 const props = defineProps({
   id: { type: String },
@@ -72,14 +71,14 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="rm-floatInput">
-    <div class="rm-floatInput--wrapper">
+  <div class="px-floatInput">
+    <div class="px-floatInput--wrapper">
       <div style="height: 100%; width: 100%; position: relative">
         <input
           :ref="inputRefFunc"
           placeholder=" "
           :style="`padding-right:${decorationPadding}`"
-          class="rm-input--field"
+          class="px-input--field"
           :class="[{ disabled }, { error }, { inputIcon }]"
           :id="randomId"
           :type="type"
@@ -92,12 +91,12 @@ const randomId = useMakeId()
           autocomplete="off"
           :maxlength="maxLength"
         />
-        <label :for="randomId" class="rm-floatInput--label" :class="[{ inputIcon }, { isFloating }]">{{ label }}</label>
-        <div :ref="innerRefFunc" class="rm-input--funcWrapper">
-          <div v-if="unit" class="rm-input--unit">
+        <label :for="randomId" class="px-floatInput--label" :class="[{ inputIcon }, { isFloating }]">{{ label }}</label>
+        <div :ref="innerRefFunc" class="px-input--funcWrapper">
+          <div v-if="unit" class="px-input--unit">
             <span v-show="localValue">{{ unit }}</span>
           </div>
-          <div class="rm-input--button">
+          <div class="px-input--button">
             <button v-if="showPassword" @click="handleShow" class="show_password">
               <div v-if="passwordInputState === 'password'" class="show_password__icon pw_show"></div>
               <div v-else class="show_password__icon pw_hidden"></div>
@@ -109,7 +108,7 @@ const randomId = useMakeId()
           </div>
         </div>
 
-        <div v-if="inputIcon" class="rm-input--inputIcon">
+        <div v-if="inputIcon" class="px-input--inputIcon">
           <slot name="inputIcon"></slot>
         </div>
       </div>

@@ -1,35 +1,57 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { add, format, isBefore, startOfWeek, startOfMonth, endOfWeek, endOfMonth, isSameDay, isSameMonth } from 'date-fns'
-import { IconChevronDown } from '@/components/icon'
+import { add, format, startOfYear, isSameMonth, isSameYear } from 'date-fns'
 
 const props = defineProps({
   modelValue: { type: Date, default: new Date() },
   isYear: { type: Boolean },
+  lang: { type: String, default: 'ko' },
 })
 const emit = defineEmits(['update:modelValue'])
 
-const generateWeek = (startDate, baseDate, today, selectedDate) => {
-  return [...Array(7)].map((_, index) => {
-    const currentDate = add(startDate, { days: index })
+const monthsTitle = computed(() => {
+  if (props.lang === 'ko') {
+    return '월'
+  } else if (props.lang === 'jp') {
+    return '月'
+  } else {
+    return ''
+  }
+})
+const yearsTitle = computed(() => {
+  if (props.lang === 'ko') {
+    return '년'
+  } else if (props.lang === 'jp') {
+    return '年'
+  } else {
+    return ''
+  }
+})
+
+const generateYear = (startMonth, selectedDate) => {
+  return [...Array(12)].map((_, index) => {
+    const currentMonth = add(startMonth, { months: index })
+
     return {
-      currentDate,
-      d: format(currentDate, 'd'),
-      isToday: isSameDay(currentDate, today),
-      isCurrMonth: isSameMonth(currentDate, baseDate),
-      isSelectedDay: isSameDay(currentDate, selectedDate),
+      currentMonth,
+      m: format(currentMonth, `M${monthsTitle.value}`),
+      isSelectedDay: isSameMonth(currentMonth, selectedDate),
+      isCurrMonth: isSameMonth(currentMonth, today),
     }
   })
 }
-const generateMonth = (startDate, endDate, baseDate, today, selectedDate) => {
-  return [...Array(6)].reduce((acc, _, index) => {
-    const beginDate = add(startDate, { days: index * 7 })
-    const week = generateWeek(beginDate, baseDate, today, selectedDate)
-    if (isBefore(week[0].currentDate, endDate)) {
-      acc.push(week)
+
+const generateYears = (startYear, selectedDate) => {
+  return [...Array(9)].map((_, index) => {
+    const currentYear = add(startYear, { years: index - 4 })
+
+    return {
+      currentYear,
+      y: format(currentYear, `yyyy${yearsTitle.value}`),
+      isSelectedDay: isSameYear(currentYear, selectedDate),
+      isCurrYear: isSameYear(currentYear, today),
     }
-    return acc
-  }, [])
+  })
 }
 
 const today = new Date()
@@ -37,45 +59,78 @@ const today = new Date()
 const baseDate = ref(props.modelValue)
 
 const prevMonth = () => {
-  baseDate.value = add(baseDate.value, { months: props.isYear ? -12 : -1 })
+  if (props.isYear) {
+    baseDate.value = add(baseDate.value, { years: -9 })
+  } else {
+    baseDate.value = add(baseDate.value, { years: -1 })
+  }
 }
 const nextMonth = () => {
-  baseDate.value = add(baseDate.value, { months: props.isYear ? 12 : 1 })
+  if (props.isYear) {
+    baseDate.value = add(baseDate.value, { years: 9 })
+  } else {
+    baseDate.value = add(baseDate.value, { years: 1 })
+  }
 }
-const handleClick = () => {
-  emit('update:modelValue', baseDate.value)
+const handleClick = (date) => {
+  if (props.isYear) {
+    emit('update:modelValue', date.currentYear)
+  } else {
+    emit('update:modelValue', date.currentMonth)
+  }
 }
-
-// console.log(format(endDate, 'yyyy MM dd'))
 
 const display = computed(() => {
-  const startDate = startOfWeek(startOfMonth(baseDate.value))
-  const endDate = endOfWeek(endOfMonth(baseDate.value))
+  const startMonth = startOfYear(baseDate.value)
 
-  const monthTitle = format(baseDate.value, props.isYear ? 'yyyy년' : 'yyyy년 MM월')
-  const weeks = generateMonth(startDate, endDate, baseDate.value, today, props.modelValue)
+  const monthTitle = format(baseDate.value, `yyyy${yearsTitle.value}`)
+  const yearTitle = format(props.modelValue, `yyyy${yearsTitle.value}`)
+
+  const month = generateYear(startMonth, props.modelValue)
+  const year = generateYears(startMonth, props.modelValue)
+
   return {
+    month,
+    year,
+    startMonth,
+
     monthTitle,
-    weeks,
+    yearTitle,
   }
 })
 </script>
 <template>
-  <body class="w-[300px]">
-    <div class="flex items-center justify-center">
-      <div class="w-full max-w-sm shadow-lg">
-        <div class="rounded-t bg-white p-[20px] md:p-[32px]">
-          <div class="flex items-center justify-between px-[16px]">
-            <span tabindex="0" class="cursor-pointer text-base font-bold text-gray-800 focus:outline-none dark:text-gray-100" @click="handleClick">{{
-              display.monthTitle
-            }}</span>
-            <div class="flex items-center">
-              <button aria-label="calendar backward" class="text-gray-500 hover:text-gray-700 focus:text-gray-700" @click="prevMonth">
-                <IconChevronDown class="h-[24px] w-[24px] rotate-90" aria-hidden="true" />
-              </button>
-              <button aria-label="calendar forward" class="text-gray-500 hover:text-gray-700 focus:text-gray-700" @click="nextMonth">
-                <IconChevronDown class="h-[24px] w-[24px] -rotate-90" aria-hidden="true" />
-              </button>
+  <body class="month" :class="{ isYear: isYear }">
+    <div class="px-datepicker--panel">
+      <div class="px-datepicker--panel_container">
+        <div class="px-datepicker--panel_nav">
+          <span tabindex="0" class="month">
+            {{ isYear ? display.yearTitle : display.monthTitle }}
+          </span>
+          <div class="button_wrapper">
+            <button aria-label="calendar backward" class="month_prev" @click="prevMonth"></button>
+            <button aria-label="calendar forward" class="month_next" @click="nextMonth"></button>
+          </div>
+        </div>
+        <div class="px-datepicker--panel_calendar">
+          <div v-if="!isYear">
+            <div
+              v-for="month in display.month"
+              @click="handleClick(month)"
+              class="day"
+              :class="month.isSelectedDay ? 'isSelectedDay' : month.isCurrMonth ? 'isCurrMonth' : ''"
+            >
+              {{ month.m }}
+            </div>
+          </div>
+          <div v-else>
+            <div
+              v-for="year in display.year"
+              @click="handleClick(year)"
+              class="day"
+              :class="year.isSelectedDay ? 'isSelectedDay' : year.isCurrYear ? 'isCurrMonth' : ''"
+            >
+              {{ year.y }}
             </div>
           </div>
         </div>

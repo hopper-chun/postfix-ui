@@ -1,11 +1,35 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { add, format, isBefore, startOfWeek, startOfMonth, endOfWeek, endOfMonth, isSameDay, isSameMonth } from 'date-fns'
 
 const props = defineProps({
   modelValue: { type: Date, default: new Date() },
+  lang: { tpye: 'String', default: 'ko' },
+  dotDays: { type: Array },
+  cbMonth: { type: Function },
 })
+
 const emit = defineEmits(['update:modelValue'])
+
+const weeksTitle = computed(() => {
+  if (props.lang === 'ko') {
+    return ['일', '월', '화', '수', '목', '금', '토']
+  } else if (props.lang === 'jp') {
+    return ['日', '月', '火', '水', '木', '金', '土']
+  } else {
+    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  }
+})
+
+const dateTitle = computed(() => {
+  if (props.lang === 'ko') {
+    return 'yyyy년 M월'
+  } else if (props.lang === 'jp') {
+    return 'yyyy年 M月'
+  } else {
+    return 'yyyy MM'
+  }
+})
 
 const generateWeek = (startDate, baseDate, today, selectedDate) => {
   return [...Array(7)].map((_, index) => {
@@ -44,36 +68,41 @@ const handleClick = (day) => {
   emit('update:modelValue', day.currentDate)
 }
 
-// console.log(format(endDate, 'yyyy MM dd'))
-
 const display = computed(() => {
   const startDate = startOfWeek(startOfMonth(baseDate.value))
   const endDate = endOfWeek(endOfMonth(baseDate.value))
 
-  const monthTitle = format(baseDate.value, 'yyyy년 MM월')
+  const monthTitle = format(baseDate.value, dateTitle.value)
   const weeks = generateMonth(startDate, endDate, baseDate.value, today, props.modelValue)
   return {
     monthTitle,
     weeks,
   }
 })
+
+const findDot = (day) => {
+  return props.dotDays && props.dotDays.length > 0 ? props.dotDays.indexOf(parseInt(day)) !== -1 : false
+}
+watchEffect(() => {
+  props.cbMonth && props.cbMonth(format(baseDate.value, 'yyyyMM'))
+})
 </script>
 <template>
-  <body class="">
-    <div class="rm-datepiccker--panel">
-      <div class="rm-datepiccker--panel_container">
-        <div class="rm-datepiccker--panel_nav">
+  <body class="date">
+    <div class="px-datepicker--panel">
+      <div class="px-datepicker--panel_container">
+        <div class="px-datepicker--panel_nav">
           <span tabindex="0" class="month">{{ display.monthTitle }}</span>
           <div class="button_wrapper">
             <button aria-label="calendar backward" class="month_prev" @click="prevMonth"></button>
             <button aria-label="calendar forward" class="month_next" @click="nextMonth"></button>
           </div>
         </div>
-        <div class="rm-datepiccker--panel_calendar">
+        <div class="px-datepicker--panel_calendar">
           <table>
             <thead>
               <tr>
-                <th v-for="day in ['일', '월', '화', '수', '목', '금', '토']" :key="day">
+                <th v-for="day in weeksTitle" :key="day">
                   <div>
                     <p class="day_week">{{ day }}</p>
                   </div>
@@ -84,7 +113,7 @@ const display = computed(() => {
               <tr v-for="week in display.weeks" :key="week">
                 <td v-for="day in week" :key="day" @click="handleClick(day)">
                   <div class="day" v-if="!day.isToday && !day.isSelectedDay">
-                    <p class="" :class="[{ isBlur: !day.isCurrMonth }]">{{ day.d }}</p>
+                    <p class="" :class="[{ isBlur: !day.isCurrMonth, isDot: day.isCurrMonth && findDot(day.d) }]">{{ day.d }}</p>
                   </div>
 
                   <div class="day" v-else>

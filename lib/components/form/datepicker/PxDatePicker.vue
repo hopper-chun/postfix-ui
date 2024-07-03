@@ -1,22 +1,30 @@
 <script setup>
-import { computed, ref, watchEffect, onMounted, onUnmounted } from 'vue'
+import { ref, watchEffect, onMounted, onUnmounted, useSlots } from 'vue'
 import { format, parse, parseISO, isValid } from 'date-fns'
-// import IconClose from '@/components/icon/IconClose'
 import { useFunctionRef } from '@/composables'
 import DatePickerPanel from './component/DatePickerPanel.vue'
-import { RmIcon } from '@/components/Icon'
-import { RmInput } from '../input'
 
 const props = defineProps({
   modelValue: { type: [Date, String, Number] },
+  id: { type: String },
+  labelHelper: { type: String },
+  required: { type: Boolean },
   rounded: { type: String },
   isClear: { type: Boolean },
   disabled: { type: Boolean },
   label: { type: String },
+  lang: { type: String, default: 'ko' },
+  format: { type: Function, default: (o) => o },
   placeholder: { type: String },
+  viewMode: { type: Boolean, default: false },
+  useHover: { type: Boolean, default: true },
+  dotDays: { type: Array },
+  cbMonth: { type: Function },
 })
 
 const emit = defineEmits(['update:modelValue'])
+const slots = useSlots()
+
 const { functionRef, element } = useFunctionRef()
 
 const local = ref({
@@ -51,17 +59,20 @@ watchEffect(() => {
 })
 
 const handleClose = (value) => {
-  local.value.date = value
-  local.value.text = format(local.value.date, 'yyyy-MM-dd')
+  loadProps()
 
   emit('update:modelValue', value)
+
   show.value = false
 }
 
-const handleClear = () => {}
+const handleClear = (e) => {
+  e.stopPropagation()
+  emit('update:modelValue', null)
+}
 
 const handleClick = () => {
-  if (props.disabled) {
+  if (props.disabled || props.viewMode) {
     return
   }
   show.value = !show.value
@@ -87,8 +98,6 @@ onUnmounted(() => {
 const handlerKeyEnter = () => {
   const date = parse(local.value.text, 'yyyy-MM-dd', 0)
   if (!isValid(date)) {
-    // local.value.text = format(props.modelValue, 'yyyy-MM-dd')
-
     alert('잘못된 날짜입니다. 다시 입력해 주세요.')
     loadProps()
     return
@@ -98,16 +107,28 @@ const handlerKeyEnter = () => {
 </script>
 
 <template>
-  <div class="rm-datepicker" :ref="functionRef">
-    <div @click="handleClick" ref="inputRef" class="rm-datepicker--input_Wrapper">
-      <RmInput type="text" v-model="local.text" @keypress.enter="handlerKeyEnter" :disabled="disabled" :label="label" :placeholder="placeholder"></RmInput>
-      <div v-if="isClear" class="rm-datepicker--clear" @click="handleClear"></div>
-      <div class="rm-datepicker--icon">
-        <slot name="icon"></slot>
-      </div>
+  <div class="px-datepicker" :ref="functionRef">
+    <PxLabel :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required" :id="id">
+      <template v-if="!!slots.tooltip" #tooltip>
+        <slot name="tooltip"></slot>
+      </template>
+    </PxLabel>
+    <div @click="handleClick" ref="inputRef" class="px-datepicker--input_Wrapper">
+      <PxInput
+        type="text"
+        :viewMode="viewMode"
+        v-model="local.text"
+        @keypress.enter="handlerKeyEnter"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        isDatePicker
+        :clear="isClear"
+        @onClear="handleClear"
+      >
+      </PxInput>
     </div>
-    <div class="rm-datepicker--panel_wrapper" v-if="show">
-      <DatePickerPanel :modelValue="local.date" @update:modelValue="handleClose($event)"></DatePickerPanel>
+    <div class="px-datepicker--panel_wrapper" v-if="show">
+      <DatePickerPanel :modelValue="local.date" :lang="lang" :cbMonth="cbMonth" :dotDays="dotDays" @update:modelValue="handleClose($event)"></DatePickerPanel>
     </div>
   </div>
 </template>

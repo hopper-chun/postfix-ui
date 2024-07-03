@@ -4,7 +4,7 @@ import * as Icons from '@/components/icon/index.js'
 
 const props = defineProps({
   name: { type: String, required: true },
-  isLib: { type: Boolean },
+  isLocal: { type: Boolean },
 })
 
 const IconComponent = computed(() => {
@@ -13,12 +13,14 @@ const IconComponent = computed(() => {
 
   // convert first letter to uppercase
   const componentName = camelName.charAt(0).toUpperCase() + camelName.slice(1)
-
-  // isLib을 쓰면 라이브러리 것을 가져와서 씀
-  if (props.isLib) {
-    return Icons[componentName]
-  } else {
+  if (props.isLocal) {
     return componentName
+  } else {
+    if (!Icons[componentName]) {
+      return componentName
+    } else {
+      return Icons[componentName]
+    }
   }
 })
 </script>

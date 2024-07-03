@@ -33,8 +33,6 @@ const editor = ref()
 const fileInput = ref()
 
 const emitImageInfo = ($event) => {
-  console.log('-----------------------')
-
   const resetUploader = function () {
     var uploader = document.getElementById('file-upload')
     uploader.value = ''
@@ -48,11 +46,6 @@ const emitImageInfo = ($event) => {
 }
 
 const handleLinkAdd = () => {
-  // const ret = window.prompt('이미지의 링크를 입력하세요')
-  // if (!ret) {
-  //   return
-  // }
-
   const Editor = editor.value.getQuill()
   const range = Editor.getSelection()
   const cursorLocation = range?.index || 0
@@ -64,25 +57,7 @@ const handleLinkAdd = () => {
 onMounted(() => {
   const toolbar = editor.value.getQuill().getModule('toolbar')
   toolbar.addHandler('image', () => fileInput.value.click())
-  // toolbar.addHandler('image', aaa)
-
-  // console.log('toolbar', toolbar)
 })
-
-// let toolbar2 = state.quill.getModule('toolbar')
-// toolbar2.addHandler('image', () => fileInput.value.click())
-
-// console.log('props.modelValue', props.modelValue)
-// const localValue = ref(props.modelValue)
-
-// watch(
-//   () => props.modelValue,
-//   () => {
-//     console.log('-------props.modelValue--------------', props.modelValue)
-//     // localValue.value = props.modelValue
-//     editor.value.setHTML(props.modelValue)
-//   }
-// )
 </script>
 <template>
   <div style="height: 100%" :style_="`height: calc(100% - 42px);`" :class="[{ hideToolbar }]">

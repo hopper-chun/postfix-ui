@@ -15,9 +15,12 @@ const props = defineProps({
   label: { type: String },
   viewMode: { type: Boolean },
   labelHelper: { type: String },
+  required: { type: Boolean, default: false },
+  useHover: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['update:modelValue'])
+const slots = useSlots()
 
 const { functionRef, element } = useFunctionRef()
 const { id, modelValue } = toRefs(props)
@@ -35,26 +38,33 @@ const selected = (value) => {
 }
 </script>
 <template>
-  <div class="px-multiCheckbox" :class="[{ isRow }]">
-    <div v-for="(option, index) in options" style="font-size: 0px">
-      <input
-        :ref="functionRef"
-        type="checkbox"
-        :id="`${id}_${index}_${optionsValue(option)}`"
-        style="display: none"
-        :checked="localValue"
-        @input="handleCheck($event.target.value)"
-        :disabled="disabled || viewMode"
-        :value="optionsValue(option)"
-      />
-      <label :for="`${id}_${index}_${optionsValue(option)}`" style="display: inline-block">
-        <div class="px-checkbox--wrapper">
-          <div class="px-checkbox--box" :class="[{ disabled }, { error }, { selected: selected(optionsValue(option)) }]"></div>
-          <div class="px-checkbox--text" :class="[{ error }, { hasText: optionsLabel(option) }]">
-            {{ optionsLabel(option) }}
+  <div :class="[{ viewMode }]" style="position: relative">
+    <PxLabel v-if="label" :label="label" :useHover="useHover" :labelHelper="labelHelper" :required="required" :id="id">
+      <template v-if="!!slots.tooltip" #tooltip>
+        <slot name="tooltip"></slot>
+      </template>
+    </PxLabel>
+    <div class="px-multiCheckbox" :class="[{ isRow }]">
+      <div v-for="(option, index) in options" style="font-size: 0px">
+        <input
+          :ref="functionRef"
+          type="checkbox"
+          :id="`${id}_${index}_${optionsValue(option)}`"
+          style="display: none"
+          :checked="localValue"
+          @input="handleCheck($event.target.value)"
+          :disabled="disabled || viewMode"
+          :value="optionsValue(option)"
+        />
+        <label :for="`${id}_${index}_${optionsValue(option)}`" style="display: inline-block">
+          <div class="px-checkbox--wrapper" :class="{ viewMode }">
+            <div class="px-checkbox--box" :class="[{ disabled }, { error }, { selected: selected(optionsValue(option)) }]"></div>
+            <div class="px-checkbox--text" :class="[{ error }, { hasText: optionsLabel(option) }]">
+              {{ optionsLabel(option) }}
+            </div>
           </div>
-        </div>
-      </label>
+        </label>
+      </div>
     </div>
   </div>
 </template>

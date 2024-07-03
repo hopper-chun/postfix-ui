@@ -1,9 +1,7 @@
 <script setup>
-import { toRefs, ref, onMounted, computed, onUnmounted, watchEffect } from 'vue'
-import { IconChevronDown, IconCheck } from '@/components/icon'
-import { useError, useSelect, useTheme, useFunctionRef, useMakeId } from '@/composables'
+import { toRefs, ref, onMounted, onUnmounted, useSlots } from 'vue'
+import { useError, useSelect, useFunctionRef, useMakeId } from '@/composables'
 import HelperText from '@/components/form/components/HelperText.vue'
-import RmLabel from '@/components/element/label/RmLabel.vue'
 
 const props = defineProps({
   label: { type: String },
@@ -19,9 +17,11 @@ const props = defineProps({
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
   viewMode: { type: Boolean },
+  useHover: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['update:modelValue'])
+const slots = useSlots()
 
 const { functionRef: containerRefFunc, element: containerRef } = useFunctionRef()
 const { functionRef: selectRefFunc, element: selectRef } = useFunctionRef()
@@ -52,25 +52,6 @@ const outsideClick = (e) => {
   }
 }
 
-const currentOption = computed(() => {
-  let curOption
-  props.options.forEach((option) => {
-    if (Array.isArray(option)) {
-      if (option.includes(props.modelValue)) {
-        curOption = props.optionsLabel(option)
-      }
-    } else if (typeof option === 'string') {
-      console.log('option 이 String임')
-      return
-    } else {
-      if (props.modelValue === props.optionsValue(option)) {
-        curOption = props.optionsLabel(option)
-      }
-    }
-  })
-  return curOption
-})
-
 onMounted(() => {
   window.addEventListener(clickHandler, outsideClick)
 })
@@ -82,20 +63,24 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="rm-select" :class="{ row: label }">
+  <div class="px-select">
     <template v-if="viewMode">
-      <div class="rm-select--view" :class="[{ viewMode }]">
-        <RmLabel :id="id" :label="label" :labelHelper="labelHelper"> </RmLabel>
-        <div class="rm-input--view_text">{{ optionsLabel(localValue) }}</div>
+      <div class="px-select--view" :class="[{ viewMode }]">
+        <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
+        <div class="px-input--view_text">{{ optionsLabel(localValue) }}</div>
       </div>
     </template>
     <template v-else>
-      <div class="rm-select--edit" :ref="containerRefFunc">
-        <RmLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId"></RmLabel>
-        <div class="rm-select--wrapper">
+      <div class="px-select--edit" :ref="containerRefFunc">
+        <div class="px-select--wrapper">
+          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" :useHover="useHover">
+            <template v-if="!!slots.tooltip" #tooltip>
+              <slot name="tooltip"></slot>
+            </template>
+          </PxLabel>
           <div>
-            <div :ref="selectRefFunc" :id="randomId" @click="handleOpen" class="rm-input--field" :class="[{ disabled }, { error }]" tabindex="0">
-              <span class="rm-select--header" :class="{ placeholder: !localValue }">
+            <div :ref="selectRefFunc" :id="randomId" @click="handleOpen" class="px-input--field" :class="[{ disabled }, { error }]" tabindex="0">
+              <span class="px-select--header" :class="{ placeholder: !localValue }">
                 <div>
                   <slot name="header" :localValue="localValue">
                     {{ optionsLabel(localValue) || defaultLabel }}
@@ -103,9 +88,9 @@ const randomId = useMakeId()
                 </div>
               </span>
 
-              <div class="rm-select--expand">
+              <div class="px-select--expand">
                 <slot name="expand">
-                  <IconChevronDown style="width: 18px"></IconChevronDown>
+                  <PxIcon name="icon-chevron-down" style="width: 18px"></PxIcon>
                 </slot>
               </div>
             </div>
@@ -117,11 +102,11 @@ const randomId = useMakeId()
               leave-from-class="transition_show"
               leave-to-class="transition_hidden"
             >
-              <div v-if="isOpen" class="rm-select--options">
+              <div v-if="isOpen" class="px-select--options">
                 <div
                   v-for="option in options"
                   @click="handleSelect(option)"
-                  class="rm-select--optionList"
+                  class="px-select--optionList"
                   :class="[{ selected: optionsLabel(localValue) === optionsLabel(option) }]"
                 >
                   <slot name="option" :option="option">
@@ -129,9 +114,9 @@ const randomId = useMakeId()
                       {{ optionsLabel(option) }}
                     </span>
                   </slot>
-                  <span v-if="optionsLabel(localValue) === optionsLabel(option)" class="rm-select--checked">
+                  <span v-if="optionsLabel(localValue) === optionsLabel(option)" class="px-select--checked">
                     <slot name="checked">
-                      <iconCheck style="width: 18px"></iconCheck>
+                      <PxIcon name="icon-check" style="width: 18px"></PxIcon>
                     </slot>
                   </span>
                 </div>
@@ -139,7 +124,6 @@ const randomId = useMakeId()
             </transition>
           </div>
         </div>
-        <div></div>
         <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon">
           <template #helperIcon> <slot name="helperIcon"></slot> </template>
         </HelperText>
