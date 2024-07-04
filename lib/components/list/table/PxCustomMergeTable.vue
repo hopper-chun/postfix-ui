@@ -1,6 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
-import { RmCheckbox } from '@/components'
+import { computed } from 'vue'
 
 const props = defineProps({
   headers: { type: Array, required: true },
@@ -45,17 +44,17 @@ const handleCheckAll = (value) => {
 </script>
 
 <template>
-  <div class="rm-customMergeTable">
+  <div class="px-customMergeTable">
     <table :class="[{ isNarrow }]">
       <thead>
         <tr>
           <template v-for="(header, index) in headers">
             <th v-if="header.checkbox" class="checkbox" :class="[{ isNarrow }]" nowrap>
-              <RmCheckbox :modelValue="checkedAll" id="checkbox_all" @update:modelValue="handleCheckAll"></RmCheckbox>
+              <PxCheckbox :modelValue="checkedAll" id="checkbox_all" @update:modelValue="handleCheckAll"></PxCheckbox>
               <!-- <input @change="handleCheckAll" :checked="checkedAll" type="checkbox" class="border-gray-300 text-[#A6DFFF] focus:ring-[#A6DFFF]" /> -->
             </th>
             <th v-else :class="[{ isNarrow }]" nowrap>
-              <span class="rm-table--header_label" v-html="header.label"></span>
+              <span class="px-table--header_label" v-html="header.label"></span>
             </th>
           </template>
         </tr>
@@ -65,7 +64,7 @@ const handleCheckAll = (value) => {
       </tbody>
     </table>
     <template v-if="rows.length === 0">
-      <div class="rm-table--empty">{{ emptyText }}</div>
+      <div class="px-table--empty">{{ emptyText }}</div>
     </template>
   </div>
 </template>

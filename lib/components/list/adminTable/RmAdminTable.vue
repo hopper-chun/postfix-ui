@@ -1,9 +1,9 @@
 <script setup>
 import _ from 'lodash'
-import { ref, watch, computed, watchEffect, onMounted, onBeforeUnmount } from 'vue'
-import { RmTable, RmPagination, RmDialog, RmIcon, RmButton } from '@/components'
+import { ref, watch, watchEffect } from 'vue'
+
 import BoardListConfig from './components/BoardListConfig.vue'
-import { RmSearchPageLimit, RmSearchOrder } from './search'
+import { PxSearchPageLimit, PxSearchOrder } from './search'
 import { useFunctionRef, useResize } from '@/composables'
 import { currency } from '@/filters/common'
 
@@ -37,17 +37,8 @@ const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes
 
 const { functionRef, element } = useFunctionRef()
 const { isMobile } = useResize()
-const handleSearch = () => {
-  emits('onSearch')
-}
+
 const iconRef = ref(null)
-const handleClearSearchFilter = async () => {
-  emits('onClearSearchFilter')
-  const router = props.router
-  await router.push({
-    path: router.currentRoute.value.path,
-  })
-}
 
 const handleChangeLimit = (limit) => {
   props.tableConfig.saveLimit(limit)
@@ -161,7 +152,6 @@ watch(
 
 watchEffect(() => {
   if (props.isSearching) {
-    // console.log(iconRef.value, 'ref찾기')
     iconRef?.value?.classList.add('SEARCHING')
   } else {
     iconRef?.value?.classList.remove('SEARCHING')
@@ -169,25 +159,25 @@ watchEffect(() => {
 })
 </script>
 <template>
-  <div class="rm-adminTable">
-    <div v-if="useTitle" class="rm-adminTable--header_container">
-      <div class="rm-adminTable--header">
+  <div class="px-adminTable">
+    <div v-if="useTitle" class="px-adminTable--header_container">
+      <div class="px-adminTable--header">
         <slot name="SHELL-TITLE">
-          <div class="rm-adminTable--title">
+          <div class="px-adminTable--title">
             <div class="title">{{ title }}</div>
             <div class="count">({{ currency(totalCount) }})</div>
           </div>
         </slot>
-        <div @click="handleRefresh" class="rm-adminTable--refresh mobile">
+        <div @click="handleRefresh" class="px-adminTable--refresh mobile">
           <div ref="iconRef">
-            <RmIcon name="icon-refresh" class="rm-adminTable--refresh_icon"></RmIcon>
+            <PxIcon name="icon-refresh" class="px-adminTable--refresh_icon"></PxIcon>
           </div>
         </div>
       </div>
-      <div class="rm-adminTable--header_wrapper">
-        <div @click="handleRefresh" class="rm-adminTable--refresh desktop" :class="{ hasSlot: $slots['SHELL-TABLE-TOP'] }">
+      <div class="px-adminTable--header_wrapper">
+        <div @click="handleRefresh" class="px-adminTable--refresh desktop" :class="{ hasSlot: $slots['SHELL-TABLE-TOP'] }">
           <div ref="iconRef">
-            <RmIcon name="icon-refresh" class="rm-adminTable--refresh_icon"></RmIcon>
+            <PxIcon name="icon-refresh" class="px-adminTable--refresh_icon"></PxIcon>
           </div>
         </div>
 
@@ -196,17 +186,12 @@ watchEffect(() => {
     </div>
     <slot name="SHELL-SUBTITLE"></slot>
 
-    <div class="rm-adminTable--body">
+    <div class="px-adminTable--body">
       <!-- 검색 슬롯 -->
 
       <slot name="SHELL-SEARCH"></slot>
 
-      <!-- <div class="my-[12px] flex justify-center space-x-[8px]">
-          <RmBtn @click="handleSearch">검색</RmBtn>
-          <RmBtn color="gray" @click="handleClearSearchFilter">초기화</RmBtn>
-        </div> -->
-
-      <div v-if="useShellTable" class="rm-adminTable--search" :class="[{ useAlign: usePaginationSlot }]">
+      <div v-if="useShellTable" class="px-adminTable--search" :class="[{ useAlign: usePaginationSlot }]">
         <div class="shell-table-left">
           <!-- 왼쪽 버튼 slot, 모바일일 경우 상단 버튼 slot -->
           <slot name="SHELL-TABLE-LEFT" :rows="rows"></slot>
@@ -215,30 +200,30 @@ watchEffect(() => {
           <!-- 오른쪽 버튼 slot -->
           <div class="func_container">
             <div v-if="useSearchOrder" class="searchOrder">
-              <RmSearchOrder
+              <PxSearchOrder
                 v-if="searchOrder.options4Sort.length > 0"
                 :defaultLabel="defaultLabel4Sort"
                 :orderState="searchOrder.state"
                 :orderOptions="searchOrder.options4Sort"
                 @onSetSearchOrder="handleClickSort"
                 style="width: 132px"
-              ></RmSearchOrder>
+              ></PxSearchOrder>
             </div>
             <div v-if="!usePaginationSlot" :class="{ hasCount: usePaginationCount }">
               <div v-if="usePaginationCount">
                 <slot name="PAGINATION-COUNT" :total="totalCount"> 총 {{ totalCount }} 건 </slot>
               </div>
-              <RmPagination
+              <PxPagination
                 :limit="tableConfig.state.limit"
                 :currentPage="searchPagination.state.page"
                 :total="totalCount"
                 @onChangePage="handleChangePage"
-              ></RmPagination>
+              ></PxPagination>
             </div>
           </div>
 
           <div v-if="useSearchFilter" @click="handleOpenSearchFilter" class="searchFilter">
-            <RmIcon name="icon-settings" style="height: 20px; width: 20px"></RmIcon>
+            <PxIcon name="icon-settings" style="height: 20px; width: 20px"></PxIcon>
           </div>
         </div>
       </div>
@@ -247,7 +232,7 @@ watchEffect(() => {
         <slot name="SHELL-TABLE" :handleClickSort="handleClickSort"></slot>
       </template>
       <template v-else>
-        <RmTable
+        <PxTable
           :emptyText="useLocale ? 'There is no data' : '표시할 정보가 없습니다.'"
           class=""
           :isNarrow="true"
@@ -267,37 +252,22 @@ watchEffect(() => {
           <template v-for="(fn, name) in $slots" v-slot:[name]="{ row, index }">
             <slot v-if="!name.startsWith('SHELL-')" :name="name" :row="row" :index="index" />
           </template>
-        </RmTable>
+        </PxTable>
       </template>
       <template v-if="usePaginationSlot">
         <div>
           <slot name="SHELL-PAGINATION" :handleChangePage="handleChangePage">
-            <RmPagination
+            <PxPagination
               :limit="tableConfig.state.limit"
               :currentPage="searchPagination.state.page"
               :total="totalCount"
               @onChangePage="handleChangePage"
-            ></RmPagination>
+            ></PxPagination>
           </slot>
         </div>
       </template>
-      <!-- <div class="flex h-[56px] items-center space-x-[8px]">
-          <div>
-            <RmPaginationWithButton
-              :limit="tableConfig.state.limit"
-              :currentPage="searchPagination.state.page"
-              :total="totalCount"
-              @onChangePage="handleChangePage"
-            ></RmPaginationWithButton>
-          </div>
-          <div>
-            <span class="text-[14px] leading-[1] text-[#A3A3A3]">
-              [총 <span class="text-[#4F46E5]">{{ totalCount }}</span> 개]
-            </span>
-          </div>
-        </div> -->
     </div>
-    <RmDialog v-slot="{ closeDialog }" :ref="functionRef">
+    <PxDialog v-slot="{ closeDialog }" :ref="functionRef">
       <div class="dialog_searchFilter">
         <div class="dialog_header">
           <div class="title">{{ useLocale ? 'Table filter settings' : '테이블 필터 설정' }}</div>
@@ -318,19 +288,19 @@ watchEffect(() => {
             <div>
               <p>{{ useLocale ? 'Select page range' : '페이지 크기 선택' }}</p>
 
-              <RmSearchPageLimit
+              <PxSearchPageLimit
                 :useLocale="useLocale"
                 :limit="local.tableConfig.state.limit"
                 :use10000="use10000"
                 @onChangeLimit="local.tableConfig.state.limit = $event"
-              ></RmSearchPageLimit>
+              ></PxSearchPageLimit>
             </div>
           </div>
           <div class="rightSection">
             <div class="sectionHeader">
               <p style="word-break: keep-all; padding-right: 4px">{{ useLocale ? 'Table header filter' : '테이블 헤더 필터' }}</p>
-              <RmButton size="xs" color="gray_border" @click="handleTableConfigReset"
-                ><div>{{ useLocale ? 'clear' : '초기화' }}</div></RmButton
+              <PxButton size="xs" color="gray_border" @click="handleTableConfigReset"
+                ><div>{{ useLocale ? 'clear' : '초기화' }}</div></PxButton
               >
             </div>
 
@@ -338,10 +308,10 @@ watchEffect(() => {
           </div>
         </div>
         <div class="button_wrapper">
-          <RmButton size="sm" color="sec" @click="closeDialog()"> {{ useLocale ? 'cancel' : '취소' }}</RmButton>
-          <RmButton size="sm" color="pri" @click="handleTableConfigSave"> {{ useLocale ? 'save' : '저장' }}</RmButton>
+          <PxButton size="sm" color="sec" @click="closeDialog()"> {{ useLocale ? 'cancel' : '취소' }}</PxButton>
+          <PxButton size="sm" color="pri" @click="handleTableConfigSave"> {{ useLocale ? 'save' : '저장' }}</PxButton>
         </div>
       </div>
-    </RmDialog>
+    </PxDialog>
   </div>
 </template>

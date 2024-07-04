@@ -1,8 +1,7 @@
 <script setup>
-import { toRefs, ref, computed, onMounted, watchEffect } from 'vue'
-import { useError, useTextarea, useTheme, useFunctionRef, useMakeId } from '@/composables'
-// import HelperText from '@/components/form/components/HelperText.vue'
-import { RmFormForView, RmLabel, HelperText } from '@/components'
+import { toRefs, onMounted, useSlots } from 'vue'
+import { useError, useTextarea, useFunctionRef, useMakeId } from '@/composables'
+import HelperText from '@/components/form/components/HelperText.vue'
 
 const props = defineProps({
   id: { type: String },
@@ -23,6 +22,7 @@ const props = defineProps({
   cursor: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onPaste'])
+const slots = useSlots()
 
 const { functionRef, element } = useFunctionRef()
 
@@ -30,7 +30,6 @@ const { id, modelValue } = toRefs(props)
 const { error } = useError(id, element)
 const { localValue, handleInput } = useTextarea(id, modelValue, emit)
 
-// const theme = useTheme(computed(() => props.styles))
 // const regex = /[^0-9]/g
 // const areaHeight = ref('')
 
@@ -60,38 +59,23 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="rm-textarea">
+  <div class="px-textarea">
     <template v-if="viewMode">
-      <div class="rm-textarea--view">
-        <RmFormForView :viewMode="viewMode" :label="label">
-          <div v-if="isHtml" v-html="(modelValue || '').replaceAll(/(\n|\r\n)/g, '<br />')"></div>
-          <div v-else class="flex-1">
-            <textarea
-              :ref="functionRef"
-              :placeholder="placeholder"
-              disabled
-              :value="localValue"
-              @input="handleInput($event.target.value)"
-              :id="randomId"
-              :rows="rows"
-              class="rm-input--field disabled"
-              :class="[{ error }, { resize }]"
-              @keydown="resizeHeight"
-              @keyup="resizeHeight"
-              spellcheck="false"
-              :maxlength="maxlength"
-            ></textarea>
-            <div></div>
-            <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon" :maxLength="maxlength" :localValue="localValue">
-              <template #helperIcon> <slot name="helperIcon"></slot> </template>
-            </HelperText>
+      <div class="px-textarea--view">
+        <PxFormForView :viewMode="viewMode" :label="label">
+          <div>
+            <div v-for="line in (modelValue || '').split('\n')">{{ line || `&nbsp` }}</div>
           </div>
-        </RmFormForView>
+        </PxFormForView>
       </div>
     </template>
     <template v-else>
-      <div class="rm-textarea--edit">
-        <RmLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId"></RmLabel>
+      <div class="px-textarea--edit">
+        <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId">
+          <template v-if="!!slots.tooltip" #tooltip>
+            <slot name="tooltip"></slot>
+          </template>
+        </PxLabel>
         <textarea
           :ref="functionRef"
           :placeholder="placeholder"
@@ -100,7 +84,7 @@ const randomId = useMakeId()
           @input="handleInput($event.target.value)"
           :id="randomId"
           :rows="rows"
-          class="rm-input--field"
+          class="px-input--field"
           :class="[{ disabled }, { error }, { resize }]"
           @keydown="resizeHeight"
           @keyup="resizeHeight"

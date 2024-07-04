@@ -1,17 +1,15 @@
 <script setup>
-import { toRefs, ref, onMounted, computed, nextTick } from 'vue'
-import { useError, useToggle, useFunctionRef, useTheme, useMakeId } from '@/composables'
+import { toRefs, ref, onMounted, nextTick } from 'vue'
+import { useError, useToggle, useFunctionRef } from '@/composables'
 
 const props = defineProps({
   label: { type: String },
-  classes: { type: [String, Array, Object] },
-  innerClasses: { type: [String, Array, Object] },
-  activeClasses: { type: [String, Array, Object] },
-  labelClasses: { type: [String, Array, Object] },
   disabled: { type: Boolean, default: false },
+  prevent: { type: Boolean, default: false },
   modelValue: { type: [String, Number, Boolean] },
   options: { type: Array, default: () => [false, true], validator: (values) => values.length >= 2 },
   id: { type: String },
+  viewMode: { type: Boolean, default: false },
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -23,11 +21,11 @@ const { error } = useError(id, containerRef)
 
 const { localValue, handleToggle } = useToggle(id, modelValue, options, emit)
 
-const theme = useTheme(computed(() => {}))
-
 const distance = ref('20')
+
 const handleClick = () => {
-  if (props.disabled) {
+  if (props.disabled || props.prevent || props.viewMode) {
+    // disabled의 스타일을 쓰지 않고 클릭만 막으려는 경우가 있어서 prevent를 추가함
     return
   } else {
     localValue.value = !localValue.value
@@ -48,26 +46,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div @click="handleClick" @update:modelValue="handleToggle" class="cursor-pointer" :class="label ? 'flex w-full items-center justify-between' : ''">
-    <div v-if="label" :class="labelClasses">
+  <div @click="handleClick" @update:modelValue="handleToggle" class="px-toggle" :class="[{ hasText: label }]">
+    <div v-if="label" class="px-toggle--label">
       {{ label }}
     </div>
-    <div
-      :id="id"
-      :ref="containerRefFunc"
-      class="rounded-full transition-all duration-200"
-      :class="[
-        error && localValue ? theme.error.bg : error ? theme.error.bgLite : localValue ? activeClasses : theme.disabled,
-        classes,
-        disabled ? 'opacity-40' : '',
-      ]"
-    >
-      <div
-        :ref="innerRefFunc"
-        class="rounded-full transition-all duration-200"
-        :class="[innerClasses]"
-        :style="localValue ? `transform: translateX(${distance}px)` : 'transform: translateX(0)'"
-      ></div>
+    <div :id="id" :ref="containerRefFunc" class="px-toggle--box" :class="[{ error }, { disabled }, { selected: localValue }]">
+      <div :ref="innerRefFunc" class="dot" :style="localValue ? `transform: translateX(${distance}px)` : 'transform: translateX(0)'"></div>
     </div>
   </div>
 </template>

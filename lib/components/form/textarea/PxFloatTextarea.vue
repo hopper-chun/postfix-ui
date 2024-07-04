@@ -1,6 +1,6 @@
 <script setup>
-import { computed, ref, toRefs } from 'vue'
-import { useError, useTextarea, useTheme, useFunctionRef, useMakeId } from '@/composables'
+import { computed, toRefs } from 'vue'
+import { useError, useTextarea, useFunctionRef, useMakeId } from '@/composables'
 import HelperText from '@/components/form/components/HelperText.vue'
 
 const props = defineProps({
@@ -24,8 +24,6 @@ const { functionRef: containerRefFunc, element: containerRef } = useFunctionRef(
 const { id, modelValue } = toRefs(props)
 const { error } = useError(id, inputRef)
 const { isFocused, localValue, handleInput, handleFocus, handleBlur } = useTextarea(id, modelValue, emit)
-
-const theme = useTheme(computed(() => props.styles))
 
 const isFloating = computed(() => {
   if (isFocused.value === true || localValue.value || localValue.value === 0) {
@@ -64,13 +62,3 @@ const randomId = useMakeId()
     </div>
   </div>
 </template>
-<!-- <style scoped>
-.SCROLLHIDE::-webkit-scrollbar {
-  display: none;
-}
-
-textarea:focus-within ~ label,
-textarea:not(:placeholder-shown) ~ label {
-  @apply -translate-y-[50%] transform text-[10px] leading-[160%] text-[#9D9D9D] sm:text-[12px];
-}
-</style> -->

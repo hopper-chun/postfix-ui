@@ -1,5 +1,5 @@
 <template>
-  <div class="rm-adminFormWrapperRow">
+  <div class="px-adminFormWrapperRow">
     <div class="slot_container">
       <slot></slot>
     </div>

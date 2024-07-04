@@ -29,18 +29,18 @@ const handleClick = (index) => {
 }
 </script>
 <template>
-  <div class="rm-tableCellLink">
+  <div class="px-tableCellLink">
     <template v-if="!isArray">
       <template v-if="icon">
-        <RmSmIconButton textAlign="right" @click="handleClick"
+        <PxButton size="xs" color="gray" @click="handleClick"
           >{{ label }}
           <template v-slot:icon>
-            <RmIcon :name="icon" style="width: 12px"></RmIcon>
+            <PxIcon :name="icon" style="width: 12px"></PxIcon>
           </template>
-        </RmSmIconButton>
+        </PxButton>
       </template>
       <template v-else-if="!icon">
-        <button @click="handleClick" class="rm-tableCellLink--label">{{ label }}</button>
+        <button @click="handleClick" class="px-tableCellLink--label">{{ label }}</button>
       </template>
     </template>
 
@@ -49,7 +49,7 @@ const handleClick = (index) => {
       <span
         v-for="(l, index) in label"
         :key="l"
-        class="rm-tableCellLink--arrayed_label"
+        class="px-tableCellLink--arrayed_label"
         :style="{ color: Array.isArray(textColor) ? textColor[index] : textColor }"
         @click="handleClick(index)"
         >{{ l }}</span

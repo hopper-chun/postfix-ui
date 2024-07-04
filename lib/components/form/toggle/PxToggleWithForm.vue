@@ -1,9 +1,7 @@
 <script setup>
-import { computed, toRefs } from 'vue'
-import { useError, useTheme, useMakeId, useFunctionRef } from '@/composables'
-import RmToggle from './RmToggle.vue'
+import { toRefs, useSlots } from 'vue'
+import { useError, useMakeId, useFunctionRef } from '@/composables'
 import HelperText from '@/components/form/components/HelperText.vue'
-import RmLabel from '@/components/element/label/RmLabel.vue'
 
 const props = defineProps({
   id: { type: String },
@@ -11,16 +9,19 @@ const props = defineProps({
   helperText: { type: String },
   helperIcon: { type: Boolean, default: false },
   modelValue: { type: [String, Number, Boolean] },
+  prevent: { type: Boolean, default: false },
   required: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   options: { type: Array, default: () => [false, true], validator: (values) => values.length >= 2 },
-  label: { type: String, required: true },
+  label: { type: String },
   description: { type: String },
-  icon: { type: Boolean, default: false },
+  viewMode: { type: Boolean, default: false },
+  useHover: { type: Boolean, default: true },
 })
 
 const { functionRef, element } = useFunctionRef()
-const theme = useTheme(computed(() => props.styles))
+const slots = useSlots()
+
 const { id } = toRefs(props)
 const { error } = useError(id, element)
 
@@ -28,36 +29,25 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div>
-    <RmLabel
-      :label="label"
-      :labelFontSize="theme.label_fontSize"
-      :labelFontColor="theme.label_fontColor"
-      :labelHelper="labelHelper"
-      :required="required"
-      :id="randomId"
-    ></RmLabel>
-    <div
-      :ref="functionRef"
-      class="flex w-full items-center justify-between"
-      :class="[
-        theme.fontSize,
-        theme.paddingX,
-        theme.height,
-        theme.radius,
-        theme.border,
-        !error ? ` ${theme.borderColor} ${theme.focus}` : `${theme.error.text} ${theme.error.border}`,
-      ]"
-    >
-      <div class="flex-1 leading-[22px] text-[#a3a3a3]" v-if="description">{{ description }}</div>
-      <RmToggle
-        :isSmall="true"
+  <div class="px-toggle-form" :class="{ viewMode: viewMode }">
+    <PxLabel :label="label" :labelHelper="labelHelper" :useHover="useHover" :required="required" :id="randomId">
+      <template v-if="!!slots.tooltip" #tooltip>
+        <slot name="tooltip"></slot>
+      </template>
+    </PxLabel>
+    <div :ref="functionRef" class="px-input--field">
+      <div class="px-toggle--description">
+        <div v-if="description">{{ description }}</div>
+      </div>
+      <PxToggle
         :id="id"
         :modelValue="modelValue"
         @update:modelValue="$emit('update:modelValue', $event)"
         :options="options"
         :disabled="disabled"
-      ></RmToggle>
+        :prevent="prevent"
+        :viewMode="viewMode"
+      ></PxToggle>
     </div>
     <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon">
       <template #helperIcon> <slot name="helperIcon"></slot> </template>
