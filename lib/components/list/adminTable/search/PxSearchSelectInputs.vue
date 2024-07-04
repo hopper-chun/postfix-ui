@@ -1,11 +1,9 @@
 <script setup>
 import _ from 'lodash'
-import { computed, ref, watchEffect } from 'vue'
-import { RmButton } from '@/components/element'
-import { RmIcon } from '@/components/icon'
-// import filters from '@/filters'
+import { computed, ref } from 'vue'
+import filters from '@/filters'
 
-import RmSearchForms from './components/RmSearchForms.vue'
+import PxSelectInputRadioCheck from './components/PxSelectInputRadioCheck.vue'
 
 const props = defineProps({
   filters: { type: Array, required: true },
@@ -17,7 +15,17 @@ const emit = defineEmits(['onAppendQuerys', 'onRemoveQuery', 'onSearch'])
 const selectInputRadioCheckRef = ref(null)
 
 const remainedFilterTypes = computed(() => {
-  return props.filterTypes.filter((ft) => props.filters.findIndex((filter) => ft.key === filter[0].key) === -1)
+  if (props.filters.length === 0) {
+    return props.filterTypes
+  }
+
+  const onePick = props.filterTypes.filter((ft) => props.filters.findIndex((filter) => ft.key === filter[0].key) !== -1)
+  const others = props.filterTypes.filter((ft) => props.filters.findIndex((filter) => ft.key === filter[0].key) === -1)
+
+  return onePick.concat(others)
+
+  // 아래는 기존의 검색하면 필드가 빠지는 방식
+  // return props.filterTypes.filter((ft) => props.filters.findIndex((filter) => ft.key === filter[0].key) === -1)
 })
 
 const filters4Display = computed(() =>
@@ -38,6 +46,14 @@ const filters4Display = computed(() =>
         splited[1] = filters.date8(splited[1])
         value = splited.join(' ~ ')
       }
+      // } else if (group === 'datepicker') {
+      //   console.log('value', value)
+      //   // const splited = value.split(',')
+      //   // if (splited.length === 2) {
+      //   //   splited[0] = filters.date8(splited[0])
+      //   //   splited[1] = filters.date8(splited[1])
+      //   //   value = splited.join(' ~ ')
+      //   // }
     }
     return { key, title, value }
   })
@@ -55,6 +71,7 @@ const handleReset = () => {
 
 const handleSearch = () => {
   const ret = selectInputRadioCheckRef.value.search()
+  console.log('handleSearch - ret', ret)
   if (!ret) {
     emit('onSearch')
   }
@@ -62,23 +79,22 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <div class="rm-searchSelectInputs">
-    <div class="rm-searchSelectInputs--field" v-if="remainedFilterTypes.length > 0">
-      <RmSearchForms
+  <div class="px-searchSelectInputs">
+    <div class="px-searchSelectInputs--field" v-if="remainedFilterTypes.length > 0">
+      <PxSelectInputRadioCheck
         ref="selectInputRadioCheckRef"
         style="flex: 1 1 0%"
         v-bind="$attrs"
         :options="_.cloneDeep(remainedFilterTypes)"
         @onKeyDownEnter="handleSearch"
         @onAppendQuerys="emit('onAppendQuerys', $event)"
-      ></RmSearchForms>
-
-      <RmButton size="sm" color="sec" @click="handleSearch">검색</RmButton>
-      <RmButton size="sm" color="gray" class="clear" @click="handleReset">초기화</RmButton>
+      ></PxSelectInputRadioCheck>
+      <PxButton color="sec" @click="handleSearch">검색</PxButton>
+      <PxButton color="gray" class="clear" @click="handleReset">초기화</PxButton>
     </div>
 
     <template v-if="filters4Display.length > 0">
-      <div class="rm-searchSelectInputs--query">
+      <div class="px-searchSelectInputs--query">
         <div class="query_container">
           <div v-for="filter in filters4Display" class="query_list">
             <div class="query_text">
@@ -86,11 +102,11 @@ const handleSearch = () => {
               <div class="value">{{ filter.value }}</div>
             </div>
             <div class="remove" @click="handleRemove(filter.key)">
-              <!-- <RmIcon name="icon-close" class="w-[12px] cursor-pointer"></RmIcon> -->
+              <!-- <PxIcon name="icon-close" class="w-[12px] cursor-pointer"></PxIcon> -->
             </div>
           </div>
         </div>
-        <RmButton v-if="remainedFilterTypes.length === 0" size="sm" color="gray" class="clear" @click="handleReset">초기화</RmButton>
+        <PxButton v-if="remainedFilterTypes.length === 0" size="xs" color="gray" class="clear" @click="handleReset">초기화</PxButton>
       </div>
     </template>
   </div>

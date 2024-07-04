@@ -276,15 +276,6 @@ watchEffect(() => {
 
         <div class="dialog_body">
           <div class="leftSection">
-            <!-- <div v-if="searchOrder.options4Sort.length > 0">
-                <div class="pb-[12px]">분류</div>
-                <RmSearchOrder
-                  :defaultLabel="defaultLabel4Sort"
-                  :orderState="searchOrder.state"
-                  :orderOptions="searchOrder.options4Sort"
-                  @onSetSearchOrder="handleClickSort"
-                ></RmSearchOrder>
-              </div> -->
             <div>
               <p>{{ useLocale ? 'Select page range' : '페이지 크기 선택' }}</p>
 

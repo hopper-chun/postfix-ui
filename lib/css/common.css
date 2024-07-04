@@ -2507,7 +2507,7 @@
   font-size: var(--px-text-xs);
   padding-left: 16px;
   padding-top: 8px;
-  margin-right: 8px;
+  /* margin-right: 8px; */
 }
 
 .px-searchSelectInputs--query .query_list {
@@ -2518,6 +2518,7 @@
   margin-bottom: 0;
   padding: 0 6px;
   background-color: var(--px-slate-200);
+  /* space-x-[2px]  */
 }
 
 .px-searchSelectInputs--query .query_list > .remove {
@@ -2543,6 +2544,11 @@
   padding-left: 4px;
 }
 
+.px-searchSelectInputs--query .clear {
+  flex-shrink: 0;
+  display: block;
+}
+
 @media screen and (max-width: 639px) {
   .px-searchSelectInputs--query {
     display: block;
@@ -2555,6 +2561,48 @@
 
   .px-searchSelectInputs--query .query_list {
     margin-bottom: 4px;
+  }
+
+  .px-searchSelectInputs--query .clear {
+    display: none;
+  }
+}
+
+.px-selectinputradiocheck {
+  display: flex;
+  align-items: center;
+}
+
+.px-selectinputradiocheck > *:not(:first-child) {
+  margin-left: 8px;
+  margin-top: 0px;
+}
+
+.px-selectinputradiocheck .searchOption {
+  position: relative;
+  z-index: 10;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.px-selectinputradiocheck .search_radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+}
+
+.px-selectinputradiocheck .search_input {
+  max-width: 300px;
+}
+
+@media screen and (max-width: 639px) {
+  .px-selectinputradiocheck > *:not(:first-child) {
+    margin-top: 4px;
+  }
+
+  .px-selectinputradiocheck .search_input {
+    max-width: auto;
   }
 }
 

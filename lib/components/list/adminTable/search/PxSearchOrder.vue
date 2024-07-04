@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue'
-import { RmSelect } from '@/components/form'
 
 const props = defineProps({
   orderState: { type: Object, required: true },
@@ -24,8 +23,8 @@ const handleChangeSort = (value) => {
 }
 </script>
 <template>
-  <div class="rm-searchOrder">
-    <RmSelect
+  <div class="px-searchOrder">
+    <PxSelect
       id="tableSort"
       :options="orderOptions"
       :modelValue="currentSort"
@@ -34,15 +33,6 @@ const handleChangeSort = (value) => {
       @update:modelValue="handleChangeSort($event)"
       defaultLabel="정렬"
     >
-    </RmSelect>
+    </PxSelect>
   </div>
-  <!-- <RmAdminTableSelect
-    :modelValue="currentSort"
-    @update:modelValue="handleChangeSort"
-    :options="orderOptions"
-    :optionsLabel="(option) => option.label"
-    :optionsValue="(option) => JSON.stringify(option.value)"
-    :defaultLabel="defaultLabel"
-    :size="size"
-  ></RmAdminTableSelect> -->
 </template>

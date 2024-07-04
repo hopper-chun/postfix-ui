@@ -1,9 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 import { subDays, isAfter, isBefore, format, parseISO } from 'date-fns'
-import { RmSelect } from '@/components/form/select'
-import { RmTabInPill } from '@/components/list/tab'
-import { RmDatePicker } from '@/components/form/datepicker'
 
 const constTabs = [
   { term: '0', label: '오늘' },
@@ -122,22 +119,22 @@ const handleTabChanged = (dateTerm) => {
 }
 </script>
 <template>
-  <div class="rm-searchDuration">
-    <div class="rm-searchDuration--select" v-if="dateOptions.length > 1">
-      <RmSelect v-model="state.dateType" :options="dateOptions" :optionsLabel="(option) => option.label" :optionsValue="(option) => option.key"></RmSelect>
+  <div class="px-searchDuration">
+    <div class="px-searchDuration--select" v-if="dateOptions.length > 1">
+      <PxSelect v-model="state.dateType" :options="dateOptions" :optionsLabel="(option) => option.label" :optionsValue="(option) => option.key"></PxSelect>
     </div>
-    <RmTabInPill
+    <PxTabInPill
       v-if="!isSimple"
       v-model="state.currentTabValue"
       :options="constTabs"
       :optionsLabel="(option) => option.label"
       :optionsValue="(option) => option.term"
       @update:modelValue="handleTabChanged"
-      class="rm-searchDuration--tab"
-    ></RmTabInPill>
-    <div class="rm-searchDuration--date">
-      <RmDatePicker :class="calenderTextColor" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></RmDatePicker>
-      <RmDatePicker :class="calenderTextColor" :modelValue="state.endDate" @update:modelValue="changeEndDate"></RmDatePicker>
+      class="px-searchDuration--tab"
+    ></PxTabInPill>
+    <div class="px-searchDuration--date">
+      <PxDatePicker :class="calenderTextColor" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></PxDatePicker>
+      <PxDatePicker :class="calenderTextColor" :modelValue="state.endDate" @update:modelValue="changeEndDate"></PxDatePicker>
     </div>
   </div>
 </template>

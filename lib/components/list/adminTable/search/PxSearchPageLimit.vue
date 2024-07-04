@@ -1,7 +1,5 @@
 <script setup>
 import { computed } from 'vue'
-import { RmAdminTableSelect } from '@/components/form/select'
-import { RmRadio } from '@/components/form'
 
 const props = defineProps({
   useLocale: { type: Boolean },
@@ -49,7 +47,7 @@ const handleChangeLimit = (value) => {
 }
 </script>
 <template>
-  <RmRadio
+  <PxRadio
     id="searchPageLimit"
     :modelValue="limit"
     :options="options"
@@ -57,5 +55,5 @@ const handleChangeLimit = (value) => {
     :optionsValue="(option) => option?.value"
     @update:modelValue="handleChangeLimit(Number($event))"
     isRow
-  ></RmRadio>
+  ></PxRadio>
 </template>
