@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import RmAdminTableSelect from '../components/RmAdminTableSelect.vue'
 
 const props = defineProps({
   orderState: { type: Object, required: true },
@@ -18,21 +19,19 @@ const handleChangeSort = (value) => {
   const sort = props.orderOptions.find((sort) => JSON.stringify(sort.value) === value)
   if (sort) {
     emits('onSetSearchOrder', sort.value)
-    // props.searchOrder.setSearchOrder(sort.value)
   }
 }
 </script>
 <template>
-  <div class="px-searchOrder">
-    <PxSelect
-      id="tableSort"
-      :options="orderOptions"
-      :modelValue="currentSort"
-      :optionsLabel="(option) => option?.label"
-      :optionsValue="(option) => JSON.stringify(option.value)"
-      @update:modelValue="handleChangeSort($event)"
-      defaultLabel="정렬"
-    >
-    </PxSelect>
-  </div>
+  <RmSelect
+    id="tableSort"
+    :options="orderOptions"
+    :modelValue="currentSort"
+    :optionsLabel="(option) => option?.label"
+    :optionsValue="(option) => JSON.stringify(option.value)"
+    @update:modelValue="handleChangeSort($event)"
+    defaultLabel="분류"
+    isSmall
+  >
+  </RmSelect>
 </template>

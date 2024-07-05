@@ -3,13 +3,13 @@ import { computed, ref } from 'vue'
 import { subDays, isAfter, isBefore, format, parseISO } from 'date-fns'
 
 const constTabs = [
-  { term: '0', label: '오늘' },
-  { term: '3', label: '3일' },
-  { term: '7', label: '7일' },
-  { term: '30', label: '1개월' },
-  { term: '90', label: '3개월' },
+  { term: '0', label: '1개월' },
+  { term: '30', label: '2개월' },
+  { term: '60', label: '3개월' },
+  { term: '90', label: '4개월' },
+  { term: '120', label: '5개월' },
+  { term: '150', label: '6개월' },
   { term: '365', label: '1년' },
-  // { term: 'all', label: '전체' },
 ]
 
 const props = defineProps({
@@ -20,15 +20,17 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:beginDate', 'update:endDate'])
 
+const theme = useTheme(computed(() => {}))
+
 const local = ref({
   currentTabValue: '',
 })
 
 const calenderTextColor = computed(() => {
   if (local.value.currentTabValue === '') {
-    return 'indigo'
+    return 'text-indigo-500'
   } else {
-    return 'gray'
+    return 'text-gray-700'
   }
 })
 
@@ -58,7 +60,7 @@ const handleTabChanged = (dateTerm) => {
 }
 </script>
 <template>
-  <div class="date px-dateDuration">
+  <div class="month px-dateDuration">
     <PxTabInPill
       v-if="!isSimple"
       v-model="local.currentTabValue"
@@ -68,10 +70,9 @@ const handleTabChanged = (dateTerm) => {
       @update:modelValue="handleTabChanged"
       style="flex-shrink: 0"
     ></PxTabInPill>
-
     <div class="dateContainer">
-      <PxDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="props.beginDate" @update:modelValue="changeBeginDate"></PxDatePicker>
-      <PxDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="props.endDate" @update:modelValue="changeEndDate"></PxDatePicker>
+      <PxMonthPicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="props.beginDate" @update:modelValue="changeBeginDate"></PxMonthPicker>
+      <PxMonthPicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="props.endDate" @update:modelValue="changeEndDate"></PxMonthPicker>
     </div>
   </div>
 </template>

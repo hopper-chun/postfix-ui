@@ -2606,6 +2606,48 @@
   }
 }
 
+.px-dateDuration {
+  display: flex;
+  align-items: center;
+}
+
+.px-dateDuration > *:not(:first-child) {
+  margin-left: 12px;
+}
+
+.px-dateDuration .dateContainer {
+  display: flex;
+  align-items: center;
+}
+
+.px-dateDuration .dateContainer > *:not(:first-child) {
+  margin-left: 8px;
+}
+
+.px-dateDuration .dateContainer .datePicker {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  width: 120px;
+}
+
+.px-dateDuration .dateContainer .indigo {
+  color: #6366f1;
+}
+
+.px-dateDuration .dateContainer .gray {
+  color: #374151;
+}
+
+@media screen and (max-width: 639px) {
+  .px-dateDuration {
+    display: block;
+  }
+  .px-dateDuration:not(:first-child) {
+    margin-left: 0px;
+  }
+}
+
 .px-searchForms {
   display: flex;
   align-items: center;
@@ -2673,13 +2715,25 @@
   align-items: center;
 }
 
-.px-searchDuration--date .px-datepicker {
+.px-searchDuration--date .datePicker {
   height: 40px;
   width: 160px;
 }
 
-.px-searchDuration--date .px-datepicker:first-child {
-  padding-right: 8px;
+.px-searchDuration--date .px-datepicker:not(:first-child) {
+  padding-left: 8px;
+}
+
+.px-searchDuration .px-searchDuration--date .indigo {
+  color: #6366f1;
+}
+
+.px-searchDuration .px-searchDuration--date .grayLite {
+  color: #d1d5db;
+}
+
+.px-searchDuration .px-searchDuration--date .gray {
+  color: #374151;
 }
 
 .px-boardListConfig > .option {
