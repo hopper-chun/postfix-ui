@@ -27,11 +27,7 @@ const slots = useSlots()
           <slot></slot>
         </div>
       </div>
-      <div
-        class="px-formWrapper--bottom_button"
-        v-if="slots.bottomButton"
-        :class="bottomClasses ? bottomClasses : `mt-[20px] flex flex-1 items-center justify-center`"
-      >
+      <div class="px-formWrapper--bottom_button" v-if="slots.bottomButton">
         <slot name="bottomButton"></slot>
       </div>
     </div>

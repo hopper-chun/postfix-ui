@@ -158,7 +158,7 @@ onBeforeUnmount(() => {
       </tbody>
     </table>
     <template v-if="isSearching">
-      <div class="border-t border-[#E5E5E5] bg-gray-50 py-[12px] text-center text-sm text-gray-400">검색중입니다.</div>
+      <div class="px-table--searching">검색중입니다.</div>
     </template>
     <template v-else-if="rows.length === 0">
       <div class="px-table--empty">{{ emptyText }}</div>

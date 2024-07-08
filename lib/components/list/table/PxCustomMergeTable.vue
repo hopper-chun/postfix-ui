@@ -12,8 +12,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['onCheckAll'])
 
-// const checkedAll = ref(false)
-
 const checkedAll = computed(() => {
   if (!props.checkboxes || !props.checkboxes.length) {
     return false
@@ -51,7 +49,6 @@ const handleCheckAll = (value) => {
           <template v-for="(header, index) in headers">
             <th v-if="header.checkbox" class="checkbox" :class="[{ isNarrow }]" nowrap>
               <PxCheckbox :modelValue="checkedAll" id="checkbox_all" @update:modelValue="handleCheckAll"></PxCheckbox>
-              <!-- <input @change="handleCheckAll" :checked="checkedAll" type="checkbox" class="border-gray-300 text-[#A6DFFF] focus:ring-[#A6DFFF]" /> -->
             </th>
             <th v-else :class="[{ isNarrow }]" nowrap>
               <span class="px-table--header_label" v-html="header.label"></span>

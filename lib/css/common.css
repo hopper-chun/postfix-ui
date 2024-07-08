@@ -2023,6 +2023,15 @@
   justify-content: center;
 }
 
+.px-table--searching {
+  border-top: 1px solid #e5e5e5;
+  background-color: #f9fafb;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
 /* overlay dialog */
 .px-dialog {
   position: fixed;
@@ -2435,6 +2444,55 @@
   }
 }
 
+.px-adminTableCellLink--label {
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+  color: #2563eb;
+}
+
+.px-adminTableCellLink--array {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.px-adminTableCellLink--array.blue {
+  color: #2563eb;
+}
+
+.px-colorTableCell {
+  white-space: nowrap;
+}
+
+.px-colorTableCell .active {
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.px-userInfoTableCell--container {
+  white-space: nowrap;
+}
+
+.px-userInfoTableCell--container > div {
+  display: flex;
+  align-items: center;
+}
+
+.px-userInfoTableCell--container > div > div {
+  display: flex;
+}
+
+.px-userInfoTableCell--container > div > div:not(:first-child) {
+  margin-left: 8px;
+}
+
+.px-userInfoTableCell--link {
+  font-size: 12px;
+}
+
 /* list adminTable components */
 .px-adminFormWrapper {
   display: flex;
@@ -2604,6 +2662,18 @@
   .px-selectinputradiocheck .search_input {
     max-width: auto;
   }
+}
+
+.px-searchDate {
+  display: flex;
+  align-items: center;
+}
+
+.px-searchDate .datePicker {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 160px;
 }
 
 .px-dateDuration {
@@ -3213,4 +3283,42 @@
 
 .px-accordion--body .expandable {
   min-height: 0;
+}
+
+/* alert */
+.px-alert {
+  /* fixed inset-0 z-40 flex items-center justify-center bg-black/40 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 40;
+}
+
+.alert-enter-active {
+  transition: all ease-in 300ms;
+}
+
+.alert-enter-from {
+  opacity: 0%;
+}
+
+.alert-enter-to {
+  opacity: 100%;
+}
+
+.alert-leave-active {
+  transition: all ease-in 200ms;
+}
+
+.alert-leave-from {
+  opacity: 100%;
+}
+
+.alert-leave-to {
+  opacity: 0%;
 }

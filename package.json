@@ -19,7 +19,9 @@
     "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "^10.11.0",
     "date-fns": "^3.6.0",
-    "vue": "^3.2.25"
+    "lodash": "^4.17.21",
+    "vue": "^3.2.25",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@highlightjs/vue-plugin": "^2.1.0",

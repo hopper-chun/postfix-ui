@@ -1,7 +1,4 @@
 <script setup>
-import { useListbox } from '@/composables'
-import { IconDelete, IconModify } from '@/components/icon'
-
 const props = defineProps({
   list: { type: Array, required: true },
   itemLabel: { type: Function, default: (item) => item },
@@ -18,12 +15,11 @@ const props = defineProps({
 // selectedItem = v-model
 const emit = defineEmits(['onSelect', 'onEdit', 'onRemove', 'onDragDrop'])
 
-const { draggable, handleMousedown, handleDragStart, handleDragOver, handleDragLeave, handleDrop, handleDragEnd, handleSelect, handleEdit, handleRemove } =
-  useListbox({ isDraggable: props.isDraggable, removeConfirm: props.removeConfirm, emit })
+const { handleSelect, handleEdit, handleRemove } = useListbox({ isDraggable: props.isDraggable, removeConfirm: props.removeConfirm, emit })
 </script>
 
 <template>
-  <div class="rm-listbox">
+  <div class="px-listbox">
     <ul :class="[{ isInline }, { isRow }]">
       <li
         v-for="(item, index) in list"
@@ -32,16 +28,16 @@ const { draggable, handleMousedown, handleDragStart, handleDragOver, handleDragL
         :class="[{ selected: selectedItem && selectedItem === itemValue(item) }]"
       >
         <div>
-          <div class="rm-listbox--text" :class="[{ hideButton: isModify || isRemove }, { isRow }]">
+          <div class="px-listbox--text" :class="[{ hideButton: isModify || isRemove }, { isRow }]">
             <slot :item="item" :cbRemove="() => handleRemove(itemValue(item), index)">
               <div class="label">
                 <span>{{ itemLabel(item) }}</span>
               </div>
             </slot>
           </div>
-          <div v-if="isModify || isRemove" class="rm-listbox--func_wrapper">
-            <div v-if="isModify" class="rm-listbox--func modify" @click.stop="handleEdit(itemValue(item), index)"></div>
-            <div v-if="isRemove" class="rm-listbox--func remove" @click.stop="handleRemove(itemValue(item), index)"></div>
+          <div v-if="isModify || isRemove" class="px-listbox--func_wrapper">
+            <div v-if="isModify" class="px-listbox--func modify" @click.stop="handleEdit(itemValue(item), index)"></div>
+            <div v-if="isRemove" class="px-listbox--func remove" @click.stop="handleRemove(itemValue(item), index)"></div>
           </div>
         </div>
       </li>

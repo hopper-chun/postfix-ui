@@ -28,7 +28,7 @@ defineExpose({ open, close })
   >
     <template v-if="active">
       <!-- <div class="fixed inset-0 z-30 flex items-center justify-center bg-black/40" @click.self="close"> -->
-      <div class="fixed inset-0 z-40 flex items-center justify-center bg-black/40" @click.stop="">
+      <div class="px-alert" @click.stop="">
         <slot :closeDialog="close"></slot>
       </div>
     </template>

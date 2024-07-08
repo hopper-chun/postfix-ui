@@ -3,7 +3,6 @@ import _ from 'lodash'
 import { ref, watch, watchEffect } from 'vue'
 
 import BoardListConfig from './components/BoardListConfig.vue'
-import { PxSearchPageLimit, PxSearchOrder } from './search'
 import { useFunctionRef, useResize } from '@/composables'
 import { currency } from '@/filters/common'
 
@@ -69,7 +68,6 @@ const handleOpenSearchFilter = () => {
 
 // 저장
 const handleTableConfigSave = () => {
-  console.log('save to localstorage', local.value)
   props.tableConfig.saveHeaders(local.value.tableConfig.state.headers)
   handleChangeLimit(local.value.tableConfig.state.limit)
   element.value.close()
@@ -77,8 +75,6 @@ const handleTableConfigSave = () => {
 
 // 리셋
 const handleTableConfigReset = () => {
-  console.log('reset localstorage')
-
   props.tableConfig.saveHeaders()
   local.value.tableConfig.state.headers = _.cloneDeep(props.tableConfig.state.headers)
 }

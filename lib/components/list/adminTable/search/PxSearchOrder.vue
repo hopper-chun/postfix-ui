@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue'
-import RmAdminTableSelect from '../components/RmAdminTableSelect.vue'
 
 const props = defineProps({
   orderState: { type: Object, required: true },
@@ -23,7 +22,7 @@ const handleChangeSort = (value) => {
 }
 </script>
 <template>
-  <RmSelect
+  <PxSelect
     id="tableSort"
     :options="orderOptions"
     :modelValue="currentSort"
@@ -33,5 +32,5 @@ const handleChangeSort = (value) => {
     defaultLabel="분류"
     isSmall
   >
-  </RmSelect>
+  </PxSelect>
 </template>

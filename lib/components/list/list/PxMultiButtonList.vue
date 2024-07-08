@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watchEffect, computed } from 'vue'
-import { RmButton, RmLabel } from '@/components'
 
 const props = defineProps({
   label: { type: String },
@@ -57,25 +56,25 @@ const handleClear = () => {
 }
 </script>
 <template>
-  <div class="rm-multiButtonList">
+  <div class="px-multiButtonList">
     <template v-if="viewMode">
-      <RmFormForView :viewMode="viewMode" :label="label">
+      <PxFormForView :viewMode="viewMode" :label="label">
         {{ selectedValue.join(', ') }}
-      </RmFormForView>
+      </PxFormForView>
     </template>
     <template v-else>
       <div>
-        <RmLabel v-if="label" :label="label"></RmLabel>
-        <div class="rm-buttonList--wrapper">
+        <PxLabel v-if="label" :label="label"></PxLabel>
+        <div class="px-buttonList--wrapper">
           <div v-if="clearButton">
-            <RmButton @click="handleClear" :size="size" :color="modelValue.length === 0 ? color : subColor">{{ clearButton }}</RmButton>
+            <PxButton @click="handleClear" :size="size" :color="modelValue.length === 0 ? color : subColor">{{ clearButton }}</PxButton>
           </div>
           <div v-for="option in options">
             <div @click="() => handleClick(optionsValue(option))">
               <slot :isSelect="modelValue.includes(optionsValue(option))" :optionsLabel="optionsLabel(option)">
-                <RmButton :size="size" :color="modelValue.includes(optionsValue(option)) ? color : subColor">
+                <PxButton :size="size" :color="modelValue.includes(optionsValue(option)) ? color : subColor">
                   {{ optionsLabel(option) }}
-                </RmButton>
+                </PxButton>
               </slot>
             </div>
           </div>

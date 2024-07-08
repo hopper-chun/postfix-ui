@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   title: { type: [Boolean, String] },
@@ -39,15 +39,6 @@ const onMouseUp = () => {
 }
 
 defineExpose({ open, close })
-
-// watchEffect(() => {
-// 다이얼로그, 모바일 메뉴 모두 이 효과를 사용해야하는데, 자꾸 서로 충돌함. 글로벌로 교통정리를 할 수 있는 기능 추가가 필요. 
-//   if (active.value) {
-//     document.body.style.overflowY = 'hidden'
-//   } else {
-//     document.body.style.overflowY = 'auto'
-//   }
-// })
 </script>
 
 <template>

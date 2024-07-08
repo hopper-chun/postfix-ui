@@ -1,9 +1,9 @@
 <script setup>
 import _ from 'lodash'
 import { computed, ref } from 'vue'
-import filters from '@/filters'
 
 import PxSelectInputRadioCheck from './components/PxSelectInputRadioCheck.vue'
+// import { filters } from '@/filters'
 
 const props = defineProps({
   filters: { type: Array, required: true },
@@ -71,7 +71,7 @@ const handleReset = () => {
 
 const handleSearch = () => {
   const ret = selectInputRadioCheckRef.value.search()
-  console.log('handleSearch - ret', ret)
+
   if (!ret) {
     emit('onSearch')
   }

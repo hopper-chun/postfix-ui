@@ -6,9 +6,11 @@ const props = defineProps({
   label: { type: [String, Array], required: true },
   icon: { type: String },
   routerLink: { type: [Object, Array] },
-  textColor: { type: [String, Array], default: '#2563eb' },
+  textColor: { type: [String, Array], default: 'blue' },
   newWindow: { type: [Boolean, Array] },
+  isNarrow: { type: Boolean },
 })
+
 const emit = defineEmits(['onClick'])
 
 const router = useRouter()
@@ -29,27 +31,24 @@ const handleClick = (index) => {
 }
 </script>
 <template>
-  <div class="px-tableCellLink">
+  <div class="px-adminTableCellLink">
     <template v-if="!isArray">
       <template v-if="icon">
-        <PxButton size="xs" color="gray" @click="handleClick"
-          >{{ label }}
-          <template v-slot:icon>
-            <PxIcon :name="icon" style="width: 12px"></PxIcon>
-          </template>
-        </PxButton>
+        <RmButton size="xs" color="gray" @click="handleClick">{{ label }}</RmButton>
       </template>
       <template v-else-if="!icon">
-        <button @click="handleClick" class="px-tableCellLink--label">{{ label }}</button>
+        <button @click="handleClick" class="px-adminTableCellLink--label">
+          {{ label }}
+        </button>
       </template>
     </template>
 
     <template v-else>
       <span
+        class="px-adminTableCellLink--array"
         v-for="(l, index) in label"
         :key="l"
-        class="px-tableCellLink--arrayed_label"
-        :style="{ color: Array.isArray(textColor) ? textColor[index] : textColor }"
+        :class="Array.isArray(textColor) ? textColor[index] : textColor"
         @click="handleClick(index)"
         >{{ l }}</span
       >

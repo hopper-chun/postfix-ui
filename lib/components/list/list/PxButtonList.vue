@@ -1,6 +1,5 @@
 <script setup>
-import { ref, watchEffect, computed } from 'vue'
-import { RmButton, RmLabel } from '@/components'
+import { computed } from 'vue'
 
 const props = defineProps({
   label: { type: String },
@@ -27,9 +26,8 @@ const handleClick = (value) => {
 }
 
 const selectedValue = computed(() => {
-  // console.log('props.options', props.options)
   const found = props.options?.find((option) => props.optionsValue(option) === props.modelValue)
-  // console.log('found', found)
+
   if (found) {
     return props.optionsLabel(found)
   }
@@ -38,22 +36,22 @@ const selectedValue = computed(() => {
 })
 </script>
 <template>
-  <div class="rm-buttonList">
+  <div class="px-buttonList">
     <template v-if="viewMode">
-      <RmFormForView :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required">
+      <PxFormForView :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required">
         {{ selectedValue }}
-      </RmFormForView>
+      </PxFormForView>
     </template>
     <template v-else>
       <div>
-        <RmLabel v-if="label" :label="label" :labelHelper="labelHelper" :required="required"></RmLabel>
-        <div class="rm-buttonList--wrapper" :class="[{ nowrap }]">
+        <PxLabel v-if="label" :label="label" :labelHelper="labelHelper" :required="required"></PxLabel>
+        <div class="px-buttonList--wrapper" :class="[{ nowrap }]">
           <div v-for="option in options" style="flex-shrink: 0">
             <div @click="handleClick(optionsValue(option))">
               <slot :isSelect="optionsValue(option) === modelValue" :optionsLabel="optionsLabel(option)">
-                <RmButton :size="size" :color="optionsValue(option) === modelValue ? color : subColor">
+                <PxButton :size="size" :color="optionsValue(option) === modelValue ? color : subColor">
                   {{ optionsLabel(option) }}
-                </RmButton>
+                </PxButton>
               </slot>
             </div>
           </div>

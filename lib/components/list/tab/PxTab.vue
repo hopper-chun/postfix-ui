@@ -1,6 +1,5 @@
 <script setup>
-import { computed } from 'vue'
-import { useTab, useTheme } from '@/composables'
+import { useTab } from '@/composables'
 
 const props = defineProps({
   modelValue: { type: [Object, String, Number, Boolean], required: true },
@@ -15,28 +14,28 @@ const { handleChange } = useTab(emit)
 
 <template>
   <div>
-    <nav class="rm-tab" aria-label="Tabs">
+    <nav class="px-tab" aria-label="Tabs">
       <template v-for="(option, index) in options" :key="optionsValue(option)">
         <template v-if="option.path">
           <router-link
             :to="{ path: option.path }"
-            class="rm-tab--list"
+            class="px-tab--list"
             :aria-current="modelValue === optionsValue(option, index) ? 'page' : undefined"
             :class="[{ selected: modelValue === optionsValue(option, index) }]"
           >
-            <div class="rm-tab--text">
+            <div class="px-tab--text">
               {{ optionsLabel(option) }}
             </div>
           </router-link>
         </template>
         <template v-else>
           <button
-            class="rm-tab--list"
+            class="px-tab--list"
             @click="handleChange(optionsValue(option, index))"
             :aria-current="modelValue === optionsValue(option, index) ? 'page' : undefined"
             :class="[{ selected: modelValue === optionsValue(option, index) }]"
           >
-            <div class="rm-tab--text">
+            <div class="px-tab--text">
               {{ optionsLabel(option) }}
             </div>
           </button>

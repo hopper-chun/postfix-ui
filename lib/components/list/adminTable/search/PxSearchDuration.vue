@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 import { subDays, isAfter, isBefore, format, parseISO } from 'date-fns'
-import { useTheme } from 'remain-ui-lib3'
 
 const constTabs = [
   { term: '0', label: '오늘' },
@@ -14,20 +13,15 @@ const constTabs = [
 ]
 
 const props = defineProps({
-  // searchFilter: { type: Object, required: true },
   filters: { type: Array, required: true },
   dateOptions: {
     type: Array,
     required: true,
-    // default: () => [{ key: 'createDate', label: '생성일' }],
   },
   isSimple: { type: Boolean },
 })
 const emit = defineEmits(['onAppendQuerys'])
 defineExpose({ querys })
-
-// const filterTypes = props.searchFilter.filterTypes.filter((ft) => ft.group === 'date')
-const theme = useTheme(computed(() => {}))
 
 const state = computed(() => {
   const ret = {
@@ -36,12 +30,11 @@ const state = computed(() => {
     beginDate: new Date(),
     endDate: new Date(),
   }
-  // const filters = props.searchFilter.filters.value.filter((f) => f[0].group === 'date')
+
   const mapper = props.filters.reduce((acc, filter) => {
     acc[filter[0].key] = filter[1]
     return acc
   }, {})
-  // console.log('mapper', mapper)
 
   const dateType = mapper['dateType']
   const dateTerm = mapper['dateTerm']
@@ -124,19 +117,19 @@ const handleTabChanged = (dateTerm) => {
 <template>
   <div class="px-searchDuration">
     <div class="px-searchDuration--select" v-if="dateOptions.length > 1">
-      <RmSelect v-model="state.dateType" :options="dateOptions" :optionsLabel="(option) => option.label" :optionsValue="(option) => option.key"></RmSelect>
+      <PxSelect v-model="state.dateType" :options="dateOptions" :optionsLabel="(option) => option.label" :optionsValue="(option) => option.key"></PxSelect>
     </div>
-    <RmTabInPill
+    <PxTabInPill
       v-if="!isSimple"
       v-model="state.currentTabValue"
       :options="constTabs"
       :optionsLabel="(option) => option.label"
       :optionsValue="(option) => option.term"
       @update:modelValue="handleTabChanged"
-    ></RmTabInPill>
+    ></PxTabInPill>
     <div class="px-searchDuration--date">
-      <RmDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></RmDatePicker>
-      <RmDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="state.endDate" @update:modelValue="changeEndDate"></RmDatePicker>
+      <PxDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></PxDatePicker>
+      <PxDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="state.endDate" @update:modelValue="changeEndDate"></PxDatePicker>
     </div>
   </div>
 </template>

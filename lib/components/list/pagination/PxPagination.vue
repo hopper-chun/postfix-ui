@@ -1,6 +1,5 @@
 <script setup>
 import { toRefs } from 'vue'
-import { IconChevronRight } from '@/components/icon'
 import usePagination from '@/composables/usePagination'
 
 const props = defineProps({
@@ -17,10 +16,10 @@ const { range, isNext, isPrev, click, clickPrev, clickNext } = usePagination({ l
 </script>
 
 <template>
-  <nav class="rm-pagination">
-    <a @click="clickPrev" class="rm-pagination--nav prev" :class="[{ active: isPrev }]"> </a>
+  <nav class="px-pagination">
+    <a @click="clickPrev" class="px-pagination--nav prev" :class="[{ active: isPrev }]"> </a>
 
-    <div class="rm-pagination--range">
+    <div class="px-pagination--range">
       <template v-for="i in range" :key="i">
         <span v-if="i === '...'" class="rangelist reduce"> ... </span>
         <a v-else @click="click(i)" :class="[{ current: i === currentPage }, { edge: i === 1 || i === range[range.length - 1] }]" class="page rangelist"
@@ -28,6 +27,6 @@ const { range, isNext, isPrev, click, clickPrev, clickNext } = usePagination({ l
         </a>
       </template>
     </div>
-    <a @click="clickNext" class="rm-pagination--nav next" :class="[{ active: isNext }]"> </a>
+    <a @click="clickNext" class="px-pagination--nav next" :class="[{ active: isNext }]"> </a>
   </nav>
 </template>
