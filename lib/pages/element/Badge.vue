@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 // import { RmBadge } from '@/components/element/button'
-import { RmButton } from '@/components/element/button'
+import { PxButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import origin from './seed'
 import ToC from '@/layout/ToC.vue'

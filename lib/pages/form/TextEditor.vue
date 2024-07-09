@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { RmQuillEditor } from '@/components/form/editor'
 import { RmTiptapEditor } from '@/components/form/editor'

@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect, RmAdminTableSelect } from '@/components/form/select'
 import { RmAdminTable } from '@/components/list/adminTable'
 import { IconApi } from '@/components/icon'
@@ -185,12 +185,12 @@ reload()
                         </RmAdminFormWrapper>
                       </template>
                       <template v-slot:SHELL-TABLE-LEFT>
-                        <RmButton color="gray_border" size="xs" isFull class="w-auto">
+                        <PxButton color="gray_border" size="xs" isFull class="w-auto">
                           <span>삭제</span>
-                        </RmButton>
-                        <RmButton color="gray_border" size="xs" isFull class="w-auto">
+                        </PxButton>
+                        <PxButton color="gray_border" size="xs" isFull class="w-auto">
                           <span>상품복사</span>
-                        </RmButton>
+                        </PxButton>
                         <span class="px-1 text-gray-300">|</span>
                         <RmAdminTableSelect
                           v-model="selectOptions.display"
@@ -217,15 +217,15 @@ reload()
                       </template>
 
                       <template v-slot:SHELL-TABLE-RIGHT>
-                        <RmButton size="sm" isFull class="w-auto">
+                        <PxButton size="sm" isFull class="w-auto">
                           <span class="px-[10px] text-[12px]">상품등록</span>
-                        </RmButton>
-                        <RmButton size="sm" isFull class="w-auto">
+                        </PxButton>
+                        <PxButton size="sm" isFull class="w-auto">
                           <span class="px-[10px] text-[12px]">엑셀 상품등록</span>
-                        </RmButton>
-                        <RmButton color="transparent-gray" size="sm" isFull class="w-auto">
+                        </PxButton>
+                        <PxButton color="transparent-gray" size="sm" isFull class="w-auto">
                           <span class="px-[10px] text-[12px] text-slate-700">엑셀 다운로드</span>
-                        </RmButton>
+                        </PxButton>
                       </template>
                       <template v-slot:NAME="{ row }">
                         <div class="cursor-pointer whitespace-nowrap">

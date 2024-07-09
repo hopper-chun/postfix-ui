@@ -34,7 +34,7 @@ const handleClick = (index) => {
   <div class="px-adminTableCellLink">
     <template v-if="!isArray">
       <template v-if="icon">
-        <RmButton size="xs" color="gray" @click="handleClick">{{ label }}</RmButton>
+        <PxButton size="xs" color="gray" @click="handleClick">{{ label }}</PxButton>
       </template>
       <template v-else-if="!icon">
         <button @click="handleClick" class="px-adminTableCellLink--label">

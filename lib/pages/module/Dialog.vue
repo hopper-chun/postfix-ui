@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { RmInput } from '@/components/form/input'
 import { IconApi } from '@/components/icon'

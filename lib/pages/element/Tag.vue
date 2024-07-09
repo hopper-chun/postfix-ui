@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { RmTag, RmCustomTag } from '@/components/element/tag'
-import { RmButton } from '@/components/element/button'
+import { PxButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { IconSettings } from '@/components/icon'
 import origin from './seed'
@@ -50,15 +50,15 @@ const handleClick = (option) => {
               <div>
                 <div class="flex justify-center space-x-[8px] border-b pb-[20px]">
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isWide="true" :color="tagOptions.filled ? 'pri' : 'inactive'" @click="handleClick('filled')"> filled </RmButton>
+                    <PxButton size="sm" :isWide="true" :color="tagOptions.filled ? 'pri' : 'inactive'" @click="handleClick('filled')"> filled </PxButton>
                   </div>
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isWide="true" :color="tagOptions.isRemove ? 'pri' : 'inactive'" @click="handleClick('isRemove')"> isRemove </RmButton>
+                    <PxButton size="sm" :isWide="true" :color="tagOptions.isRemove ? 'pri' : 'inactive'" @click="handleClick('isRemove')"> isRemove </PxButton>
                   </div>
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isWide="true" :color="tagOptions.radiusFull ? 'pri' : 'inactive'" @click="handleClick('radiusFull')">
+                    <PxButton size="sm" :isWide="true" :color="tagOptions.radiusFull ? 'pri' : 'inactive'" @click="handleClick('radiusFull')">
                       radiusFull
-                    </RmButton>
+                    </PxButton>
                   </div>
                 </div>
                 <div class="my-[20px] flex">

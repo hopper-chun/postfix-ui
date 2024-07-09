@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmInput, RmCheckbox, RmMultiCheckbox, RmFloatInput, RmRadio, RmSelect, RmTextarea, RmToggle } from '@/components'
 import { IconApi } from '@/components/icon'
 import ToC from '@/layout/ToC.vue'

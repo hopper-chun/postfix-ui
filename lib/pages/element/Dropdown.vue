@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { IconSettings } from '@/components/icon'
 import { RmDropdown } from '@/components/element'
@@ -63,7 +63,7 @@ const handleClick = (option) => {
               <div class="flex flex-col items-center justify-center space-y-[30px]">
                 <div class="flex justify-center space-x-[8px] border-b pb-[20px]">
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isFull="true" :color="dropdownOptions.hover ? 'pri' : 'transparent'" @click="handleClick('hover')"> hover </RmButton>
+                    <PxButton size="sm" :isFull="true" :color="dropdownOptions.hover ? 'pri' : 'transparent'" @click="handleClick('hover')"> hover </PxButton>
                   </div>
                 </div>
 

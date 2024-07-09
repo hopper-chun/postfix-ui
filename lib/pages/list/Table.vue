@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { RmTable } from '@/components/list/table'
 import { IconApi } from '@/components/icon'
@@ -61,7 +61,7 @@ const headers = ref([
   // { field: 'email', label: '요청일' },
   {
     component: {
-      name: 'RmButton',
+      name: 'PxButton',
       label: '버튼',
       props: () => ({ size: 'smNw', color: 'secondary' }),
     },

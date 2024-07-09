@@ -1,8 +1,8 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
-import { RmAccordion, RmIcon } from '@/components'
+import { RmAccordion, PxIcon } from '@/components'
 import { IconApi } from '@/components/icon'
 import ToC from '@/layout/ToC.vue'
 import SectionWrapper from '@/components/layout/SectionWrapper.vue'
@@ -50,7 +50,7 @@ const handleIntersection = (data) => {
                     <div class="flex h-[48px] items-center justify-between border px-[12px] text-[18px] font-bold">
                       <div>헤더 타이틀</div>
                       <div class="flex h-[40px] w-[40px] cursor-pointer items-center justify-center" @click="handleClickAcc">
-                        <RmIcon name="icon-chevron-right" :class="accState ? '-rotate-90' : 'rotate-90'" class="w-[12px]"></RmIcon>
+                        <PxIcon name="icon-chevron-right" :class="accState ? '-rotate-90' : 'rotate-90'" class="w-[12px]"></PxIcon>
                       </div>
                     </div>
                   </template>

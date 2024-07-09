@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { RmListbox, RmCustomListbox } from '@/components/list/listbox'
 import { IconApi } from '@/components/icon'
@@ -167,19 +167,19 @@ const handleEdit = (value) => {
                 <div>
                   <div class="flex justify-center space-x-[8px] border-b pb-[20px]">
                     <div class="w-[70px]">
-                      <RmButton size="sm" :isFull="true" :color="listboxOptions.inline ? 'pri' : 'transparent'" @click="handleClick('inline')">
+                      <PxButton size="sm" :isFull="true" :color="listboxOptions.inline ? 'pri' : 'transparent'" @click="handleClick('inline')">
                         inline
-                      </RmButton>
+                      </PxButton>
                     </div>
                     <div class="w-[70px]">
-                      <RmButton size="sm" :isFull="true" :color="listboxOptions.vertical ? 'pri' : 'transparent'" @click="handleClick('vertical')">
+                      <PxButton size="sm" :isFull="true" :color="listboxOptions.vertical ? 'pri' : 'transparent'" @click="handleClick('vertical')">
                         vertical
-                      </RmButton>
+                      </PxButton>
                     </div>
                     <div class="w-[120px]">
-                      <RmButton size="sm" :isFull="true" :color="listboxOptions.hideButton ? 'pri' : 'transparent'" @click="handleClick('hideButton')">
+                      <PxButton size="sm" :isFull="true" :color="listboxOptions.hideButton ? 'pri' : 'transparent'" @click="handleClick('hideButton')">
                         hideButton
-                      </RmButton>
+                      </PxButton>
                     </div>
                   </div>
                   <div class="my-[20px] space-y-[20px]">

@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { RmToggle, RmCustomToggle, RmToggleWithLeftDeco, RmToggleWithLeftLabel, RmToggleWithRightLabel } from '@/components/form/toggle'
-import { RmButton } from '@/components/element/button'
+import { PxButton } from '@/components/element/button'
 import { IconCheck } from '@/components/icon'
 import { useError } from '@/composables'
 import origin from './seed'
@@ -83,7 +83,7 @@ clearError()
                 <div>
                   <RmToggle id="tg-01" v-model="toggleOptions.toggleValue"></RmToggle>
                 </div>
-                <RmButton @click="onClick">버튼</RmButton>
+                <PxButton @click="onClick">버튼</PxButton>
               </div>
             </SectionWrapper>
           </div>

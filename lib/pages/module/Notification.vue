@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect } from '@/components/form/select'
 import { IconApi } from '@/components/icon'
 // import { RmNotification } from '@/components/overlay'
@@ -33,7 +33,7 @@ const handleIntersection = (data) => {
             <SectionWrapper label="label" :ref="functionRefs('label')" @onIntersection="handleIntersection">
               <template #contents></template>
               <div>
-                <RmButton>open</RmButton>
+                <PxButton>open</PxButton>
                 <div>
                   <!-- <RmNotification :items="notification"></RmNotification> -->
                 </div>

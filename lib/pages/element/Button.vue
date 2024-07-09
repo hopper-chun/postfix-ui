@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { RmButton, RmSmIconButton, RmCustomButton } from '@/components/element/button'
-import { RmButtonList } from '@/components'
+import { PxButton, RmSmIconButton, RmCustomButton } from '@/components/element/button'
+import { PxButtonList } from '@/components'
 import { RmDividedSelect } from '@/components/form/select'
 import { IconApi } from '@/components/icon'
 import ToC from '@/layout/ToC.vue'
@@ -54,22 +54,22 @@ const handleClick = (option) => {
               <div>
                 <div class="flex justify-center space-x-[8px] border-b pb-[20px]">
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isWide="true" :color="options.disabled ? 'pri' : 'inactive'" @click="handleClick('disabled')"> disabled </RmButton>
+                    <PxButton size="sm" :isWide="true" :color="options.disabled ? 'pri' : 'inactive'" @click="handleClick('disabled')"> disabled </PxButton>
                   </div>
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isWide="true" :color="options.isWide ? 'pri' : 'inactive'" @click="handleClick('isWide')"> isWide </RmButton>
+                    <PxButton size="sm" :isWide="true" :color="options.isWide ? 'pri' : 'inactive'" @click="handleClick('isWide')"> isWide </PxButton>
                   </div>
                 </div>
                 <div class="my-[20px] flex">
                   <div class="flex flex-1 items-center justify-center px-[30px]">
-                    <RmButton
+                    <PxButton
                       :color="options.color"
                       :size="options.size"
                       :isWide="options.isWide"
                       :disabled="options.disabled"
                       :styles="{ radius: options.radius }"
                     >
-                      BUTTON</RmButton
+                      BUTTON</PxButton
                     >
                     <div @click="handleChange">클릭</div>
                   </div>
@@ -110,7 +110,7 @@ const handleClick = (option) => {
             </SectionWrapper>
           </div>
           <div>
-            <RmButtonList
+            <PxButtonList
               label="개별 디자인 여부"
               :options="[
                 { label: '인쇄 옵션01', value: 'option-01' },
@@ -121,9 +121,9 @@ const handleClick = (option) => {
               :optionsLabel="(option) => option.label"
               :optionsValue="(option) => option.value"
               v-model="temp"
-            ></RmButtonList>
+            ></PxButtonList>
             <div class="w-[300px]">
-              <RmButtonList
+              <PxButtonList
                 label="2222222222"
                 :options="[
                   { label: '인쇄 옵션01', value: 'option-01' },
@@ -140,10 +140,10 @@ const handleClick = (option) => {
               >
                 <template v-slot="{ isSelect, optionsLabel }">
                   <div class="w-[100px]">
-                    <RmButton isWide :color="isSelect ? 'pri' : 'inactive'">{{ optionsLabel }}</RmButton>
+                    <PxButton isWide :color="isSelect ? 'pri' : 'inactive'">{{ optionsLabel }}</PxButton>
                   </div>
                 </template>
-              </RmButtonList>
+              </PxButtonList>
             </div>
           </div>
           <!-- <div>
@@ -194,20 +194,20 @@ const handleClick = (option) => {
           <div>
             <SectionWrapper label="button with icon" contentsOnly :ref="functionRefs('button with icon')" @onIntersection="handleIntersection">
               <template #contents>
-                RmButton 의 내용은 slot이기 때문에 버튼 내부는 커스터마이징 가능하며, 아이콘, 이미지까지 넣을 수 있음.
+                PxButton 의 내용은 slot이기 때문에 버튼 내부는 커스터마이징 가능하며, 아이콘, 이미지까지 넣을 수 있음.
                 <br />
               </template>
               <div class="flex items-center justify-center space-x-[40px]">
                 <div>
-                  <RmButton><span class="rounded-[4px] bg-white py-[2px] px-[60px] text-[#00A3FF]">customizing!</span></RmButton>
+                  <PxButton><span class="rounded-[4px] bg-white py-[2px] px-[60px] text-[#00A3FF]">customizing!</span></PxButton>
                 </div>
                 <div>
-                  <RmButton>
+                  <PxButton>
                     <div class="flex items-center space-x-[8px]">
                       <span><IconApi class="w-[18px]"></IconApi></span>
                       <span>API</span>
                     </div>
-                  </RmButton>
+                  </PxButton>
                 </div>
               </div></SectionWrapper
             >
@@ -219,19 +219,19 @@ const handleClick = (option) => {
               </template>
               <div class="flex items-center justify-center space-x-[20px]">
                 <div class="w-[32px]">
-                  <RmButton color="pri" isWide size="sm" :styles="{ radius: 'rounded-full' }">
+                  <PxButton color="pri" isWide size="sm" :styles="{ radius: 'rounded-full' }">
                     <IconApi class="w-[18px]"></IconApi>
-                  </RmButton>
+                  </PxButton>
                 </div>
                 <div class="w-[40px]">
-                  <RmButton color="pri" isWide :styles="{ radius: 'rounded-full' }">
+                  <PxButton color="pri" isWide :styles="{ radius: 'rounded-full' }">
                     <IconApi class="w-[21px]"></IconApi>
-                  </RmButton>
+                  </PxButton>
                 </div>
                 <div class="w-[48px]">
-                  <RmButton color="pri" isWide size="lg" :styles="{ radius: 'rounded-full' }">
+                  <PxButton color="pri" isWide size="lg" :styles="{ radius: 'rounded-full' }">
                     <IconApi class="w-[24px]"></IconApi>
-                  </RmButton>
+                  </PxButton>
                 </div>
               </div>
             </SectionWrapper>

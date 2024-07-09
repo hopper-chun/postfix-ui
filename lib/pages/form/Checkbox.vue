@@ -1,8 +1,8 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { RmCheckbox, RmCustomCheckbox, RmMultiCheckbox, RmCustomMultiCheckbox } from '@/components/form/checkbox'
-import { RmButton } from '@/components/element/button'
-import RmIcon from '@/components/Icon/RmIcon.vue'
+import { PxButton } from '@/components/element/button'
+import PxIcon from '@/components/Icon/PxIcon.vue'
 import ToC from '@/layout/ToC.vue'
 import SectionWrapper from '@/components/layout/SectionWrapper.vue'
 import origin from './seed'
@@ -46,10 +46,10 @@ const handleClick = (option) => {
               <div>
                 <div class="flex justify-center space-x-[8px] border-b pb-[20px]">
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isFull="true" :color="items.disabled ? 'pri' : 'transparent'" @click="handleClick('disabled')"> disabled </RmButton>
+                    <PxButton size="sm" :isFull="true" :color="items.disabled ? 'pri' : 'transparent'" @click="handleClick('disabled')"> disabled </PxButton>
                   </div>
                   <div class="w-[70px]">
-                    <RmButton size="sm" :isFull="true" :color="items.circle ? 'pri' : 'transparent'" @click="handleClick('circle')"> circle </RmButton>
+                    <PxButton size="sm" :isFull="true" :color="items.circle ? 'pri' : 'transparent'" @click="handleClick('circle')"> circle </PxButton>
                   </div>
                 </div>
                 <div class="my-[20px] flex items-center justify-center">
@@ -60,7 +60,7 @@ const handleClick = (option) => {
                   <RmCustomCheckbox innerClasses="bg-red-400 text-white" id="checkbox-001" classes="w-[30px] h-[30px] rounded-[8px]" v-model="items.value">
                     <div class="text-[16px]">checked</div>
                     <template #icon>
-                      <RmIcon name="icon-api"></RmIcon>
+                      <PxIcon name="icon-api"></PxIcon>
                     </template>
                   </RmCustomCheckbox>
                 </div>
@@ -107,7 +107,7 @@ const handleClick = (option) => {
                       :options="['사과', '바나나']"
                     >
                       <template #icon>
-                        <RmIcon name="icon-api" class="w-[20px]"></RmIcon>
+                        <PxIcon name="icon-api" class="w-[20px]"></PxIcon>
                       </template>
                     </RmCustomMultiCheckbox>
                   </div>

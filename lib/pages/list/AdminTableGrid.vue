@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { RmButton, RmSmIconButton } from '@/components/element/button'
+import { PxButton, RmSmIconButton } from '@/components/element/button'
 import { RmDividedSelect, RmAdminTableSelect } from '@/components/form/select'
 import { RmAdminTable } from '@/components/list/adminTable'
 import { RmCustomMergeTable } from '@/components/list/table'
@@ -260,11 +260,11 @@ reload()
                       </template>
 
                       <template v-slot:SHELL-TABLE-LEFT>
-                        <RmButton color="transparent-gray" size="sm" isFull class="w-auto"
-                          ><span class="px-[10px] text-[12px] text-slate-700">삭제</span></RmButton
+                        <PxButton color="transparent-gray" size="sm" isFull class="w-auto"
+                          ><span class="px-[10px] text-[12px] text-slate-700">삭제</span></PxButton
                         >
-                        <RmButton color="transparent-gray" size="sm" isFull class="w-auto"
-                          ><span class="px-[10px] text-[12px] text-slate-700">상품복사</span></RmButton
+                        <PxButton color="transparent-gray" size="sm" isFull class="w-auto"
+                          ><span class="px-[10px] text-[12px] text-slate-700">상품복사</span></PxButton
                         >
                         <span class="px-1 text-gray-300">|</span>
                         <RmAdminTableSelect
@@ -292,15 +292,15 @@ reload()
                       </template>
 
                       <template v-slot:SHELL-TABLE-RIGHT>
-                        <RmButton size="sm" isFull class="w-auto">
+                        <PxButton size="sm" isFull class="w-auto">
                           <span class="px-[10px] text-[12px]">상품등록</span>
-                        </RmButton>
-                        <RmButton size="sm" isFull class="w-auto">
+                        </PxButton>
+                        <PxButton size="sm" isFull class="w-auto">
                           <span class="px-[10px] text-[12px]">엑셀 상품등록</span>
-                        </RmButton>
-                        <RmButton color="transparent-gray" size="sm" isFull class="w-auto">
+                        </PxButton>
+                        <PxButton color="transparent-gray" size="sm" isFull class="w-auto">
                           <span class="px-[10px] text-[12px] text-slate-700">엑셀 다운로드</span>
-                        </RmButton>
+                        </PxButton>
                       </template>
 
                       <template v-slot:SHELL-TABLE>
