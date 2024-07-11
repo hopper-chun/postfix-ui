@@ -28,5 +28,5 @@ defineExpose({ start, stop })
 </script>
 
 <template>
-  <div>{{ filters.displaySeconds(timerSec) }}</div>
+  <div class="px-countdownTimer">{{ filters.displaySeconds(timerSec) }}</div>
 </template>

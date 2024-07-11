@@ -5,7 +5,7 @@ const props = defineProps(['user', 'viewMode'])
 <template>
   <div class="px-userInfoTableCell">
     <template v-if="viewMode">
-      <RmFormForView :viewMode="viewMode" label="이름">
+      <PxFormForView :viewMode="viewMode" label="이름">
         <div class="px-userInfoTableCell--container" v-if="user">
           <div>
             <div>
@@ -16,7 +16,7 @@ const props = defineProps(['user', 'viewMode'])
             </div>
           </div>
         </div>
-      </RmFormForView>
+      </PxFormForView>
     </template>
     <template v-else>
       <div class="px-userInfoTableCell--container" v-if="user">

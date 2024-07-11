@@ -20,8 +20,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:beginDate', 'update:endDate'])
 
-const theme = useTheme(computed(() => {}))
-
 const local = ref({
   currentTabValue: '',
 })

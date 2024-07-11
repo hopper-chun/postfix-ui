@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 const props = defineProps({
   label: { type: [String, Array], required: true },
   icon: { type: String },
+  router: { type: [Object, Array], required: true },
   routerLink: { type: [Object, Array] },
   textColor: { type: [String, Array], default: 'blue' },
   newWindow: { type: [Boolean, Array] },
@@ -13,7 +14,6 @@ const props = defineProps({
 
 const emit = defineEmits(['onClick'])
 
-const router = useRouter()
 const isArray = computed(() => Array.isArray(props.label))
 
 const handleClick = (index) => {
@@ -21,10 +21,10 @@ const handleClick = (index) => {
   const newWindow = isArray.value ? props.newWindow && props.newWindow.length > index && props.newWindow[index] : props.newWindow
   if (routerLink) {
     if (newWindow) {
-      let routeData = router.resolve(routerLink)
+      let routeData = props.router.resolve(routerLink)
       window.open(routeData.href, '', '_blank')
     } else {
-      router.push(routerLink)
+      props.router.push(routerLink)
     }
   }
   emit('onClick', index)

@@ -51,13 +51,13 @@ defineExpose({ open, close })
     leave-to-class="dialog_leave_to"
   >
     <template v-if="active">
-      <div class="rm-dialog" @mousedown.self="onMouseDown" @mouseup.self="onMouseUp">
-        <div class="rm-dialog--container" :style="customStyle">
-          <div v-if="title" class="rm-dialog--header">
+      <div class="px-dialog" @mousedown.self="onMouseDown" @mouseup.self="onMouseUp">
+        <div class="px-dialog--container" :style="customStyle">
+          <div v-if="title" class="px-dialog--header">
             <div class="title">{{ title }}</div>
             <div v-if="isClose" class="close" @click="close"></div>
           </div>
-          <div class="rm-dialog--body">
+          <div class="px-dialog--body">
             <slot :closeDialog="close" :isActive="active"> </slot>
           </div>
         </div>

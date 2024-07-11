@@ -1,7 +1,7 @@
 <script setup>
-import { computed, nextTick, onMounted, toRefs } from 'vue'
-import { IconCheck } from '@/components/Icon/index'
-import { useError, useMultiCheckbox, useFunctionRef, useTheme } from '@/composables'
+import { toRefs } from 'vue'
+
+import { useError, useMultiCheckbox, useFunctionRef } from '@/composables'
 
 const props = defineProps({
   id: { type: String },
