@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 import { useResize } from '@/composables'
 
 const props = defineProps({
@@ -50,7 +51,7 @@ const handleCheckAll = (value) => {
 
 const theadRef = ref(null)
 const tableRef = ref(null)
-
+const tooltipRef = ref(null)
 const isScrolled = computed(() => {
   return theadRef?.value?.scrollTop
 })
@@ -70,6 +71,14 @@ const targetElement = document.documentElement
 const height = ref(500)
 const minHeight = ref(0)
 
+const tooltip = ref({
+  top: 0,
+  left: 0,
+  right: undefined,
+  msg: '',
+  isActive: false,
+})
+
 const ro = new ResizeObserver((entries) => {
   entries.forEach((entry) => {
     const value = window.innerHeight - tableRef.value.offsetTop - 60
@@ -87,8 +96,20 @@ const ro = new ResizeObserver((entries) => {
   })
 })
 
+const handleClickTooltip = (e, msg) => {
+  tooltip.value.isActive = !tooltip.value.isActive
+  // 이거 clickoutside랑 안겹치게 해보기
+  // 외곽으로 가버리면 안쪽으로 들어가게 하기
+  if (msg) {
+    tooltip.value.msg = msg
+  }
+  tooltip.value.left = e.clientX
+  tooltip.value.top = e.clientY
+}
+
 onMounted(() => {
   ro.observe(targetElement)
+  onClickOutside(tooltipRef, (event) => (tooltip.value.isActive = false))
 })
 onBeforeUnmount(() => {
   ro.disconnect(targetElement)
@@ -108,7 +129,12 @@ onBeforeUnmount(() => {
             <PxCheckbox id="checkAll" :disabled="isSingleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
           </th>
           <template v-for="(header, headerIndex) in computedHeaders" :key="header">
-            <slot v-if="header.headerSlotId" :name="header.headerSlotId" :header="header" :index="headerIndex"></slot>
+            <th v-if="header.headerSlotId">
+              <slot :name="header.headerSlotId" :header="header" :index="headerIndex"></slot>
+              <div class="px-table--tooltip" v-if="header.tooltip">
+                <div class="tooltipIcon" @click="handleClickTooltip($event, header.tooltip)"></div>
+              </div>
+            </th>
             <th :class="[{ isNarrow }]" nowrap v-else>
               <a
                 @click="handleClickHeader(header, headerIndex)"
@@ -121,6 +147,9 @@ onBeforeUnmount(() => {
                   <span v-else-if="header.sortStatus === 'desc'" class="px-table--sort_desc"> </span>
                   <span v-else class="px-table--sort_neutral"> </span>
                 </template>
+                <div class="px-table--tooltip" v-if="header.tooltip">
+                  <div class="tooltipIcon" @click="handleClickTooltip($event, header.tooltip)"></div>
+                </div>
               </a>
             </th>
           </template>
@@ -163,5 +192,14 @@ onBeforeUnmount(() => {
     <template v-else-if="rows.length === 0">
       <div class="px-table--empty">{{ emptyText }}</div>
     </template>
+
+    <div
+      ref="tooltipRef"
+      v-if="tooltip.isActive"
+      class="tooltipDesc"
+      :style="{ top: tooltip.top + 'px', left: tooltip.left + 'px', right: tooltip.right + 'px' }"
+    >
+      {{ tooltip.msg }}
+    </div>
   </div>
 </template>
