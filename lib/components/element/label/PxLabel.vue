@@ -60,8 +60,6 @@ onClickOutside(tooltipRef, (event) => {
     isTooltipClick.value = false
   }
 })
-
-
 </script>
 <template>
   <div v-if="label" class="px-label">
@@ -71,14 +69,7 @@ onClickOutside(tooltipRef, (event) => {
     </label>
     <div v-if="labelHelper" class="px-label--helper">{{ labelHelper }}</div>
 
-    <div
-      v-if="useTooltip"
-      @mouseover="tooltipHover"
-      ref="tooltipRef"
-      @mouseleave="tooltipLeave"
-      :class="{ isHover: isActive }"
-      class="px-label--tooltipContainer"
-    >
+    <div v-if="useTooltip" ref="tooltipRef" :class="{ isHover: isActive }" class="px-label--tooltipContainer">
       <button class="px-label--tooltipIcon" @click="handleTooltipClick"></button>
 
       <div class="px-label--tooltipWrapper">
@@ -89,4 +80,3 @@ onClickOutside(tooltipRef, (event) => {
     </div>
   </div>
 </template>
-

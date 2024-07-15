@@ -85,27 +85,67 @@ const ro = new ResizeObserver((entries) => {
     if (props.tableHeight) {
       height.value = props.tableHeight === 'auto' ? 'auto' : props.tableHeight + 'px'
     } else {
-      console.log('2', value)
-
       if (value < 300) {
         height.value = 300 + 'px'
       } else {
         height.value = value + 'px'
       }
     }
+    tooltip.value.isActive = false
   })
 })
 
 const handleClickTooltip = (e, msg) => {
   tooltip.value.isActive = !tooltip.value.isActive
-  // 이거 clickoutside랑 안겹치게 해보기
-  // 외곽으로 가버리면 안쪽으로 들어가게 하기
+
   if (msg) {
     tooltip.value.msg = msg
   }
-  tooltip.value.left = e.clientX
-  tooltip.value.top = e.clientY
+
+  if (e.pageX + 360 > window.innerWidth) {
+    tooltip.value.left = undefined
+    tooltip.value.right = window.innerWidth - e.pageX - 10
+    // 이대로 하면 약간 간격이 생겨서 -10 줌
+    tooltip.value.top = e.pageY
+  } else {
+    tooltip.value.right = undefined
+    tooltip.value.left = e.pageX
+    tooltip.value.top = e.pageY
+  }
 }
+
+// hover를 구현할 수 있으나 click과 병행해서 쓰려면 지저분해짐.
+
+// const handleHoverTooltip = (e, msg) => {
+//   tooltip.value.isActive = true
+
+//   if (msg) {
+//     tooltip.value.msg = msg
+//   }
+
+//   if (e.pageX + 360 > window.innerWidth) {
+//     tooltip.value.left = undefined
+//     tooltip.value.right = window.innerWidth - e.pageX - 10
+//     // 이대로 하면 약간 간격이 생겨서 -10 줌
+//     tooltip.value.top = e.pageY
+//   } else {
+//     tooltip.value.right = undefined
+//     tooltip.value.left = e.pageX
+//     tooltip.value.top = e.pageY
+//   }
+// }
+
+// const handleLeaveTooltip = () => {
+//   tooltip.value.isActive = false
+
+//   if (msg) {
+//     tooltip.value.msg = ''
+//   }
+
+//   tooltip.value.right = undefined
+//   tooltip.value.left = undefined
+//   tooltip.value.top = undefined
+// }
 
 onMounted(() => {
   ro.observe(targetElement)

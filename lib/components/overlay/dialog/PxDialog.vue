@@ -1,11 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 const props = defineProps({
   title: { type: [Boolean, String] },
   isClose: { type: Boolean, default: true },
   customStyle: { type: Object },
   fnBeforeClose: { type: Function },
+  size: { type: String },
 })
 
 const emit = defineEmits(['onOpen', 'onClose'])
@@ -38,6 +39,14 @@ const onMouseUp = () => {
   }
 }
 
+watchEffect(() => {
+  if (active.value) {
+    document.querySelector('body').style.overflowY = 'hidden'
+  } else {
+    document.querySelector('body').style.overflowY = 'auto'
+  }
+})
+
 defineExpose({ open, close })
 </script>
 
@@ -51,7 +60,7 @@ defineExpose({ open, close })
     leave-to-class="dialog_leave_to"
   >
     <template v-if="active">
-      <div class="px-dialog" @mousedown.self="onMouseDown" @mouseup.self="onMouseUp">
+      <div class="px-dialog" :class="size" @mousedown.self="onMouseDown" @mouseup.self="onMouseUp">
         <div class="px-dialog--container" :style="customStyle">
           <div v-if="title" class="px-dialog--header">
             <div class="title">{{ title }}</div>

@@ -1355,7 +1355,7 @@
 
 .px-datepicker--panel_wrapper {
   position: absolute;
-  z-index: 10;
+  z-index: 11;
   top: calc(100% + 8px);
 }
 
@@ -1985,24 +1985,25 @@
 .px-table--tooltip {
   position: relative;
   z-index: 1000;
-  display: inline-block;
-  max-width: 300px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .px-table--tooltip .tooltipIcon {
-  margin-left: 4px;
   display: inline-block;
+  cursor: pointer;
   width: 16px;
   height: 16px;
   background: url('../assets/icons/icon-question.svg') no-repeat center / 16px;
 }
 
 .tooltipDesc {
-  position: fixed;
+  position: absolute;
   padding: 8px;
-  background-color: #334155;
+  background-color: #302e2e;
   color: white;
   border-radius: 8px;
+  max-width: 360px;
 }
 
 .px-table--sort_neutral {
@@ -2097,9 +2098,34 @@
   z-index: 30;
 }
 
+.px-dialog.full > .px-dialog--container {
+  width: calc(100vw - 50px) !important;
+  height: calc(100vh - 50px) !important;
+}
+
+.px-dialog.xl > .px-dialog--container {
+  height: calc(100vh - 50px) !important;
+}
+
+.px-dialog.lg > .px-dialog--container {
+  height: 700px !important;
+  max-height: calc(100vh - 50px) !important;
+}
+
+.px-dialog.nm > .px-dialog--container {
+  height: 500px !important;
+  max-height: calc(100vh - 50px) !important;
+}
+
+.px-dialog.sm > .px-dialog--container {
+  height: 300px !important;
+  max-height: calc(100vh - 50px) !important;
+}
+
 .px-dialog--container {
   background-color: white;
   border-radius: 12px;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.1);
   /* overflow: hidden; */
 }
 
