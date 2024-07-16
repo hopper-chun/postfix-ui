@@ -188,7 +188,7 @@ onBeforeUnmount(() => {
                   <span v-else class="px-table--sort_neutral"> </span>
                 </template>
                 <div class="px-table--tooltip" v-if="header.tooltip">
-                  <div class="tooltipIcon" @click="handleClickTooltip($event, header.tooltip)"></div>
+                  <div class="tooltipIcon" @click.stop="handleClickTooltip($event, header.tooltip)"></div>
                 </div>
               </a>
             </th>
@@ -238,8 +238,7 @@ onBeforeUnmount(() => {
       v-if="tooltip.isActive"
       class="tooltipDesc"
       :style="{ top: tooltip.top + 'px', left: tooltip.left + 'px', right: tooltip.right + 'px' }"
-    >
-      {{ tooltip.msg }}
-    </div>
+      v-html="tooltip.msg"
+    ></div>
   </div>
 </template>
