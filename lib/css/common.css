@@ -1798,7 +1798,11 @@
 }
 
 @media screen and (max-width: 639px) {
-  .px-pagination--range .page {
+  .px-pagination--range {
+    flex-wrap: wrap;
+  }
+
+  .px-pagination--range.isNarrow .page {
     display: none;
   }
 

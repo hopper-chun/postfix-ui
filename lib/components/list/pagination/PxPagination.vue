@@ -7,6 +7,7 @@ const props = defineProps({
   total: { type: Number, required: true },
   currentPage: { type: Number, required: true },
   align: { type: String },
+  isNarrow: { type: Boolean },
 })
 const emit = defineEmits(['onChangePage'])
 
@@ -19,7 +20,7 @@ const { range, isNext, isPrev, click, clickPrev, clickNext } = usePagination({ l
   <nav class="px-pagination">
     <a @click="clickPrev" class="px-pagination--nav prev" :class="[{ active: isPrev }]"> </a>
 
-    <div class="px-pagination--range">
+    <div class="px-pagination--range" :class="{ isNarrow }">
       <template v-for="i in range" :key="i">
         <span v-if="i === '...'" class="rangelist reduce"> ... </span>
         <a v-else @click="click(i)" :class="[{ current: i === currentPage }, { edge: i === 1 || i === range[range.length - 1] }]" class="page rangelist"
