@@ -6,12 +6,12 @@ const { functionRef, element } = useFunctionRef()
 const emit = defineEmits(['update:modelValue'])
 const local = ref('')
 
-const open = (src) => {
+const openDialog = (src) => {
   element.value.open()
   local.value = src
 }
 
-defineExpose({ open })
+defineExpose({ openDialog })
 
 const cdnPath = computed(() => {
   return local.value || ''

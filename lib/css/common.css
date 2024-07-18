@@ -1123,6 +1123,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .px-multiCheckbox > div {
   display: flex;
@@ -3654,6 +3655,10 @@
   cursor: pointer;
 }
 
+.px-imageUpload--label.col {
+  flex-direction: column;
+}
+
 .px-imageUpload--icon {
   display: flex;
   align-items: center;
@@ -3675,4 +3680,182 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.px-imageUploader {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+}
+
+.px-imageUploader > div:not(:first-child) {
+  margin-left: 8px;
+}
+
+.px-imageUploader--container {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.px-imageUploader--left,
+.px-imageUploader--right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.px-imageUploader--left {
+  left: 0;
+}
+
+.px-imageUploader--right {
+  right: 0;
+}
+
+.px-imageUploader--thumbnail img {
+  object-fit: cover;
+}
+
+.px-imageUploader--thumbnail .document {
+  display: flex;
+  flex: 1 1 0%;
+  align-items: center;
+  justify-content: center;
+}
+
+.px-imageUploader--thumbnail .document > * {
+  width: 30px;
+  height: 30px;
+  color: #64748b;
+}
+
+.px-imageUploader--thumbnail .ext {
+  width: 100%;
+  padding: 4px 0;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+  background-color: #475569;
+}
+
+.px-imageUploader--thumbnail .ext.pdf {
+  background-color: #dc2626;
+}
+
+.px-imageUploader--icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.px-imageUploader--icon > * {
+  margin-left: 2px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  background-color: #e5e7eb;
+  color: #9ca3af;
+}
+
+.px-imageUploader--icon .draggable {
+  cursor: move;
+}
+
+.px-imageUploader--icon .px-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.px-imagesUploader--container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border: 1px solid transparent;
+  color: #171717;
+}
+
+.px-imagesUploader--container > *:not(:first-child) {
+  margin-left: 8px;
+}
+
+.px-imagesUploader--thumbnail img {
+  object-fit: cover;
+}
+
+.px-imagesUploader--thumbnail .document {
+  display: flex;
+  flex: 1 1 0%;
+  align-items: center;
+  justify-content: center;
+}
+
+.px-imagesUploader--thumbnail .document > * {
+  width: 30px;
+  height: 30px;
+  color: #64748b;
+}
+
+.px-imagesUploader--thumbnail .ext {
+  width: 100%;
+  padding: 4px 0;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+  background-color: #475569;
+}
+
+.px-imagesUploader--thumbnail .ext.pdf {
+  background-color: #dc2626;
+}
+
+.px-fileUploader--container > div:not(:first-child) {
+  margin-top: 8px;
+}
+
+.px-fileUploader--container .button {
+  flex-shrink: 0;
+}
+
+.px-fileUploader--container .fileList {
+  display: flex;
+}
+
+.px-fileUploader--container .fileList > div:not(:first-child) {
+  margin-left: 4px;
+}
+
+.px-fileUploader--list {
+  display: inline-flex;
+  height: 26px;
+  align-items: center;
+  border: 1px solid #171717;
+  border-radius: 4px;
+  padding: 0 12px;
+}
+
+.px-fileUploader--list > div:not(:first-child) {
+  margin-left: 6px;
+}
+
+.px-fileUploader--list .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+}
+
+.px-fileUploader--list .icon > .px-icon {
+  height: 14px;
+  width: 14px;
 }
