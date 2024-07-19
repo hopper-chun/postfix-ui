@@ -81,7 +81,7 @@ const tooltip = ref({
 
 const ro = new ResizeObserver((entries) => {
   entries.forEach((entry) => {
-    const value = window.innerHeight - tableRef.value.offsetTop - 60
+    const value = window.innerHeight - tableRef.value.offsetTop - 30
     if (props.tableHeight) {
       height.value = props.tableHeight === 'auto' ? 'auto' : props.tableHeight + 'px'
     } else {

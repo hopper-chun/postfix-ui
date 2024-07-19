@@ -3351,10 +3351,9 @@
 
 /* layout pageheader */
 .px-pageHeader {
-  /* flex items-center justify-between text-[22px] font-bold leading-[28px] sm:h-[42px] sm:text-[26px] sm:leading-[30px] */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   font-size: 26px;
   line-height: 30px;
   height: 42px;

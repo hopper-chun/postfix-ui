@@ -3,7 +3,6 @@ const props = defineProps({
   type: { type: String, default: 'button' },
   color: { type: String, default: 'pri' },
   size: { type: String, default: 'nm' },
-  // styles: { type: Object },
   disabled: { type: Boolean },
   isWide: { type: Boolean },
   rounded: { type: Boolean },
