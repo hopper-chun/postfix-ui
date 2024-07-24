@@ -2006,6 +2006,7 @@
   position: absolute;
   padding: 8px;
   background-color: #302e2e;
+  z-index: 1;
   color: white;
   border-radius: 8px;
   max-width: 360px;

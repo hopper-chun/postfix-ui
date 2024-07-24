@@ -4,7 +4,6 @@ import { useFunctionRef, useResize } from '@/composables'
 
 const props = defineProps({
   direction: { type: String },
-  menuAlign: { type: String, default: 'left' },
   hover: { type: Boolean },
   options: { type: [Array, Object], required: true },
   optionsLabel: { type: Function, default: (option) => option },
