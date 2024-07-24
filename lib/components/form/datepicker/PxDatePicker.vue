@@ -17,7 +17,7 @@ const props = defineProps({
   format: { type: Function, default: (o) => o },
   placeholder: { type: String },
   viewMode: { type: Boolean, default: false },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
   dotDays: { type: Array },
   cbMonth: { type: Function },
 })

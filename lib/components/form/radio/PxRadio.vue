@@ -14,7 +14,7 @@ const props = defineProps({
   label: { type: String },
   required: { type: Boolean, default: false },
   viewMode: { type: Boolean },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
 })
 const emit = defineEmits(['update:modelValue'])
 const slots = useSlots()
@@ -26,7 +26,7 @@ const { localValue, handleInput } = useInput(id, modelValue, format, emit)
 
 <template>
   <div class="px-radio" :class="{ viewMode }">
-    <PxLabel :label="label" :required="required" :useHover="useHover" :id="id">
+    <PxLabel :label="label" :required="required" :hover="hover" :id="id">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

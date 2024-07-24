@@ -89,7 +89,9 @@ onUnmounted(() => {
         <div class="expandable">
           <div class="px-dropdown--list" v-for="option in options" @click="handleSelect(option)">
             <slot name="content" :option="option" :optionsLabel="optionsLabel(option)" :optionsValue="optionsValue(option)">
-              {{ optionsLabel(option) }}
+              <div>
+                {{ optionsLabel(option) }}
+              </div>
             </slot>
           </div>
         </div>

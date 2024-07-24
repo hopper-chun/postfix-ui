@@ -260,7 +260,7 @@
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  border: 1px solid var(--px-slate-800);
+  border: 1px solid transparent;
   color: var(--px-slate-800);
   height: 24px;
   font-size: 12px;
@@ -276,33 +276,63 @@
 }
 
 .px-tag.pri {
-  color: var(--px-pri-600);
-  border-color: var(--px-pri-600);
+  background-color: var(--px-pri-600);
+  color: white;
 }
 
-.px-tag.pri.filled {
-  color: white;
-  background-color: var(--px-pri-600);
+.px-tag.pri_border {
+  border: 1px solid var(--px-pri-600);
+  color: var(--px-pri-600);
 }
 
 .px-tag.sec {
-  color: var(--px-sec-600);
-  border-color: var(--px-sec-600);
+  background-color: var(--px-sec-600);
+  color: white;
 }
 
-.px-tag.sec.filled {
-  color: white;
-  background-color: var(--px-sec-600);
+.px-tag.sec_border {
+  border: 1px solid var(--px-sec-600);
+  color: var(--px-sec-600);
 }
 
 .px-tag.ter {
-  color: var(--px-ter-600);
-  border-color: var(--px-ter-600);
+  background-color: var(--px-ter-600);
+  color: white;
 }
 
-.px-tag.ter.filled {
+.px-tag.ter_border {
+  border: 1px solid var(--px-ter-600);
+  color: var(--px-ter-600);
+}
+
+.px-tag.black {
+  background-color: black;
   color: white;
-  background-color: var(--px-ter-600);
+}
+
+.px-tag.black_border {
+  border: 1px solid black;
+  color: black;
+}
+
+.px-tag.white {
+  background-color: white;
+  color: black;
+}
+
+.px-tag.white_border {
+  border: 1px solid white;
+  color: white;
+}
+
+.px-tag.gray {
+  background-color: var(--px-disabled-bg);
+}
+
+.px-tag.gray_border {
+  background-color: white;
+  color: var(--px-slate-800);
+  border-color: var(--px-slate-400);
 }
 
 .px-tag--func {
@@ -312,6 +342,18 @@
   height: 20px;
   width: 20px;
   flex-shrink: 0;
+}
+
+.filled .px-tag--func.modify {
+  background: url('../assets/icons/icon-modify-white.svg') center / 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.filled .px-tag--func.remove {
+  background: url('../assets/icons/icon-close-circle-filled-white.svg') center / 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .px-tag--func.modify {

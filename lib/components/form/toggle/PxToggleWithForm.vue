@@ -16,7 +16,7 @@ const props = defineProps({
   label: { type: String },
   description: { type: String },
   viewMode: { type: Boolean, default: false },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
 })
 
 const { functionRef, element } = useFunctionRef()
@@ -30,7 +30,7 @@ const randomId = useMakeId()
 
 <template>
   <div class="px-toggle-form" :class="{ viewMode: viewMode }">
-    <PxLabel :label="label" :labelHelper="labelHelper" :useHover="useHover" :required="required" :id="randomId">
+    <PxLabel :label="label" :labelHelper="labelHelper" :hover="hover" :required="required" :id="randomId">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

@@ -25,7 +25,7 @@ const props = defineProps({
   viewMode: { type: Boolean, default: false },
   maxCount: { type: Number },
   inputFilter: { type: String },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
   isDatePicker: { type: Boolean, default: false },
 })
 
@@ -125,7 +125,7 @@ const randomId = useMakeId()
       <div class="px-input--edit">
         <div style="position: relative">
           <div class="px-input--labelwrapper">
-            <PxLabel :label="label" :useHover="useHover" :labelHelper="labelHelper" :required="required" :id="randomId" style="flex: 1 1 0">
+            <PxLabel :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="randomId" style="flex: 1 1 0">
               <template v-if="!!slots.tooltip" #tooltip>
                 <slot name="tooltip"></slot>
               </template>

@@ -7,6 +7,7 @@ const props = defineProps({
   staticErrorMessage: { type: String },
   isFocusable: { type: Boolean },
 })
+
 const { id } = toRefs(props)
 
 const { error } = useError(id)

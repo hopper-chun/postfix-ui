@@ -17,7 +17,7 @@ const props = defineProps({
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
   viewMode: { type: Boolean },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -73,7 +73,7 @@ const randomId = useMakeId()
     <template v-else>
       <div class="px-select--edit" :ref="containerRefFunc">
         <div class="px-select--wrapper">
-          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" :useHover="useHover">
+          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" :hover="hover">
             <template v-if="!!slots.tooltip" #tooltip>
               <slot name="tooltip"></slot>
             </template>

@@ -1,10 +1,20 @@
 <script setup>
+import { computed } from 'vue'
+
 const emit = defineEmits(['onRemove', 'onModify'])
 const props = defineProps({
   color: { type: String, default: 'pri' },
-  filled: { type: Boolean, default: false },
-  isRemove: { type: Boolean, default: false },
-  isModify: { type: Boolean, default: false },
+  remove: { type: Boolean, default: false },
+  modify: { type: Boolean, default: false },
+  filled: { type: Boolean },
+})
+
+const isFilled = computed(() => {
+  if (props.filled !== undefined) {
+    return props.filled
+  } else if (props.color && !props.color.endsWith('border')) {
+    return true
+  } else return false
 })
 
 const handleRemove = () => {
@@ -15,13 +25,12 @@ const handleModify = () => {
 }
 </script>
 
-<!-- 컬러 ... 일반적으로 black, pri,  -->
 <template>
-  <div class="px-tag" :class="[color, { filled: filled }, { hasTag: isRemove || isModify }]">
+  <div class="px-tag" :class="[color, { filled: isFilled }, { hasTag: remove || modify }]">
     <div style="display: flex; align-items: center">
       <slot></slot>
     </div>
-    <button v-if="isModify" @click="handleModify" class="px-tag--func modify"></button>
-    <button v-if="isRemove" @click="handleRemove" class="px-tag--func remove"></button>
+    <button v-if="modify" @click="handleModify" class="px-tag--func modify"></button>
+    <button v-if="remove" @click="handleRemove" class="px-tag--func remove"></button>
   </div>
 </template>

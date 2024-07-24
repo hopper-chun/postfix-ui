@@ -16,7 +16,7 @@ const props = defineProps({
   viewMode: { type: Boolean },
   labelHelper: { type: String },
   required: { type: Boolean, default: false },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -39,7 +39,7 @@ const selected = (value) => {
 </script>
 <template>
   <div :class="[{ viewMode }]" style="position: relative">
-    <PxLabel v-if="label" :label="label" :useHover="useHover" :labelHelper="labelHelper" :required="required" :id="id">
+    <PxLabel v-if="label" :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="id">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

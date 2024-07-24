@@ -18,7 +18,7 @@ const props = defineProps({
   optionsValue: { type: Function, default: (option) => option },
   isRow: { type: Boolean },
   viewMode: { type: Boolean },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
 })
 const emit = defineEmits(['update:modelValue'])
 const slots = useSlots()
@@ -32,7 +32,7 @@ const { localValue } = useInput(id, modelValue, format, emit)
 <template>
   <div class="px-inputRadio">
     <div :class="{ viewMode }">
-      <PxLabel :label="label" :useHover="useHover" :labelHelper="labelHelper" :required="required" :id="id">
+      <PxLabel :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="id">
         <template v-if="!!slots.tooltip" #tooltip>
           <slot name="tooltip"></slot>
         </template>

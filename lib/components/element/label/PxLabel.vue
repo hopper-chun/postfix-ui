@@ -7,7 +7,7 @@ const props = defineProps({
   labelHelper: { type: String },
   id: { type: String },
   required: { type: Boolean },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
 })
 
 const slots = useSlots()
@@ -31,7 +31,7 @@ const handleTooltipClick = () => {
 // 클릭이 들어오면 클릭을 따른다.
 // 클릭이 없으면 호버를 따른다
 const isActive = computed(() => {
-  if (!props.useHover) {
+  if (!props.hover) {
     return isTooltipClick.value
   }
   if (isTooltipClick.value) {
@@ -42,14 +42,14 @@ const isActive = computed(() => {
 })
 
 const tooltipHover = () => {
-  if (!props.useHover) {
+  if (!props.hover) {
     return
   }
   isTooltipHover.value = true
 }
 
 const tooltipLeave = () => {
-  if (!props.useHover) {
+  if (!props.hover) {
     return
   }
   isTooltipHover.value = false

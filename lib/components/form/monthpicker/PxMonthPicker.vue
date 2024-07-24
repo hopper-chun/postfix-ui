@@ -17,7 +17,7 @@ const props = defineProps({
   required: { type: Boolean },
   placeholder: { type: String },
   viewMode: { type: Boolean, default: false },
-  useHover: { type: Boolean, default: true },
+  hover: { type: Boolean, default: true },
   lang: { type: String, default: 'ko' },
 })
 const emit = defineEmits(['update:modelValue'])
