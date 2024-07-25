@@ -9,8 +9,7 @@ const props = defineProps({
   id: { type: String },
   labelHelper: { type: String },
   required: { type: Boolean },
-  rounded: { type: String },
-  isClear: { type: Boolean },
+  clear: { type: Boolean },
   disabled: { type: Boolean },
   label: { type: String },
   lang: { type: String, default: 'ko' },
@@ -44,7 +43,7 @@ const loadProps = () => {
 
   if (typeof props.modelValue === 'string' || props.modelValue instanceof String) {
     local.value.date = parseISO(props.modelValue)
-  } else if (Number.isInteger(props.modeValue)) {
+  } else if (Number.isInteger(props.modelValue)) {
     local.value.date = new Date(props.modelValue)
   } else {
     local.value.date = props.modelValue
@@ -122,7 +121,7 @@ const handlerKeyEnter = () => {
         :disabled="disabled"
         :placeholder="placeholder"
         isDatePicker
-        :clear="isClear"
+        :clear="clear"
         @onClear="handleClear"
       >
       </PxInput>

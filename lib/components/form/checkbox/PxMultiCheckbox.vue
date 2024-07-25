@@ -1,15 +1,14 @@
 <script setup>
-import { toRefs } from 'vue'
+import { toRefs, useSlots } from 'vue'
 
 import { useError, useMultiCheckbox, useFunctionRef } from '@/composables'
 
 const props = defineProps({
   id: { type: String },
   modelValue: { type: [String, Number, Boolean, Array] },
-  options: { type: Array },
+  options: { type: Array, required: true },
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
-  circle: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   isRow: { type: Boolean },
   label: { type: String },

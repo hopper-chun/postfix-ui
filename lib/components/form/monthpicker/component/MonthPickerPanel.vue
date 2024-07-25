@@ -4,7 +4,7 @@ import { add, format, startOfYear, isSameMonth, isSameYear } from 'date-fns'
 
 const props = defineProps({
   modelValue: { type: Date, default: new Date() },
-  isYear: { type: Boolean },
+  year: { type: Boolean },
   lang: { type: String, default: 'ko' },
 })
 const emit = defineEmits(['update:modelValue'])
@@ -59,21 +59,21 @@ const today = new Date()
 const baseDate = ref(props.modelValue)
 
 const prevMonth = () => {
-  if (props.isYear) {
+  if (props.year) {
     baseDate.value = add(baseDate.value, { years: -9 })
   } else {
     baseDate.value = add(baseDate.value, { years: -1 })
   }
 }
 const nextMonth = () => {
-  if (props.isYear) {
+  if (props.year) {
     baseDate.value = add(baseDate.value, { years: 9 })
   } else {
     baseDate.value = add(baseDate.value, { years: 1 })
   }
 }
 const handleClick = (date) => {
-  if (props.isYear) {
+  if (props.year) {
     emit('update:modelValue', date.currentYear)
   } else {
     emit('update:modelValue', date.currentMonth)
@@ -100,12 +100,12 @@ const display = computed(() => {
 })
 </script>
 <template>
-  <body class="month" :class="{ isYear: isYear }">
+  <body class="month" :class="{ isYear: year }">
     <div class="px-datepicker--panel">
       <div class="px-datepicker--panel_container">
         <div class="px-datepicker--panel_nav">
           <span tabindex="0" class="month">
-            {{ isYear ? display.yearTitle : display.monthTitle }}
+            {{ year ? display.yearTitle : display.monthTitle }}
           </span>
           <div class="button_wrapper">
             <button aria-label="calendar backward" class="month_prev" @click="prevMonth"></button>
@@ -113,7 +113,7 @@ const display = computed(() => {
           </div>
         </div>
         <div class="px-datepicker--panel_calendar">
-          <div v-if="!isYear">
+          <div v-if="!year">
             <div
               v-for="month in display.month"
               @click="handleClick(month)"

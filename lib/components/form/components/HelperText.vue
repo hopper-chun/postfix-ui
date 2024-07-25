@@ -1,14 +1,16 @@
 <script setup>
+import { useSlots } from 'vue'
 import { PxError } from '@/components/element/error'
 
 const props = defineProps({
   id: { type: String },
   helperText: { type: String },
-  helperIcon: { type: Boolean, default: false },
   maxLength: { type: [String, Number] },
   localValue: { type: [String, Number] },
   error: { type: String },
 })
+
+const slots = useSlots()
 </script>
 <template>
   <div class="px-helperText">
@@ -17,7 +19,7 @@ const props = defineProps({
         <PxError :id="id"></PxError>
       </template>
       <template v-else>
-        <div v-if="helperIcon" class="px-helperText--icon">
+        <div v-if="!!slots.helperIcon" class="px-helperText--icon">
           <slot name="helperIcon"></slot>
         </div>
         <div class="px-helperText--text" v-html="helperText"></div

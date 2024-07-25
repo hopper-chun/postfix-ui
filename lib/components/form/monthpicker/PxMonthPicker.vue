@@ -6,10 +6,9 @@ import MonthPickerPanel from './component/MonthPickerPanel.vue'
 
 const props = defineProps({
   modelValue: { type: Date },
-  isYear: { type: Boolean },
-  size: { type: String, default: 'md', validator: (value) => ['xs', 'sm', 'md'].indexOf(value) !== -1 },
+  year: { type: Boolean },
   rounded: { type: String },
-  isClear: { type: Boolean },
+  clear: { type: Boolean },
   disabled: { type: Boolean },
   label: { type: String },
   id: { type: String },
@@ -27,7 +26,7 @@ const localValue = ref()
 const { functionRef, element } = useFunctionRef()
 
 watchEffect(() => {
-  localValue.value = format(props.modelValue, props.isYear ? 'yyyy' : 'yyyy-MM')
+  localValue.value = format(props.modelValue, props.year ? 'yyyy' : 'yyyy-MM')
 })
 
 const handleClose = (value) => {
@@ -41,9 +40,9 @@ const handleClick = () => {
 }
 
 const handlerKeyEnter = () => {
-  const date = parse(localValue.value, props.isYear ? 'yyyy' : 'yyyy-MM', 0)
+  const date = parse(localValue.value, props.year ? 'yyyy' : 'yyyy-MM', 0)
   if (!isValid(date)) {
-    localValue.value = format(props.modelValue, props.isYear ? 'yyyy' : 'yyyy-MM')
+    localValue.value = format(props.modelValue, props.year ? 'yyyy' : 'yyyy-MM')
 
     return alert('잘못된 날짜입니다. 다시 입력해 주세요.')
   }
@@ -85,13 +84,13 @@ onUnmounted(() => {
         :disabled="disabled"
         :placeholder="placeholder"
         isDatePicker
-        :clear="isClear"
+        :clear="clear"
         @onClear="handleClear"
       >
       </PxInput>
     </div>
     <div class="px-datepicker--panel_wrapper" v-if="show">
-      <MonthPickerPanel :isYear="props.isYear" :modelValue="modelValue" :lang="lang" @update:modelValue="handleClose($event)"></MonthPickerPanel>
+      <MonthPickerPanel :year="props.year" :modelValue="modelValue" :lang="lang" @update:modelValue="handleClose($event)"></MonthPickerPanel>
     </div>
   </div>
 </template>

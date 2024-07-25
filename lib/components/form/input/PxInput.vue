@@ -15,13 +15,10 @@ const props = defineProps({
   labelHelper: { type: String },
   helperText: { type: String },
   numberOnly: { type: Boolean, default: false },
-  helperIcon: { type: Boolean, default: false },
-  inputIcon: { type: Boolean, default: false },
   unit: { type: String },
   clear: { type: Boolean, default: false },
   showPassword: { type: Boolean, default: false },
   maxLength: { type: [String, Number] },
-  cursorless: { type: Boolean, default: false },
   viewMode: { type: Boolean, default: false },
   maxCount: { type: Number },
   inputFilter: { type: String },
@@ -138,7 +135,7 @@ const randomId = useMakeId()
               :id="randomId"
               :style="`padding-right:${unitPadding}; padding-left:${prefixPadding}`"
               class="px-input--field"
-              :class="[{ disabled }, { error }, { inputIcon }]"
+              :class="[{ disabled }, { error }, { inputIcon: !!slots.inputIcon }]"
               :type="type"
               :placeholder="placeholder"
               :disabled="disabled"
@@ -171,7 +168,7 @@ const randomId = useMakeId()
                 </button>
               </div>
             </div>
-            <div v-if="inputIcon" class="px-input--inputIcon">
+            <div v-if="!!slots.inputIcon" class="px-input--inputIcon">
               <slot name="inputIcon"></slot>
             </div>
           </div>

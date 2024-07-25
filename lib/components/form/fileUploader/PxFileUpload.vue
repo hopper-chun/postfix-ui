@@ -4,9 +4,8 @@ import { ref, useSlots } from 'vue'
 const props = defineProps({
   id: { type: String, required: true },
   extensions: { type: String },
-  type: { type: String, default: 'file' },
+  fileType: { type: String, default: 'file' },
   multiple: { type: Boolean },
-  extensions: { type: String },
   disabled: { type: Boolean },
 })
 const emit = defineEmits(['onSelect'])
@@ -59,11 +58,13 @@ const selectFile = async (event) => {
 <template>
   <div v-if="!!slots.default" class="px-customUpload">
     <label :for="id" class="px-customUpload--label">
-      <slot></slot>
+      <div>
+        <slot></slot>
+      </div>
       <input v-if="!disabled" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
     </label>
   </div>
-  <div v-else-if="type === 'image'" class="px-imageUpload">
+  <div v-else-if="fileType === 'image'" class="px-imageUpload">
     <label :for="id" class="px-imageUpload--label">
       <div class="px-imageUpload--icon">
         <!-- <PxIcon name="icon-plus" class="w-[21px]"></PxIcon> -->
