@@ -452,7 +452,7 @@
   display: block;
   width: 18px;
   height: 18px;
-  background: url('../assets/icons/icon-question.svg') center / 20px;
+  background: url('../assets/icons/icon-question.svg') center / 18px;
   margin-left: 4px;
   /* margin-bottom: 4px; */
   position: relative;
@@ -551,6 +551,7 @@
   justify-content: space-between;
   overflow: hidden;
   color: var(--px-slate-500);
+  font-size: var(--px-text-xs);
 }
 
 .px-helperText--wrapper {
@@ -571,7 +572,6 @@
 }
 
 .px-helperText--text {
-  font-size: var(--px-text-xs);
 }
 
 .px-helperText--length {
@@ -2153,26 +2153,37 @@
 
 .px-dialog.xl > .px-dialog--container {
   height: calc(100vh - 50px) !important;
+  /* 와드 */
+  width: 1200px;
+  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog.lg > .px-dialog--container {
-  height: 700px !important;
+  height: 800px !important;
+  width: 900px;
   max-height: calc(100vh - 50px) !important;
+  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog.nm > .px-dialog--container {
   height: 500px !important;
+  width: 600px;
   max-height: calc(100vh - 50px) !important;
+  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog.sm > .px-dialog--container {
   height: 300px !important;
+  width: 400px;
   max-height: calc(100vh - 50px) !important;
+  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog--container {
   background-color: white;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.1);
   /* overflow: hidden; */
 }
@@ -2183,6 +2194,7 @@
   justify-content: space-between;
   padding: 0 20px 0 24px;
   height: 64px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .px-dialog--header .title {
@@ -2197,6 +2209,17 @@
   height: 42px;
   display: inline-block;
   cursor: pointer;
+}
+
+.rm-dialog--body {
+  flex: 1 1 0%;
+  overflow-y: hidden;
+}
+
+.rm-dialog--body > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .dialog_enter_active {

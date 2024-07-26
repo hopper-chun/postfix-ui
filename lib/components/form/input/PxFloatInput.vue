@@ -13,7 +13,6 @@ const props = defineProps({
   inputIcon: { type: Boolean, default: false },
   numberOnly: { type: Boolean, default: false },
   helperText: { type: String },
-  helperIcon: { type: Boolean, default: false },
   unit: { type: String },
   clear: { type: Boolean, default: false },
   showPassword: { type: Boolean, default: false },
