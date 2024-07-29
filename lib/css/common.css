@@ -915,6 +915,11 @@
   resize: none;
 }
 
+.px-floatTextarea .px-input--field:focus {
+  border-color: transparent;
+  outline: none;
+}
+
 .px-floatTextarea--label {
   pointer-events: none;
   position: absolute;
@@ -1350,11 +1355,11 @@
   opacity: 40%;
 }
 
-.px-toggle-form {
+.px-inputToggle {
   position: relative;
 }
 
-.px-toggle-form .px-input--field {
+.px-inputToggle .px-input--field {
   display: flex;
   align-items: center;
   cursor: default;
@@ -2211,12 +2216,12 @@
   cursor: pointer;
 }
 
-.rm-dialog--body {
+.px-dialog--body {
   flex: 1 1 0%;
   overflow-y: hidden;
 }
 
-.rm-dialog--body > div {
+.px-dialog--body > div {
   display: flex;
   flex-direction: column;
   height: 100%;

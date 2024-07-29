@@ -12,13 +12,12 @@ const props = defineProps({
   required: { type: Boolean, default: false },
   labelHelper: { type: String },
   helperText: { type: String },
-  helperIcon: { type: Boolean, default: false },
   resize: { type: Boolean, default: false },
   rows: { type: Number },
   maxlength: { type: [String, Number] },
   autoGrow: { type: Boolean, default: false },
   viewMode: { type: Boolean },
-  isHtml: { type: Boolean },
+  // isHtml: { type: Boolean },
   cursor: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onPaste'])
@@ -94,7 +93,7 @@ const randomId = useMakeId()
           :style="{ cursor: `${cursor}` }"
         ></textarea>
         <div></div>
-        <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon" :maxLength="maxlength" :localValue="localValue">
+        <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxlength" :localValue="localValue">
           <template #helperIcon> <slot name="helperIcon"></slot> </template>
         </HelperText>
       </div>

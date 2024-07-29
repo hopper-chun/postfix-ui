@@ -7,7 +7,6 @@ const props = defineProps({
   id: { type: String },
   labelHelper: { type: String },
   helperText: { type: String },
-  helperIcon: { type: Boolean, default: false },
   modelValue: { type: [String, Number, Boolean] },
   prevent: { type: Boolean, default: false },
   required: { type: Boolean, default: false },
@@ -29,7 +28,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-toggle-form" :class="{ viewMode: viewMode }">
+  <div class="px-inputToggle" :class="{ viewMode: viewMode }">
     <PxLabel :label="label" :labelHelper="labelHelper" :hover="hover" :required="required" :id="randomId">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
@@ -49,7 +48,7 @@ const randomId = useMakeId()
         :viewMode="viewMode"
       ></PxToggle>
     </div>
-    <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon">
+    <HelperText :id="id" :error="error" :helperText="helperText">
       <template #helperIcon> <slot name="helperIcon"></slot> </template>
     </HelperText>
   </div>

@@ -11,7 +11,6 @@ const props = defineProps({
   defaultLabel: { type: String, default: '카테고리를 선택해주세요' },
   labelHelper: { type: String },
   helperText: { type: String },
-  helperIcon: { type: Boolean },
   required: { type: Boolean },
   options: { type: Array, required: true },
   optionsLabel: { type: Function, default: (option) => option },
@@ -124,7 +123,7 @@ const randomId = useMakeId()
             </transition>
           </div>
         </div>
-        <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon">
+        <HelperText :id="id" :error="error" :helperText="helperText">
           <template #helperIcon> <slot name="helperIcon"></slot> </template>
         </HelperText>
       </div>

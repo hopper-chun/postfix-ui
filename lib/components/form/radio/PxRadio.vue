@@ -10,8 +10,9 @@ const props = defineProps({
   options: { type: Array },
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
-  isRow: { type: Boolean, default: false },
+  row: { type: Boolean, default: false },
   label: { type: String },
+  labelHelper: { type: String },
   required: { type: Boolean, default: false },
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
@@ -32,7 +33,7 @@ const { localValue, handleInput } = useInput(id, modelValue, format, emit)
       </template>
     </PxLabel>
 
-    <div ref="rootRef" class="px-radio--wrapper" :class="[{ isRow }, { error }, { disabled }]">
+    <div ref="rootRef" class="px-radio--wrapper" :class="[{ isRow: row }, { error }, { disabled }]">
       <label v-for="(option, index) in options" :for="`${id}_${index}_${optionsValue(option)}`">
         <input
           :id="`${id}_${index}_${optionsValue(option)}`"

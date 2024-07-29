@@ -10,7 +10,7 @@ const props = defineProps({
   isModify: { type: Boolean },
   isRemove: { type: Boolean },
   isInline: { type: Boolean },
-  isRow: { type: Boolean },
+  row: { type: Boolean },
 })
 // selectedItem = v-model
 const emit = defineEmits(['onSelect', 'onEdit', 'onRemove', 'onDragDrop'])
@@ -20,7 +20,7 @@ const { handleSelect, handleEdit, handleRemove } = useListbox({ isDraggable: pro
 
 <template>
   <div class="px-listbox">
-    <ul :class="[{ isInline }, { isRow }]">
+    <ul :class="[{ isInline }, { isRow: row }]">
       <li
         v-for="(item, index) in list"
         :key="item"
@@ -28,7 +28,7 @@ const { handleSelect, handleEdit, handleRemove } = useListbox({ isDraggable: pro
         :class="[{ selected: selectedItem && selectedItem === itemValue(item) }]"
       >
         <div>
-          <div class="px-listbox--text" :class="[{ hideButton: isModify || isRemove }, { isRow }]">
+          <div class="px-listbox--text" :class="[{ hideButton: isModify || isRemove }, { isRow: row }]">
             <slot :item="item" :cbRemove="() => handleRemove(itemValue(item), index)">
               <div class="label">
                 <span>{{ itemLabel(item) }}</span>

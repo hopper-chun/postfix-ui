@@ -9,11 +9,9 @@ const props = defineProps({
   modelValue: { type: [String, Number], required: true },
   disabled: { type: Boolean, default: false },
   helperText: { type: String },
-  helperIcon: { type: Boolean, default: false },
   resize: { type: Boolean, default: false },
   rows: { type: Number },
   maxlength: { type: [String, Number] },
-  styles: { type: Object },
   autoGrow: { type: Boolean, default: false },
 })
 const emit = defineEmits(['update:modelValue', 'onBlur'])
@@ -37,9 +35,9 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="rm-floatTextarea">
+  <div class="px-floatTextarea">
     <div :ref="containerRefFunc" style="width: 100%">
-      <div class="rm-floatTextarea--wrapper" :class="[{ disabled }, { error }]">
+      <div class="px-floatTextarea--wrapper" :class="[{ disabled }, { error }]">
         <textarea
           :ref="inputRefFunc"
           placeholder=" "
@@ -50,13 +48,13 @@ const randomId = useMakeId()
           @input="handleInput($event.target.value)"
           :id="randomId"
           :rows="rows"
-          class="rm-input--field"
+          class="px-input--field"
           spellcheck="false"
           :maxlength="maxlength"
         ></textarea>
-        <label :for="randomId" class="rm-floatTextarea--label" :class="[{ isFloating }]">{{ label }}</label>
+        <label :for="randomId" class="px-floatTextarea--label" :class="[{ isFloating }]">{{ label }}</label>
       </div>
-      <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon" :maxLength="maxlength" :localValue="localValue">
+      <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxlength" :localValue="localValue">
         <template #helperIcon> <slot name="helperIcon"></slot> </template>
       </HelperText>
     </div>

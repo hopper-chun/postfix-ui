@@ -9,9 +9,7 @@ const props = defineProps({
   id: { type: String },
   disabled: { type: Boolean, default: false },
   modelValue: { type: [String, Number, Object], required: true },
-  labelHelper: { type: String },
   helperText: { type: String },
-  helperIcon: { type: Boolean },
   required: { type: Boolean },
   options: { type: Array, required: true },
   optionsLabel: { type: Function, default: (option) => option },
@@ -111,7 +109,7 @@ onUnmounted(() => {
         </transition>
       </div>
     </div>
-    <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon">
+    <HelperText :id="id" :error="error" :helperText="helperText">
       <template #helperIcon> <slot name="helperIcon"></slot> </template>
     </HelperText>
   </div>

@@ -10,7 +10,7 @@ const props = defineProps({
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
   disabled: { type: Boolean, default: false },
-  isRow: { type: Boolean },
+  row: { type: Boolean },
   label: { type: String },
   viewMode: { type: Boolean },
   labelHelper: { type: String },
@@ -43,7 +43,7 @@ const selected = (value) => {
         <slot name="tooltip"></slot>
       </template>
     </PxLabel>
-    <div class="px-multiCheckbox" :class="[{ isRow }]">
+    <div class="px-multiCheckbox" :class="[{ isRow: row }]">
       <div v-for="(option, index) in options" style="font-size: 0px">
         <input
           :ref="functionRef"

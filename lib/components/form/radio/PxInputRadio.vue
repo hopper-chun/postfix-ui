@@ -12,11 +12,10 @@ const props = defineProps({
   format: { type: Function, default: (o) => o },
   labelHelper: { type: String },
   helperText: { type: String },
-  helperIcon: { type: Boolean, default: false },
   options: { type: Array },
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
-  isRow: { type: Boolean },
+  row: { type: Boolean },
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
 })
@@ -49,12 +48,12 @@ const { localValue } = useInput(id, modelValue, format, emit)
             :options="options"
             :optionsLabel="optionsLabel"
             :optionsValue="optionsValue"
-            :isRow="isRow"
+            :row="row"
             :viewMode="viewMode"
           ></PxRadio>
         </div>
       </div>
-      <HelperText :id="id" :error="error" :helperText="helperText" :helperIcon="helperIcon" :localValue="localValue">
+      <HelperText :id="id" :error="error" :helperText="helperText" :localValue="localValue">
         <template #helperIcon> <slot name="helperIcon"></slot> </template>
       </HelperText>
     </div>
