@@ -18,6 +18,8 @@ const props = defineProps({
   hover: { type: Boolean, default: true },
 })
 
+const emit = defineEmits(['update:modelValue'])
+
 const { functionRef, element } = useFunctionRef()
 const slots = useSlots()
 

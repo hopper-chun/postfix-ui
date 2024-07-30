@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   title: { type: [Boolean, String] },
@@ -39,13 +39,16 @@ const onMouseUp = () => {
   }
 }
 
-watchEffect(() => {
-  if (active.value) {
-    document.querySelector('body').style.overflowY = 'hidden'
-  } else {
-    document.querySelector('body').style.overflowY = 'auto'
+watch(
+  () => active.value,
+  () => {
+    if (active.value === true) {
+      document.querySelector('body').style.overflowY = 'hidden'
+    } else {
+      document.querySelector('body').style.overflowY = 'auto'
+    }
   }
-})
+)
 
 defineExpose({ open, close })
 </script>
