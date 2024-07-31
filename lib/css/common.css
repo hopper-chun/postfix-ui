@@ -607,7 +607,7 @@
   }
 }
 
-/* .px-input--labelwrapper {
+/* .px-input--label_wrapper {
   display: flex;
   align-items: center;
 }
@@ -3221,6 +3221,20 @@
   margin-bottom: 20px;
   border: 1px solid var(--px-slate-400);
   background-color: white;
+}
+
+.px-sectionWrapper--tooltip {
+  margin-left: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.px-sectionWrapper--tooltipIcon {
+  display: inline-block;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  background: url('../assets/icons/icon-question.svg') no-repeat center / 18px;
 }
 
 .px-sectionWrapper--header {

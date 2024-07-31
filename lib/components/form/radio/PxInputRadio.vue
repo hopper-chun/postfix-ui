@@ -19,7 +19,7 @@ const props = defineProps({
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 const slots = useSlots()
 
 const { functionRef, element } = useFunctionRef()
@@ -31,26 +31,28 @@ const { localValue } = useInput(id, modelValue, format, emit)
 <template>
   <div class="px-inputRadio">
     <div :class="{ viewMode }">
-      <PxLabel :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="id">
-        <template v-if="!!slots.tooltip" #tooltip>
-          <slot name="tooltip"></slot>
-        </template>
-      </PxLabel>
-      <div style="position: relative">
-        <div :ref="functionRef" class="px-input--field" :class="[{ disabled }, { error }]">
-          <PxRadio
-            v-model="localValue"
-            @update:modelValue="$emit('update:modelValue', $event)"
-            :disabled="disabled"
-            :required="required"
-            :name="id"
-            :format="format"
-            :options="options"
-            :optionsLabel="optionsLabel"
-            :optionsValue="optionsValue"
-            :row="row"
-            :viewMode="viewMode"
-          ></PxRadio>
+      <div class="labelSwitch">
+        <PxLabel :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
+          <template v-if="!!slots.tooltip" #tooltip>
+            <slot name="tooltip"></slot>
+          </template>
+        </PxLabel>
+        <div style="position: relative">
+          <div :ref="functionRef" class="px-input--field" :class="[{ disabled }, { error }]">
+            <PxRadio
+              v-model="localValue"
+              @update:modelValue="$emit('update:modelValue', $event)"
+              :disabled="disabled"
+              :required="required"
+              :name="id"
+              :format="format"
+              :options="options"
+              :optionsLabel="optionsLabel"
+              :optionsValue="optionsValue"
+              :row="row"
+              :viewMode="viewMode"
+            ></PxRadio>
+          </div>
         </div>
       </div>
       <HelperText :id="id" :error="error" :helperText="helperText" :localValue="localValue">

@@ -21,7 +21,7 @@ const props = defineProps({
   cbMonth: { type: Function },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 const slots = useSlots()
 
 const { functionRef, element } = useFunctionRef()
@@ -106,8 +106,8 @@ const handlerKeyEnter = () => {
 </script>
 
 <template>
-  <div class="px-datepicker" :ref="functionRef">
-    <PxLabel :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required" :id="id">
+  <div class="px-datepicker labelSwitch" :ref="functionRef">
+    <PxLabel :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

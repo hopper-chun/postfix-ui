@@ -20,7 +20,7 @@ const props = defineProps({
   // isHtml: { type: Boolean },
   cursor: { type: String },
 })
-const emit = defineEmits(['update:modelValue', 'onPaste'])
+const emit = defineEmits(['update:modelValue', 'onPaste', 'onClickTooltip'])
 const slots = useSlots()
 
 const { functionRef, element } = useFunctionRef()
@@ -70,28 +70,30 @@ const randomId = useMakeId()
     </template>
     <template v-else>
       <div class="px-textarea--edit">
-        <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId">
-          <template v-if="!!slots.tooltip" #tooltip>
-            <slot name="tooltip"></slot>
-          </template>
-        </PxLabel>
-        <textarea
-          :ref="functionRef"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :value="localValue"
-          @input="handleInput($event.target.value)"
-          :id="randomId"
-          :rows="rows"
-          class="px-input--field"
-          :class="[{ disabled }, { error }, { resize }]"
-          @keydown="resizeHeight"
-          @keyup="resizeHeight"
-          @paste="($event) => $emit('onPaste', $event)"
-          spellcheck="false"
-          :maxlength="maxlength"
-          :style="{ cursor: `${cursor}` }"
-        ></textarea>
+        <div class="labelSwitch">
+          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" @onClickTooltip="$emit('onClickTooltip', $event)">
+            <template v-if="!!slots.tooltip" #tooltip>
+              <slot name="tooltip"></slot>
+            </template>
+          </PxLabel>
+          <textarea
+            :ref="functionRef"
+            :placeholder="placeholder"
+            :disabled="disabled"
+            :value="localValue"
+            @input="handleInput($event.target.value)"
+            :id="randomId"
+            :rows="rows"
+            class="px-input--field"
+            :class="[{ disabled }, { error }, { resize }]"
+            @keydown="resizeHeight"
+            @keyup="resizeHeight"
+            @paste="($event) => $emit('onPaste', $event)"
+            spellcheck="false"
+            :maxlength="maxlength"
+            :style="{ cursor: `${cursor}` }"
+          ></textarea>
+        </div>
         <div></div>
         <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxlength" :localValue="localValue">
           <template #helperIcon> <slot name="helperIcon"></slot> </template>

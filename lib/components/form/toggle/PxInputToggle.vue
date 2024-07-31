@@ -18,7 +18,7 @@ const props = defineProps({
   hover: { type: Boolean, default: true },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 
 const { functionRef, element } = useFunctionRef()
 const slots = useSlots()
@@ -31,24 +31,26 @@ const randomId = useMakeId()
 
 <template>
   <div class="px-inputToggle" :class="{ viewMode: viewMode }">
-    <PxLabel :label="label" :labelHelper="labelHelper" :hover="hover" :required="required" :id="randomId">
-      <template v-if="!!slots.tooltip" #tooltip>
-        <slot name="tooltip"></slot>
-      </template>
-    </PxLabel>
-    <div :ref="functionRef" class="px-input--field">
-      <div class="px-toggle--description">
-        <div v-if="description">{{ description }}</div>
+    <div class="labelSwitch">
+      <PxLabel :label="label" :labelHelper="labelHelper" :hover="hover" :required="required" :id="randomId" @onClickTooltip="$emit('onClickTooltip', $event)">
+        <template v-if="!!slots.tooltip" #tooltip>
+          <slot name="tooltip"></slot>
+        </template>
+      </PxLabel>
+      <div :ref="functionRef" class="px-input--field">
+        <div class="px-toggle--description">
+          <div v-if="description">{{ description }}</div>
+        </div>
+        <PxToggle
+          :id="id"
+          :modelValue="modelValue"
+          @update:modelValue="$emit('update:modelValue', $event)"
+          :options="options"
+          :disabled="disabled"
+          :prevent="prevent"
+          :viewMode="viewMode"
+        ></PxToggle>
       </div>
-      <PxToggle
-        :id="id"
-        :modelValue="modelValue"
-        @update:modelValue="$emit('update:modelValue', $event)"
-        :options="options"
-        :disabled="disabled"
-        :prevent="prevent"
-        :viewMode="viewMode"
-      ></PxToggle>
     </div>
     <HelperText :id="id" :error="error" :helperText="helperText">
       <template #helperIcon> <slot name="helperIcon"></slot> </template>

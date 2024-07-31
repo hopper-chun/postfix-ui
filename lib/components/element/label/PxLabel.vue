@@ -10,6 +10,8 @@ const props = defineProps({
   hover: { type: Boolean, default: true },
 })
 
+const emit = defineEmits(['onClickTooltip'])
+
 const slots = useSlots()
 
 const isTooltipClick = ref(false)
@@ -22,9 +24,13 @@ const useTooltip = computed(() => {
 
 const tooltipRef = ref(null)
 
+const tooltipContentRef = ref(null)
+
 const isTooltipHover = ref(false)
 
 const handleTooltipClick = () => {
+  emit('onClickTooltip', tooltipContentRef.value.innerHTML)
+
   isTooltipClick.value = !isTooltipClick.value
 }
 
@@ -73,7 +79,7 @@ onClickOutside(tooltipRef, (event) => {
       <button class="px-label--tooltipIcon" @click="handleTooltipClick"></button>
 
       <div class="px-label--tooltipWrapper">
-        <div class="px-label--tooltip">
+        <div class="px-label--tooltip" ref="tooltipContentRef">
           <slot name="tooltip"></slot>
         </div>
       </div>

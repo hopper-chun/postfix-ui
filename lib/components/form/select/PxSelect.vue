@@ -19,7 +19,7 @@ const props = defineProps({
   hover: { type: Boolean, default: true },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 const slots = useSlots()
 
 const { functionRef: containerRefFunc, element: containerRef } = useFunctionRef()
@@ -64,20 +64,28 @@ const randomId = useMakeId()
 <template>
   <div class="px-select">
     <template v-if="viewMode">
-      <div class="px-select--view" :class="[{ viewMode }]">
+      <div class="px-select--view labelSwitch" :class="[{ viewMode }]">
         <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
         <div class="px-input--view_text">{{ optionsLabel(localValue) }}</div>
       </div>
     </template>
     <template v-else>
       <div class="px-select--edit" :ref="containerRefFunc">
-        <div class="px-select--wrapper">
-          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" :hover="hover">
+        <div class="px-select--wrapper labelSwitch">
+          <PxLabel
+            :label="label"
+            :labelHelper="labelHelper"
+            :required="required"
+            :id="randomId"
+            :hover="hover"
+            @onClickTooltip="$emit('onClickTooltip', $event)"
+          >
             <template v-if="!!slots.tooltip" #tooltip>
               <slot name="tooltip"></slot>
             </template>
           </PxLabel>
-          <div>
+
+          <div class="px-select--input_wrapper">
             <div :ref="selectRefFunc" :id="randomId" @click="handleOpen" class="px-input--field" :class="[{ disabled }, { error }]" tabindex="0">
               <span class="px-select--header" :class="{ placeholder: !localValue }">
                 <div>

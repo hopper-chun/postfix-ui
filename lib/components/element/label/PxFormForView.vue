@@ -8,7 +8,7 @@ const props = defineProps({
 })
 </script>
 <template>
-  <div class="px-formForView">
+  <div class="px-formForView labelSwitch">
     <div v-if="viewMode" class="px-formForView--view" :class="[{ viewMode }]">
       <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
     </div>

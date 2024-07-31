@@ -26,7 +26,7 @@ const props = defineProps({
   isDatePicker: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:modelValue', 'onBlur', 'onClear'])
+const emit = defineEmits(['update:modelValue', 'onBlur', 'onClear', 'onClickTooltip'])
 const slots = useSlots()
 const unitWidth = ref(0)
 const unitPadding = computed(() => {
@@ -106,7 +106,7 @@ const randomId = useMakeId()
 <template>
   <div class="px-input">
     <template v-if="viewMode">
-      <div class="px-input--view" :class="[{ viewMode }]">
+      <div class="px-input--view labelSwitch" :class="[{ viewMode }]">
         <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
 
         <div v-if="format" class="px-input--view_text">
@@ -120,16 +120,24 @@ const randomId = useMakeId()
     </template>
     <template v-else>
       <div class="px-input--edit">
-        <div style="position: relative">
-          <div class="px-input--labelwrapper">
-            <PxLabel :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="randomId" style="flex: 1 1 0">
+        <div style="position: relative" class="labelSwitch">
+          <div class="px-input--label_wrapper">
+            <PxLabel
+              :label="label"
+              :hover="hover"
+              :labelHelper="labelHelper"
+              :required="required"
+              :id="randomId"
+              style="flex: 1 1 0"
+              @onClickTooltip="$emit('onClickTooltip', $event)"
+            >
               <template v-if="!!slots.tooltip" #tooltip>
                 <slot name="tooltip"></slot>
               </template>
             </PxLabel>
           </div>
 
-          <div style="position: relative">
+          <div class="px-input--input_wrapper" style="position: relative">
             <input
               :ref="inputRefFunc"
               :id="randomId"

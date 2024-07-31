@@ -16,7 +16,7 @@ const props = defineProps({
   hover: { type: Boolean, default: true },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 
 const { functionRef, element } = useFunctionRef()
 const { id, modelValue, options } = toRefs(props)
@@ -30,8 +30,16 @@ const handleCheck = () => {
 }
 </script>
 <template>
-  <div :class="[{ viewMode }]" style="position: relative">
-    <PxLabel v-if="label" :label="label" :hover="hover" :labelHelper="labelHelper" :required="required" :id="id">
+  <div :class="[{ viewMode }]" class="labelSwitch" style="position: relative">
+    <PxLabel
+      v-if="label"
+      :label="label"
+      :hover="hover"
+      :labelHelper="labelHelper"
+      :required="required"
+      :id="id"
+      @onClickTooltip="$emit('onClickTooltip', $event)"
+    >
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>
