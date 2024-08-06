@@ -2170,7 +2170,7 @@
   max-width: calc(100vw - 50px) !important;
 }
 
-.px-dialog.nm > .px-dialog--container {
+.px-dialog.md > .px-dialog--container {
   height: 500px !important;
   width: 600px;
   max-height: calc(100vh - 50px) !important;
