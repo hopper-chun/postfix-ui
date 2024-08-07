@@ -2151,6 +2151,14 @@
   z-index: 30;
 }
 
+.px-dialog.full .px-dialog--body,
+.px-dialog.xl .px-dialog--body,
+.px-dialog.lg .px-dialog--body,
+.px-dialog.md .px-dialog--body,
+.px-dialog.sm .px-dialog--body {
+  overflow-y: hidden;
+}
+
 .px-dialog.full > .px-dialog--container {
   width: calc(100vw - 50px) !important;
   height: calc(100vh - 50px) !important;
@@ -2218,7 +2226,7 @@
 
 .px-dialog--body {
   flex: 1 1 0%;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 .px-dialog--body > div {
