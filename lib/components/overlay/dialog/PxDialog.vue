@@ -2,9 +2,8 @@
 import { ref, watch, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
-  title: { type: [Boolean, String] },
-  isClose: { type: Boolean, default: true },
-  customStyle: { type: Object },
+  title: { type: String },
+  closeButton: { type: Boolean, default: true },
   fnBeforeClose: { type: Function },
   size: { type: String },
 })
@@ -75,10 +74,10 @@ defineExpose({ open, close })
   >
     <template v-if="active">
       <div class="px-dialog" :class="size" @mousedown.self="onMouseDown" @mouseup.self="onMouseUp">
-        <div class="px-dialog--container" :style="customStyle">
-          <div v-if="title" class="px-dialog--header">
-            <div class="title">{{ title }}</div>
-            <div v-if="isClose" class="close" @click="close"></div>
+        <div class="px-dialog--container">
+          <div class="px-dialog--header">
+            <div v-if="title" class="title">{{ title }}</div>
+            <div v-if="closeButton" class="close" @click="close"></div>
           </div>
           <div class="px-dialog--body">
             <slot :closeDialog="close" :isActive="active"> </slot>

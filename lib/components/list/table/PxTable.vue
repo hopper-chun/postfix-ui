@@ -6,14 +6,14 @@ import { useResize } from '@/composables'
 const props = defineProps({
   headers: { type: Array, required: true },
   rows: { type: Array, required: true },
-  isNarrow: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
+  narrow: { type: Boolean, default: false },
+  // disabled: { type: Boolean, default: false },
   checkboxes: { type: [Array, null], default: () => null },
-  checkboxDisables: { type: [Array, null], default: () => null },
-  isSingleCheckbox: { type: Boolean, default: false },
+  // checkboxDisables: { type: [Array, null], default: () => null },
+  singleCheckbox: { type: Boolean, default: false },
   emptyText: { type: String, default: '표시할 정보가 없습니다.' },
   fnClass4Row: { type: Function },
-  isSearching: { type: Boolean, default: false },
+  searching: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
 })
 
@@ -61,7 +61,7 @@ const handleCheckbox = (index) => {
     'update:checkboxes',
     props.rows.map((_, idx) => {
       if (index === idx) return !props.checkboxes[idx]
-      else return props.isSingleCheckbox ? false : props.checkboxes[idx]
+      else return props.singleCheckbox ? false : props.checkboxes[idx]
     })
   )
 }
@@ -81,14 +81,14 @@ const tooltip = ref({
 
 const ro = new ResizeObserver((entries) => {
   entries.forEach((entry) => {
-    const value = window.innerHeight - tableRef.value.offsetTop - 30
+    const v = window.innerHeight - tableRef.value.offsetTop - 30
     if (props.tableHeight) {
       height.value = props.tableHeight === 'auto' ? 'auto' : props.tableHeight + 'px'
     } else {
-      if (value < 300) {
+      if (v < 300) {
         height.value = 300 + 'px'
       } else {
-        height.value = value + 'px'
+        height.value = v + 'px'
       }
     }
     tooltip.value.isActive = false
@@ -165,8 +165,8 @@ onBeforeUnmount(() => {
     <table>
       <thead ref="theadRef">
         <tr>
-          <th v-if="hasCheckboxes" class="hasCheckboxes" :class="[{ isNarrow }]" nowrap>
-            <PxCheckbox id="checkAll" :disabled="isSingleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
+          <th v-if="hasCheckboxes" class="hasCheckboxes" :class="[{ isNarrow: narrow }]" nowrap>
+            <PxCheckbox id="checkAll" :disabled="singleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
           </th>
           <template v-for="(header, headerIndex) in computedHeaders" :key="header">
             <th v-if="header.headerSlotId">
@@ -175,7 +175,7 @@ onBeforeUnmount(() => {
                 <div class="tooltipIcon" @click="handleClickTooltip($event, header.tooltip)"></div>
               </div>
             </th>
-            <th :class="[{ isNarrow }]" nowrap v-else>
+            <th :class="[{ isNarrow: narrow }]" nowrap v-else>
               <a
                 @click="handleClickHeader(header, headerIndex)"
                 class="px-table--header"
@@ -197,14 +197,14 @@ onBeforeUnmount(() => {
       </thead>
       <tbody>
         <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']">
-          <td v-if="hasCheckboxes" :class="[{ isNarrow }]" class="hasCheckboxes">
+          <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes">
             <PxCheckbox :id="`cb_${rowIndex}`" :modelValue="checkboxes[rowIndex]" @update:modelValue="handleCheckbox(rowIndex)" />
           </td>
           <template v-for="(header, columnIndex) in computedHeaders" :key="header">
             <template v-if="row.PX_ROWSPAN?.skip?.[header.field || header.slotId]"></template>
             <td
               v-else
-              :class="[{ isNarrow }, header.class || '', { center: header.align === 'center' }, { right: header.align === 'right' }]"
+              :class="[{ isNarrow: narrow }, header.class || '', { center: header.align === 'center' }, { right: header.align === 'right' }]"
               :width="header.width"
               :rowspan="row.PX_ROWSPAN?.span?.[header.field || header.slotId] || undefined"
             >
@@ -226,7 +226,7 @@ onBeforeUnmount(() => {
         </tr>
       </tbody>
     </table>
-    <template v-if="isSearching">
+    <template v-if="searching">
       <div class="px-table--searching">검색중입니다.</div>
     </template>
     <template v-else-if="rows.length === 0">
