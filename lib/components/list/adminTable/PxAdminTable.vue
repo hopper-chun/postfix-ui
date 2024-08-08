@@ -16,21 +16,22 @@ const props = defineProps({
   tableConfig: { type: Object, required: true },
   router: { type: Object, required: true },
   checkboxes: { type: [Array, null], default: () => null },
-  isSingleCheckbox: { type: Boolean, default: false },
+  singleCheckbox: { type: Boolean, default: false },
   defaultLabel4Sort: { type: String, default: '기본 정렬' },
-  useDefaultTable: { type: Boolean, default: true },
-  useShellTable: { type: Boolean, default: true },
-  useSearchOrder: { type: Boolean, default: true },
-  useSearchFilter: { type: Boolean, default: true },
-  isInactiveCheckbox: { type: Boolean, default: false },
-  checkboxDisables: { type: Array },
-  isSearching: { type: Boolean, default: false },
+  defaultTable: { type: Boolean, default: true },
+  shellTable: { type: Boolean, default: true },
+  searchOrderButton: { type: Boolean, default: true },
+  searchFilterButton: { type: Boolean, default: true },
+  inactiveCheckbox: { type: Boolean, default: false }, //사용안함
+  checkboxDisables: { type: Array }, //사용안함
+  searching: { type: Boolean, default: false },
   useTitle: { type: Boolean, default: true },
-  usePaginationCount: { type: Boolean, default: false },
+  paginationCount: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
-  usePaginationSlot: { type: Boolean, default: false },
+  paginationSlot: { type: Boolean, default: false },
   use10000: { type: Boolean, default: false },
   fnClass4Row: { type: Function },
+  emptyText: { type: String, default: '표시할 정보가 없습니다.' },
 })
 const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes', 'onChangeLimit', 'onChangePage', 'onReload', 'onClickSort'])
 
@@ -147,7 +148,7 @@ watch(
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 watchEffect(() => {
-  if (props.isSearching) {
+  if (props.searching) {
     iconRef?.value?.classList.add('SEARCHING')
   } else {
     iconRef?.value?.classList.remove('SEARCHING')
@@ -187,7 +188,7 @@ watchEffect(() => {
 
       <slot name="SHELL-SEARCH"></slot>
 
-      <div v-if="useShellTable" class="px-adminTable--search" :class="[{ useAlign: usePaginationSlot }]">
+      <div v-if="shellTable" class="px-adminTable--search" :class="[{ useAlign: paginationSlot }]">
         <div class="shell-table-left">
           <!-- 왼쪽 버튼 slot, 모바일일 경우 상단 버튼 slot -->
           <slot name="SHELL-TABLE-LEFT" :rows="rows"></slot>
@@ -195,7 +196,7 @@ watchEffect(() => {
         <div class="shell-table-right">
           <!-- 오른쪽 버튼 slot -->
           <div class="func_container">
-            <div v-if="useSearchOrder" class="searchOrder">
+            <div v-if="searchOrderButton" class="searchOrder">
               <PxSearchOrder
                 v-if="searchOrder.options4Sort.length > 0"
                 :defaultLabel="defaultLabel4Sort"
@@ -205,8 +206,8 @@ watchEffect(() => {
                 style="width: 132px"
               ></PxSearchOrder>
             </div>
-            <div v-if="!usePaginationSlot" :class="{ hasCount: usePaginationCount }">
-              <div v-if="usePaginationCount">
+            <div v-if="!paginationSlot" :class="{ hasCount: paginationCount }">
+              <div v-if="paginationCount">
                 <slot name="PAGINATION-COUNT" :total="totalCount"> 총 {{ totalCount }} 건 </slot>
               </div>
               <PxPagination
@@ -218,30 +219,29 @@ watchEffect(() => {
             </div>
           </div>
 
-          <div v-if="useSearchFilter" @click="handleOpenSearchFilter" class="searchFilter">
+          <div v-if="searchFilterButton" @click="handleOpenSearchFilter" class="searchFilter">
             <PxIcon name="icon-settings" style="height: 20px; width: 20px"></PxIcon>
           </div>
         </div>
       </div>
 
-      <template v-if="!useDefaultTable">
+      <template v-if="!defaultTable">
         <slot name="SHELL-TABLE" :handleClickSort="handleClickSort"></slot>
       </template>
       <template v-else>
         <PxTable
-          :emptyText="useLocale ? 'There is no data' : '표시할 정보가 없습니다.'"
-          class=""
+          :emptyText="useLocale ? 'There is no data' : emptyText"
           :isNarrow="true"
           :headers="tableConfig.state.headers"
           :rows="rows"
           @update:rows="$emit('update:rows', $event)"
           :checkboxes="checkboxes"
-          :isSingleCheckbox="isSingleCheckbox"
-          :isInactiveCheckbox="isInactiveCheckbox"
+          :singleCheckbox="singleCheckbox"
+          :inactiveCheckbox="inactiveCheckbox"
           @update:checkboxes="$emit('update:checkboxes', $event)"
           @onClickHeader="handleClickSort"
           :checkboxDisables="checkboxDisables"
-          :isSearching="isSearching"
+          :searching="searching"
           :tableHeight="tableHeight"
           :fnClass4Row="fnClass4Row"
         >
@@ -250,7 +250,7 @@ watchEffect(() => {
           </template>
         </PxTable>
       </template>
-      <template v-if="usePaginationSlot">
+      <template v-if="paginationSlot">
         <div>
           <slot name="SHELL-PAGINATION" :handleChangePage="handleChangePage">
             <PxPagination
