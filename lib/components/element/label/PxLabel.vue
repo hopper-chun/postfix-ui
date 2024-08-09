@@ -75,6 +75,7 @@ onClickOutside(tooltipRef, (event) => {
     </label>
     <div v-if="labelHelper" class="px-label--helper">{{ labelHelper }}</div>
 
+    <!-- 이만큼을 speechBubble로 만들고? -->
     <div v-if="useTooltip" ref="tooltipRef" :class="{ isHover: isActive }" class="px-label--tooltipContainer">
       <button class="px-label--tooltipIcon" @click="handleTooltipClick"></button>
 
