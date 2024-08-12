@@ -2,6 +2,7 @@
 import { ref, watch, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
+  header: { type: Boolean, default: true },
   title: { type: String },
   closeButton: { type: Boolean, default: true },
   fnBeforeClose: { type: Function },
@@ -75,8 +76,8 @@ defineExpose({ open, close })
     <template v-if="active">
       <div class="px-dialog" :class="size" @mousedown.self="onMouseDown" @mouseup.self="onMouseUp">
         <div class="px-dialog--container">
-          <div class="px-dialog--header">
-            <div v-if="title" class="title">{{ title }}</div>
+          <div v-if="header" class="px-dialog--header">
+            <div class="title">{{ title }}</div>
             <div v-if="closeButton" class="close" @click="close"></div>
           </div>
           <div class="px-dialog--body">
