@@ -377,12 +377,12 @@
 
 .px-label--text {
   position: relative;
-  word-break: break-all;
+  word-break: keep-all;
   font-size: var(--px-text-sm);
   color: black;
 }
 
-.px-multiSectionWrapper .px-label--text {
+.px-sectionWrapper .px-label--text {
   text-decoration: underline;
   text-decoration-color: #e2e8f0;
   text-decoration-thickness: 4px;
@@ -3365,15 +3365,16 @@
   transform: rotate(90deg);
 }
 
-.px-sectionWrapper .px-sectionWrapper--body {
+/* 이하는 sectionWrapper 원본 */
+/* .px-sectionWrapper .px-sectionWrapper--body {
   margin-left: -1px;
 }
 .px-sectionWrapper .px-sectionWrapper--body > * {
   padding: 0 24px 20px 24px;
-}
+} */
 
 /* isWide면 자식요소들의 패딩 제거 */
-.px-sectionWrapper .px-sectionWrapper--body.isWide > * {
+/* .px-sectionWrapper .px-sectionWrapper--body.isWide > * {
   padding: 0;
 }
 
@@ -3406,65 +3407,120 @@
   .px-sectionWrapper .px-sectionWrapper--body.isGrid > *:nth-child(even) {
     border-left: 1px solid rgb(216, 216, 216);
   }
-}
+} */
 
 /* layout  multi sectionWrapper */
-.px-multiSectionWrapper {
+.px-sectionWrapper {
   margin-bottom: 20px;
   border: 1px solid var(--px-slate-400);
   background-color: white;
 }
-.px-multiSectionWrapper .px-sectionWrapper--body {
+.px-sectionWrapper .px-sectionWrapper--body {
   margin: 0 16px;
 }
 
-.px-multiSectionWrapper .px-sectionWrapper--body > * {
+.px-sectionWrapper .px-sectionWrapper--body > * {
   padding: 16px 0;
 }
 
-.px-multiSectionWrapper .px-sectionWrapper--body > *:not(:last-child) {
+.px-sectionWrapper .px-sectionWrapper--body > *:not(:last-child) {
   border-bottom: 1px solid rgb(216, 216, 216);
 }
 
-.px-multiSectionWrapper .px-sectionWrapper--body > * > * {
+.px-sectionWrapper .px-sectionWrapper--body > * > * {
   padding: 0 24px 20px 24px;
 }
 
 /* isWide면 자식요소들의 패딩 제거 */
-.px-multiSectionWrapper .px-sectionWrapper--body.isWide > * > * {
+.px-sectionWrapper .px-sectionWrapper--body.isWide > * > * {
   padding: 0;
 }
-.px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * {
+.px-sectionWrapper .px-sectionWrapper--body.isGrid > * {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   /* 왜 clip만 유효한건지 모르겠음 */
   overflow-x: clip;
 }
 
-.px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * > * {
+.px-sectionWrapper .px-sectionWrapper--body.isGrid > * > * {
   margin-left: -1px;
   border-left: 1px solid rgb(216, 216, 216);
 }
 
 @media (max-width: 1584px) {
-  .px-multiSectionWrapper .px-sectionWrapper--body > * > * {
+  .px-sectionWrapper .px-sectionWrapper--body > * > * {
     padding: 0 12px 20px 12px;
   }
 
-  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid > * {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
     border-left: 1px solid rgb(216, 216, 216);
   }
 }
 
 @media (max-width: 639px) {
-  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid > * {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-  .px-multiSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
+  .px-sectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
     border-left: 1px solid rgb(216, 216, 216);
+  }
+}
+
+/* bi sectionWrapper */
+
+.px-biSectionWrapper {
+  margin-bottom: 20px;
+  border: 1px solid var(--px-slate-400);
+  background-color: white;
+}
+
+.px-biSectionWrapper .px-sectionWrapper--body > * {
+  padding: 16px 0;
+  margin: 0 16px;
+}
+
+.px-biSectionWrapper .px-sectionWrapper--body > *:not(:last-child) {
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.px-biSectionWrapper .px-sectionWrapper--body > * > * {
+  padding: 0 24px 20px 24px;
+}
+
+/* isWide면 자식요소들의 패딩 제거 */
+.px-biSectionWrapper .px-sectionWrapper--body.isWide > * > * {
+  padding: 0;
+}
+
+.px-biSectionWrapper .px-sectionWrapper--body.isGrid > * {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* 왜 clip만 유효한건지 모르겠음 */
+  overflow-x: clip;
+}
+
+.px-biSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
+  border-left: 1px solid rgb(216, 216, 216);
+}
+
+@media (max-width: 639px) {
+  .px-biSectionWrapper .px-sectionWrapper--body {
+    margin: 0;
+  }
+
+  .px-biSectionWrapper .px-sectionWrapper--body.isGrid > * {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .px-biSectionWrapper .px-sectionWrapper--body > * > * {
+    padding: 0 12px 20px 12px;
+  }
+
+  .px-biSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
+    border-left: none;
   }
 }
 

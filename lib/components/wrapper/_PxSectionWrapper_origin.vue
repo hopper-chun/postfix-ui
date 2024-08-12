@@ -1,5 +1,4 @@
-<!-- sectionWrapper ver.2 // 개선된게 아니라 방향성이 다르니 원본 지우지 말것-->
-
+<!-- sectionWrapper ver.1 -->
 <script setup>
 import { reactive, computed, ref } from 'vue'
 
@@ -13,7 +12,7 @@ const props = defineProps({
   isWide: { type: Boolean },
   badge: { type: String },
   helperText: { type: String },
-  useGrid: { type: Boolean },
+  useGrid: { type: Boolean, default: true },
 })
 const emit = defineEmits(['onEdit', 'onSave'])
 
@@ -30,11 +29,11 @@ const isEdit = computed(() => {
   }
 })
 
-const isCreate = computed(() => {
-  if (props.mode === 'create') {
-    return true
-  } else {
+const isGrid = computed(() => {
+  if (!props.useGrid || isEdit.value) {
     return false
+  } else {
+    return true
   }
 })
 
@@ -48,7 +47,7 @@ const handleEdit = () => {
 }
 </script>
 <template>
-  <div class="px-multiSectionWrapper" :class="{ 'overflow-hidden': acc.state }">
+  <div class="px-sectionWrapper" :class="{ 'overflow-hidden': acc.state }">
     <div class="px-sectionWrapper--header">
       <div class="px-sectionWrapper--title">
         <div style="display: flex; align-items: center; flex-shrink: 0">
@@ -60,8 +59,6 @@ const handleEdit = () => {
           <div v-if="badge" class="px-sectionWrapper--badge">
             {{ badge }}
           </div>
-
-          <slot name="TOP-LEFT" :viewMode="!isEdit"></slot>
         </div>
         <div style="display: flex; align-items: center">
           <div v-if="helperText" class="px-sectionWrapper--helperText">
@@ -85,8 +82,8 @@ const handleEdit = () => {
         <slot name="TOP-RIGHT"></slot>
       </div>
     </div>
-    <div ref="accContainer" :style="acc.state ? 'max-height:0px' : 'max-height:100%; margin: _16px 0'">
-      <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid: useGrid || !isCreate }]">
+    <div class="" ref="accContainer" :style="acc.state ? 'max-height:0px' : 'max-height:100%; margin:16px 0'">
+      <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid }]">
         <slot :viewMode="!isEdit"></slot>
       </div>
     </div>

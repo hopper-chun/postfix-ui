@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed, ref } from 'vue'
+import { reactive, computed, ref, useSlots } from 'vue'
 
 const props = defineProps({
   useLocale: { type: Boolean },
@@ -11,9 +11,13 @@ const props = defineProps({
   isWide: { type: Boolean },
   badge: { type: String },
   helperText: { type: String },
-  useGrid: { type: Boolean },
+  useGrid: { type: Boolean, default: undefined },
 })
-const emit = defineEmits(['onEdit', 'onSave'])
+const emit = defineEmits(['onEdit', 'onSave', 'onClickTooltip'])
+
+const slots = useSlots()
+
+const tooltipContentRef = ref(null)
 
 const acc = reactive({
   state: false,
@@ -28,12 +32,22 @@ const isEdit = computed(() => {
   }
 })
 
-const isCreate = computed(() => {
-  if (props.mode === 'create') {
-    return true
-  } else {
+const isGrid = computed(() => {
+  if (props.useGrid === undefined && isEdit.value) {
     return false
+  } else if (props.useGrid === true) {
+    return true
+  } else if (props.useGrid === false) {
+    return false
+  } else {
+    return true
   }
+
+  // if (!props.useGrid === false || isEdit.value) {
+  //   return false
+  // } else {
+  //   return true
+  // }
 })
 
 const accContainer = ref()
@@ -44,9 +58,13 @@ const handleClick = () => {
 const handleEdit = () => {
   emit('onEdit')
 }
+
+const handleTooltipClick = () => {
+  emit('onClickTooltip', tooltipContentRef.value.innerHTML)
+}
 </script>
 <template>
-  <div class="px-multiSectionWrapper" :class="{ 'overflow-hidden': acc.state }">
+  <div class="px-biSectionWrapper" :class="{ 'overflow-hidden': acc.state }">
     <div class="px-sectionWrapper--header">
       <div class="px-sectionWrapper--title">
         <div style="display: flex; align-items: center; flex-shrink: 0">
@@ -55,11 +73,16 @@ const handleEdit = () => {
             <span v-if="required" class="required"></span>
           </div>
 
+          <div v-if="!!slots.tooltip" class="px-sectionWrapper--tooltip">
+            <button class="px-sectionWrapper--tooltipIcon" @click="handleTooltipClick"></button>
+            <div class="hidden" ref="tooltipContentRef">
+              <slot name="tooltip"></slot>
+            </div>
+          </div>
+
           <div v-if="badge" class="px-sectionWrapper--badge">
             {{ badge }}
           </div>
-
-          <slot name="TOP-LEFT" :viewMode="!isEdit"></slot>
         </div>
         <div style="display: flex; align-items: center">
           <div v-if="helperText" class="px-sectionWrapper--helperText">
@@ -72,8 +95,8 @@ const handleEdit = () => {
       <div style="display: flex; align-items: center">
         <slot name="TOP-RIGHT-L" :viewMode="!isEdit"></slot>
 
-        <PxButton v-if="mode === 'view' && !isReadOnly" size="sm" color="pri_border" @click="handleEdit" style="font-weight: 700">{{
-          useLocale ? 'edit' : '편집'
+        <PxButton v-if="mode === 'view' && !isReadOnly" size="sm" color="pri_border" @click="handleEdit" class="bg-white" style="font-weight: 700">{{
+          useLocale ? 'edit' : '수정'
         }}</PxButton>
 
         <button v-if="isFold" class="px-sectionWrapper--fold" @click="handleClick">
@@ -83,8 +106,8 @@ const handleEdit = () => {
         <slot name="TOP-RIGHT"></slot>
       </div>
     </div>
-    <div ref="accContainer" :style="acc.state ? 'max-height:0px' : 'max-height:100%; margin: _16px 0'">
-      <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid: useGrid || !isCreate }]">
+    <div ref="accContainer" class="px-sectionWrapper-accContainer">
+      <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid }]">
         <slot :viewMode="!isEdit"></slot>
       </div>
     </div>
