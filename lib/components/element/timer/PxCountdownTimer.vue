@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import filters from '@/filters'
+import { displaySeconds } from '@/filters/common'
 
 const timerSec = ref(0)
 let timerHandle = null
@@ -21,6 +21,8 @@ const stop = () => {
   timerHandle = null
 }
 
+console.log(filters)
+
 onMounted(() => start(60 * 3))
 onBeforeUnmount(() => stop())
 
@@ -28,5 +30,7 @@ defineExpose({ start, stop })
 </script>
 
 <template>
-  <div class="px-countdownTimer">{{ filters.displaySeconds(timerSec) }}</div>
+  <div class="px-countdownTimer">
+    {{ filters.displaySeconds(timerSec) }}
+  </div>
 </template>
