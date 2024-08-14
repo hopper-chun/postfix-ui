@@ -75,7 +75,7 @@ const handleTooltipClick = () => {
 
           <div v-if="!!slots.tooltip" class="px-sectionWrapper--tooltip">
             <button class="px-sectionWrapper--tooltipIcon" @click="handleTooltipClick"></button>
-            <div class="hidden" ref="tooltipContentRef">
+            <div ref="tooltipContentRef" style="display: none">
               <slot name="tooltip"></slot>
             </div>
           </div>

@@ -2523,7 +2523,7 @@
     height: auto;
   }
 
-  .px-adminTable--search .shell-table-right .func_container .searchOrder {
+  .px-adminTable--search .shell-table-right .func_container .px-searchOrder {
     display: none;
   }
 }
@@ -2559,7 +2559,7 @@
 .px-adminTable .dialog_searchFilter .dialog_body {
   max-height: auto;
   display: flex;
-  padding: 0 20px;
+  padding: 20px;
   overflow-y: auto;
 }
 
@@ -2570,7 +2570,7 @@
 @media screen and (max-width: 639px) {
   .px-adminTable .dialog_searchFilter .dialog_body {
     max-height: 500px;
-    padding: 0 12px;
+    padding: 12px;
   }
 }
 
@@ -2611,7 +2611,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding-top: 32px;
+  /* padding-top: 32px; */
 }
 
 .px-adminTable .dialog_searchFilter .button_wrapper button:first-child {

@@ -20,6 +20,7 @@ const handleChangeLimit = (value) => {
 <template>
   <PxRadio
     id="searchPageLimit"
+    row
     :modelValue="limit"
     :options="options"
     :optionsLabel="(option) => option?.label"

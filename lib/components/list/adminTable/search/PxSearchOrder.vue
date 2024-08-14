@@ -30,7 +30,6 @@ const handleChangeSort = (value) => {
     :optionsValue="(option) => JSON.stringify(option.value)"
     @update:modelValue="handleChangeSort($event)"
     defaultLabel="분류"
-    isSmall
   >
   </PxSelect>
 </template>

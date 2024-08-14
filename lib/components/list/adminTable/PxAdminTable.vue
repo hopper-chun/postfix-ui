@@ -196,7 +196,7 @@ watchEffect(() => {
         <div class="shell-table-right">
           <!-- 오른쪽 버튼 slot -->
           <div class="func_container">
-            <div v-if="searchOrderButton" class="searchOrder">
+            <div v-if="searchOrderButton" class="px-searchOrder">
               <PxSearchOrder
                 v-if="searchOrder.options4Sort.length > 0"
                 :defaultLabel="defaultLabel4Sort"
@@ -263,12 +263,12 @@ watchEffect(() => {
         </div>
       </template>
     </div>
-    <PxDialog v-slot="{ closeDialog }" :ref="functionRef">
+    <PxDialog :title="useLocale ? 'Table filter settings' : '테이블 필터 설정'" v-slot="{ closeDialog }" :ref="functionRef">
       <div class="dialog_searchFilter">
-        <div class="dialog_header">
+        <!-- <div class="dialog_header">
           <div class="title">{{ useLocale ? 'Table filter settings' : '테이블 필터 설정' }}</div>
           <div class="close" @click="closeDialog()"></div>
-        </div>
+        </div> -->
 
         <div class="dialog_body">
           <div class="leftSection">
