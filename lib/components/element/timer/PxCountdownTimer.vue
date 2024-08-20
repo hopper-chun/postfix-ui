@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { displaySeconds } from '@/filters/common'
+import * as filters from '@/filters'
 
 const timerSec = ref(0)
 let timerHandle = null
