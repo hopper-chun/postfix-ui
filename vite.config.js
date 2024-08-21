@@ -4,15 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag === 'swiper-container' || tag.startsWith('swiper-'),
-        },
-      },
-    }),
-  ],
+  plugins: [vue({})],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'lib'),
