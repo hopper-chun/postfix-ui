@@ -4001,12 +4001,23 @@
 
 .px-fileUploader--container .fileList {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.px-fileUploader--container .fileList > div:not(:first-child) {
-  margin-left: 4px;
+.px-fileUploader--container .fileList > div:not(:last-child) {
+  margin-right: 4px;
+  margin-bottom: 2px;
 }
 
+.px-fileUploader--container .fileList .name {
+  font-size: 12px;
+  line-height: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+/* text-[12px] truncate leading-[16px] */
 .px-fileUploader--list {
   display: inline-flex;
   height: 26px;
@@ -4090,3 +4101,66 @@
   /* left: 50%; */
   transform: translate3d(50%, 50%, 0);
 }
+
+/* 라벨 중앙정렬 */
+@media screen and (min-width: 639px) {
+  .labelFlex .labelSwitch {
+    display: flex;
+    align-items: center;
+  }
+
+  .labelFlex .labelSwitch.start {
+    align-items: start;
+  }
+
+  .labelFlex .px-textarea .labelSwitch {
+    align-items: start;
+  }
+
+  .labelFlex .px-label {
+    width: 120px;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+    padding-right: 4px;
+  }
+
+  /* .labelSwitch .px-label {
+    width: 120px;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+  } */
+
+  .labelFlex .px-textarea .labelSwitch .px-label {
+    height: 30px;
+  }
+
+  .labelFlex .px-helperText {
+    padding-left: 120px;
+  }
+
+  .labelFlex .px-floatInput .px-helperText,
+  .labelFlex .px-floatSelect .px-helperText,
+  .labelFlex .px-floatTextarea .px-helperText {
+    padding-left: 0px;
+  }
+
+  .labelFlex .px-select--input_wrapper {
+    position: relative;
+    flex: 1 1 0%;
+  }
+
+  .labelFlex .px-label--tooltipContainer {
+    margin-left: 0px;
+  }
+
+  .labelFlex .px-input--input_wrapper {
+    flex: 1 1 0%;
+  }
+}
+
+.labelFlex .px-label .isHover .px-label--tooltipIcon ~ .px-label--tooltipWrapper,
+.labelFlex .px-label .isHover .px-label--tooltipIcon::before {
+  display: none;
+}
+
+/*  라벨 중앙정렬 여기까지 */

@@ -14,7 +14,7 @@ const slots = useSlots()
 const fileRef = ref(null)
 
 const reset = () => {
-  fileRef.value.value = ''
+  fileRef.value = ''
 }
 
 const loadImg = (file) => {
