@@ -3880,6 +3880,7 @@
   top: 0;
   bottom: 0;
   width: 50%;
+  z-index: 1;
 }
 
 .px-imageUploader--left {
@@ -3926,6 +3927,7 @@
   right: 8px;
   display: flex;
   align-items: center;
+  z-index: 2;
 }
 
 .px-imageUploader--icon > * {
