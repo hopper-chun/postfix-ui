@@ -2168,28 +2168,21 @@
   height: calc(100vh - 50px) !important;
   /* 와드 */
   width: 1200px;
-  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog.lg > .px-dialog--container {
   height: 800px !important;
   width: 900px;
-  max-height: calc(100vh - 50px) !important;
-  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog.md > .px-dialog--container {
   height: 500px !important;
   width: 600px;
-  max-height: calc(100vh - 50px) !important;
-  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog.sm > .px-dialog--container {
   height: 300px !important;
   width: 400px;
-  max-height: calc(100vh - 50px) !important;
-  max-width: calc(100vw - 50px) !important;
 }
 
 .px-dialog--container {
@@ -2198,6 +2191,8 @@
   display: flex;
   flex-direction: column;
   box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.1);
+  max-width: calc(100vw - 50px);
+  max-height: calc(100vh - 50px);
   /* overflow: hidden; */
 }
 
@@ -2302,18 +2297,6 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 140%;
-}
-
-/* list tableCellLink */
-.px-tableCellLink--label {
-  font-size: var(--px-text-sm);
-  line-height: 19px;
-  color: #2563eb;
-}
-
-.px-tableCellLink--arrayed_label {
-  cursor: pointer;
-  white-space: nowrap;
 }
 
 /* list adminTable */
@@ -2630,22 +2613,13 @@
   }
 }
 
-.px-adminTableCellLink--label {
+.px-adminTable td a {
   width: 100%;
   cursor: pointer;
   text-align: left;
   font-size: 13px;
   font-weight: 700;
   line-height: 19px;
-  color: #2563eb;
-}
-
-.px-adminTableCellLink--array {
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.px-adminTableCellLink--array.blue {
   color: #2563eb;
 }
 
@@ -3676,7 +3650,7 @@
   position: relative;
   border-radius: 20px;
   background-color: white;
-  padding: 40px 36px 32px 40px;
+  padding-bottom: 20px;
   width: 700px;
 }
 
@@ -3712,7 +3686,7 @@
 
 .px-addressDialog--result {
   margin-top: 16px;
-  height: 484px;
+  /* height: 484px; */
   border-top: 1px solid var(--px-border-input);
   border-bottom: 1px solid var(--px-border-input);
   overflow-y: auto;
@@ -4142,7 +4116,8 @@
 
   .labelFlex .px-floatInput .px-helperText,
   .labelFlex .px-floatSelect .px-helperText,
-  .labelFlex .px-floatTextarea .px-helperText {
+  .labelFlex .px-floatTextarea .px-helperText,
+  .labelFlex .px-addressDialog--input .px-helperText {
     padding-left: 0px;
   }
 
