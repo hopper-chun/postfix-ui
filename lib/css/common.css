@@ -2320,7 +2320,6 @@
   align-items: center;
   justify-content: space-between;
 }
-
 @media screen and (max-width: 639px) {
   .px-adminTable--header_container {
     font-size: 22px;
