@@ -3477,6 +3477,7 @@
 
 .px-biSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
   border-left: 1px solid rgb(216, 216, 216);
+  margin-left: -1px;
 }
 
 @media (max-width: 639px) {

@@ -11,12 +11,12 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
 
 <template>
   <transition
-    enter-active-class=" px-tooltipDialog--enter-active"
-    enter-from-class=" px-tooltipDialog--enter-from"
-    enter-to-class=" px-tooltipDialog--enter-to"
+    enter-active-class="px-tooltipDialog--enter-active"
+    enter-from-class="px-tooltipDialog--enter-from"
+    enter-to-class="px-tooltipDialog--enter-to"
     leave-active-class="px-tooltipDialog--leave-active"
-    leave-from-class=" px-tooltipDialog--leave-from"
-    leave-to-class=" px-tooltipDialog--leave-to"
+    leave-from-class="px-tooltipDialog--leave-from"
+    leave-to-class="px-tooltipDialog--leave-to"
   >
     <div v-if="isActive" ref="tootlipDialogRef" class="px-tooltipDailog">
       <div class="px-tooltipDailog--header">
@@ -53,7 +53,7 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
     transform: translateX(0%);
   }
   .px-tooltipDialog--leave-to {
-    transform: translateX(0%);
+    transform: translateX(100%);
   }
 }
 
@@ -68,7 +68,7 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
     transform: translateY(0%);
   }
   .px-tooltipDialog--leave-to {
-    transform: translateY(0%);
+    transform: translateY(100%);
   }
 }
 
