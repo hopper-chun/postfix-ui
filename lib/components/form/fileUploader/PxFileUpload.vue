@@ -56,10 +56,10 @@ const selectFile = async (event) => {
 }
 </script>
 <template>
-  <div v-if="!!slots.default" class="px-customUpload">
+  <div v-if="!!slots.button" class="px-customUpload">
     <label :for="id" class="px-customUpload--label">
       <div>
-        <slot></slot>
+        <slot name="button"></slot>
       </div>
       <input v-if="!disabled" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
     </label>
