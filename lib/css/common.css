@@ -4156,11 +4156,13 @@
   display: flex;
   align-items: center;
   /* justify-content: center; */
+  flex-wrap: wrap;
   padding: 0 8px;
 }
 
 .button-group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 4px 0;
 }
@@ -4194,6 +4196,82 @@
   border: 1px solid var(--px-pri-600);
 }
 
+.control-group .HList {
+  background: white;
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid var(--px-border-input);
+}
+
+.control-group .HList .is-active {
+  color: var(--px-pri-600);
+}
+
+.control-group .CList {
+  background: white;
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--px-border-input);
+}
+
+@media screen and (max-width: 649px) {
+  .control-group .CList {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate3d(50%, -50%, 0);
+  }
+}
+
+.tiptap-editor .colorwheel {
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+  border-radius: 50%;
+}
+
+.control-group .colors {
+  display: flex;
+  align-items: center;
+}
+
+.control-group .colors:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.control-group .color-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--px-border-input);
+  border-radius: 12px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.control-group .color-wrapper.is-active {
+  border-color: #334155;
+}
+
+.control-group .color-wrapper:not(:last-child) {
+  margin-right: 4px;
+}
+
+.control-group .color {
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+}
+
 .button-group > *:hover {
   background-color: #eee;
 }
@@ -4218,6 +4296,10 @@
 
 .ProseMirror {
   padding: 8px;
+}
+
+.ProseMirror-focused {
+  outline: none;
 }
 
 .tiptap :first-child {
@@ -4325,7 +4407,6 @@
 }
 
 .tiptap div[data-youtube-video] iframe {
-  /* border: 0.5rem solid var(--black-contrast); */
   display: block;
   min-height: 200px;
   min-width: 200px;
@@ -4335,4 +4416,14 @@
 .tiptap div[data-youtube-video].ProseMirror-selectednode iframe {
   outline: 5px solid var(--px-pri-600);
   transition: outline 0.15s;
+}
+
+.tiptap a {
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.tiptap a:hover {
+  color: #1d4ed8;
 }
