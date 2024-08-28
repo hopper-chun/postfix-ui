@@ -4217,7 +4217,7 @@
   display: inline-block;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   z-index: 1;
   padding: 8px;
   border-radius: 4px;
@@ -4426,4 +4426,12 @@
 
 .tiptap a:hover {
   color: #1d4ed8;
+}
+
+.tiptap ul {
+  list-style: disc;
+}
+
+.tiptap ol {
+  list-style: decimal;
 }
