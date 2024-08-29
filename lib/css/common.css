@@ -66,6 +66,18 @@
   border: 1px solid transparent;
 }
 
+.hasLabel {
+  display: inline-block;
+}
+
+.hasLabel .px-btn {
+  width: 100%;
+}
+
+.hasLabel .px-label {
+  width: auto !important;
+}
+
 .px-btn--container {
   display: flex;
   align-items: center;
@@ -3507,6 +3519,7 @@
   line-height: 30px;
   height: 42px;
   font-weight: 700;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 639px) {
@@ -3514,6 +3527,7 @@
     height: auto;
     font-size: 22px;
     line-height: 28px;
+    margin-bottom: 20px;
   }
 }
 
@@ -4130,7 +4144,8 @@
     margin-left: 0px;
   }
 
-  .labelFlex .px-input--input_wrapper {
+  .labelFlex .px-input--input_wrapper,
+  .labelFlex .px-datepicker--input_Wrapper {
     flex: 1 1 0%;
   }
 }

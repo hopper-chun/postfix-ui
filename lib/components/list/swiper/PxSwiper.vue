@@ -3,7 +3,7 @@ import { computed, ref, onMounted, watch } from 'vue'
 
 const props = defineProps({
   params: { type: Object },
-  groups: { type: [Array, Number], reqruied: true },
+  options: { type: [Array, Number], reqruied: true },
   useNavigation: { type: Boolean },
   styles: { type: [Array, Object] },
   maxWidth: { type: String },
@@ -37,13 +37,13 @@ onMounted(() => {
   loadSwiper()
 })
 
-watch(() => props.groups, loadSwiper)
+watch(() => props.options, loadSwiper)
 </script>
 <template>
   <div class="px-swiper">
     <swiper-container init="false" ref="swiperRef" :style="[{ maxWidth: maxWidth }]">
-      <swiper-slide v-for="(group, index) in groups" class="px-swiper--slide">
-        <slot :group="group" :index="index"></slot>
+      <swiper-slide v-for="(option, index) in options" class="px-swiper--slide">
+        <slot :option="option" :index="index"></slot>
       </swiper-slide>
     </swiper-container>
     <template v-if="useNavigation">

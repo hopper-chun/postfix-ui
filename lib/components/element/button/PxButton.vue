@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
   <template v-if="hasLabel">
-    <div>
+    <div class="hasLabel">
       <PxLabel label="&nbsp;"></PxLabel>
       <button
         :type="type"
