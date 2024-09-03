@@ -3934,6 +3934,15 @@
   cursor: move;
 }
 
+.px-imageUploader--icon .moveItem {
+  cursor: pointer;
+}
+
+.px-imageUploader--icon .moveItem.disabled {
+  background-color: #eaecf0;
+  color: #d4d9e0;
+}
+
 .px-imageUploader--icon .px-icon {
   width: 18px;
   height: 18px;
