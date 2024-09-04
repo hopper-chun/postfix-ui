@@ -291,10 +291,10 @@ watch(
           :disabled="!editor.can().chain().focus().toggleCode().run()"
           :class="{ 'is-active': editor.isActive('code') }"
         >
-          <PxIcon name="icon-code" class="tiptap-icon"></PxIcon>
+          <PxIcon name="icon-code-bracket" class="tiptap-icon"></PxIcon>
         </button>
         <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
-          <PxIcon name="icon-code-block" class="tiptap-icon"></PxIcon>
+          <PxIcon name="icon-code-bracket-square" class="tiptap-icon"></PxIcon>
         </button>
 
         <button @click="handleSetLink">
