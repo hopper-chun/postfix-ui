@@ -2826,12 +2826,17 @@
 }
 
 @media screen and (max-width: 639px) {
+  .px-selectinputradiocheck {
+    display: block;
+  }
+
   .px-selectinputradiocheck > *:not(:first-child) {
+    margin-left: 0px;
     margin-top: 4px;
   }
 
   .px-selectinputradiocheck .search_input {
-    max-width: auto;
+    max-width: none;
   }
 }
 
