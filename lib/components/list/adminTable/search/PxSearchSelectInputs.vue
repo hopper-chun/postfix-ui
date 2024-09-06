@@ -8,6 +8,7 @@ import PxSelectInputRadioCheck from './components/PxSelectInputRadioCheck.vue'
 const props = defineProps({
   filters: { type: Array, required: true },
   filterTypes: { type: Array, required: true },
+  buttonSize: { type: String },
 })
 
 const emit = defineEmits(['onAppendQuerys', 'onRemoveQuery', 'onSearch'])
@@ -89,8 +90,8 @@ const handleSearch = () => {
         @onKeyDownEnter="handleSearch"
         @onAppendQuerys="emit('onAppendQuerys', $event)"
       ></PxSelectInputRadioCheck>
-      <PxButton color="sec" @click="handleSearch">검색</PxButton>
-      <PxButton color="gray" class="clear" @click="handleReset">초기화</PxButton>
+      <PxButton :size="buttonSize" color="sec" @click="handleSearch">검색</PxButton>
+      <PxButton :size="buttonSize" color="gray" class="clear" @click="handleReset">초기화</PxButton>
     </div>
 
     <template v-if="filters4Display.length > 0">
