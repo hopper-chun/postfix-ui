@@ -4106,6 +4106,35 @@
   transform: translate3d(50%, 50%, 0);
 }
 
+/* pxCustomBoard */
+.px-custom-board--searching,
+.px-custom-board--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--px-border-input);
+  border-radius: 12px;
+  padding: 20px 0;
+  color: var(--px-slate-500);
+  background-color: white;
+}
+
+.px-custom-board .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.px-custom-board .text {
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+.px-custom-board--pagination {
+  display: flex;
+  justify-content: center;
+}
+
 /* 라벨 중앙정렬 */
 @media screen and (min-width: 639px) {
   .labelFlex .labelSwitch {
