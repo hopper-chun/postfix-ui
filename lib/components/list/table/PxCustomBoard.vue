@@ -13,7 +13,7 @@ const props = defineProps({
   tableConfig: { type: Object },
   searchFilter: { type: Object },
   buttonSize: { type: String },
-  searchInput: { type: Boolean, default: true },
+  search: { type: Boolean, default: true },
   pagination: { type: Boolean, default: true },
 })
 
@@ -44,7 +44,7 @@ watch(
 <template>
   <div class="px-custom-board">
     <PxSearchSelectInputs
-      v-if="searchInput"
+      v-if="search"
       :filters="searchFilter.state"
       :filterTypes="filterTypes"
       @onAppendQuerys="searchFilter.appendQuerys"
@@ -53,6 +53,7 @@ watch(
       :buttonSize="buttonSize"
     ></PxSearchSelectInputs>
 
+    <slot name="upper"></slot>
     <template v-if="isSearching">
       <slot name="searching">
         <div class="px-custom-board--searching">

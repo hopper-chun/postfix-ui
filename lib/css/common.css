@@ -2161,6 +2161,7 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 30;
+  font-size: 14px;
 }
 
 .px-dialog.full .px-dialog--body,
