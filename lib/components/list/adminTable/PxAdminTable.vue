@@ -28,7 +28,8 @@ const props = defineProps({
   useTitle: { type: Boolean, default: true },
   paginationCount: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
-  paginationSlot: { type: Boolean, default: false },
+  upperPagination: { type: Boolean, default: true },
+  lowerPagination: { type: Boolean, default: false },
   use10000: { type: Boolean, default: false },
   fnClass4Row: { type: Function },
   emptyText: { type: String, default: '표시할 정보가 없습니다.' },
@@ -188,7 +189,7 @@ watchEffect(() => {
 
       <slot name="SHELL-SEARCH"></slot>
 
-      <div v-if="shellTable" class="px-adminTable--search" :class="[{ useAlign: paginationSlot }]">
+      <div v-if="shellTable" class="px-adminTable--search" :class="[{ useAlign: !upperPagination }]">
         <div class="shell-table-left">
           <!-- 왼쪽 버튼 slot, 모바일일 경우 상단 버튼 slot -->
           <slot name="SHELL-TABLE-LEFT" :rows="rows"></slot>
@@ -206,16 +207,20 @@ watchEffect(() => {
                 style="width: 132px"
               ></PxSearchOrder>
             </div>
-            <div v-if="!paginationSlot" :class="{ hasCount: paginationCount }">
+            <div :class="{ hasCount: paginationCount }">
               <div v-if="paginationCount">
                 <slot name="PAGINATION-COUNT" :total="totalCount"> 총 {{ totalCount }} 건 </slot>
               </div>
-              <PxPagination
-                :limit="tableConfig.state.limit"
-                :currentPage="searchPagination.state.page"
-                :total="totalCount"
-                @onChangePage="handleChangePage"
-              ></PxPagination>
+              <template v-if="upperPagination">
+                <slot name="SHELL-PAGINATION" :handleChangePage="handleChangePage">
+                  <PxPagination
+                    :limit="tableConfig.state.limit"
+                    :currentPage="searchPagination.state.page"
+                    :total="totalCount"
+                    @onChangePage="handleChangePage"
+                  ></PxPagination>
+                </slot>
+              </template>
             </div>
           </div>
 
@@ -250,8 +255,8 @@ watchEffect(() => {
           </template>
         </PxTable>
       </template>
-      <template v-if="paginationSlot">
-        <div>
+      <template v-if="lowerPagination">
+        <div class="lower-pagination">
           <slot name="SHELL-PAGINATION" :handleChangePage="handleChangePage">
             <PxPagination
               :limit="tableConfig.state.limit"

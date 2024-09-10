@@ -16,6 +16,7 @@ const props = defineProps({
   required: { type: Boolean },
   extensions: { type: String },
   public: { type: Boolean },
+  single: { type: Boolean },
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -44,7 +45,12 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
     console.log('==========================', ret)
     if (ret) {
       // local.files.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
-      local.value.files.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename })
+      if (props.single) {
+        local.value.files[0] = { seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename }
+      } else {
+        local.value.files.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename })
+      }
+
       emit('update:modelValue', local.value.files)
     }
   } catch (ex) {

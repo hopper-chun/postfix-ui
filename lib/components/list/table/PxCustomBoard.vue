@@ -43,16 +43,17 @@ watch(
 </script>
 <template>
   <div class="px-custom-board">
-    <PxSearchSelectInputs
-      v-if="search"
-      :filters="searchFilter.state"
-      :filterTypes="filterTypes"
-      @onAppendQuerys="searchFilter.appendQuerys"
-      @onRemoveQuery="searchFilter.clearQuery"
-      @onSearch="reload()"
-      :buttonSize="buttonSize"
-    ></PxSearchSelectInputs>
-
+    <slot name="search">
+      <PxSearchSelectInputs
+        v-if="search"
+        :filters="searchFilter.state"
+        :filterTypes="filterTypes"
+        @onAppendQuerys="searchFilter.appendQuerys"
+        @onRemoveQuery="searchFilter.clearQuery"
+        @onSearch="reload()"
+        :buttonSize="buttonSize"
+      ></PxSearchSelectInputs>
+    </slot>
     <slot name="upper"></slot>
     <template v-if="isSearching">
       <slot name="searching">
@@ -74,13 +75,15 @@ watch(
       <slot :rows="rows" :isMobile="isMobile"></slot>
     </template>
 
-    <div v-if="pagination" class="px-custom-board--pagination">
-      <PxPagination
-        :limit="tableConfig.state.limit"
-        :currentPage="searchPagination.state.page"
-        :total="totalCount"
-        @onChangePage="handleChangePage"
-      ></PxPagination>
-    </div>
+    <slot name="pagination">
+      <div v-if="pagination" class="px-custom-board--pagination">
+        <PxPagination
+          :limit="tableConfig.state.limit"
+          :currentPage="searchPagination.state.page"
+          :total="totalCount"
+          @onChangePage="handleChangePage"
+        ></PxPagination>
+      </div>
+    </slot>
   </div>
 </template>

@@ -1425,7 +1425,9 @@
   max-width: 400px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 .px-datepicker--panel_container {
@@ -1862,9 +1864,9 @@
     flex-wrap: wrap;
   }
 
-  .px-pagination--range.isNarrow .page {
+  /* .px-pagination--range.isNarrow .page {
     display: none;
-  }
+  } */
 
   .px-pagination--range .page.current {
     display: flex;
@@ -2434,25 +2436,26 @@
 @media screen and (max-width: 639px) {
   .px-adminTable--search {
     margin: 4px 0;
-    flex-direction: column;
+    /* flex-direction: column; */
     height: auto;
-    align-items: flex-start;
-    justify-content: normal;
+    /* align-items: flex-start;
+    justify-content: normal; */
   }
 
-  .px-adminTable--search.useAlign {
+  /* .px-adminTable--search.useAlign {
     margin: 4px 0;
     height: auto;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-  }
+  } */
 }
 
 .px-adminTable--search .shell-table-left {
   display: flex;
   align-items: center;
   order: 1;
+  flex-shrink: 0;
 }
 
 .px-adminTable--search .shell-table-left > *:not(:last-child) {
@@ -2461,7 +2464,7 @@
 
 @media screen and (max-width: 639px) {
   .px-adminTable--search .shell-table-left {
-    order: 2;
+    /* order: 2; */
     margin-top: 4px;
     flex-wrap: wrap;
   }
@@ -2633,6 +2636,11 @@
   font-weight: 700;
   line-height: 19px;
   color: #2563eb;
+}
+
+.px-adminTable .lower-pagination {
+  display: flex;
+  justify-content: center;
 }
 
 .px-colorTableCell {
@@ -2858,17 +2866,18 @@
   align-items: center;
 }
 
-.px-dateDuration > *:not(:first-child) {
-  margin-left: 12px;
+.px-dateDuration > *:not(:last-child) {
+  margin-right: 12px;
 }
 
 .px-dateDuration .dateContainer {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.px-dateDuration .dateContainer > *:not(:first-child) {
-  margin-left: 8px;
+.px-dateDuration .dateContainer > *:not(:last-child) {
+  margin-right: 8px;
 }
 
 .px-dateDuration .dateContainer .datePicker {
@@ -3056,7 +3065,9 @@
   overflow: hidden;
   border-radius: 8px;
   background-color: white;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
   border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 16px;
   display: flex;
