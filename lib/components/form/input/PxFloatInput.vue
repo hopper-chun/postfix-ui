@@ -55,7 +55,6 @@ const resizeObserver = new ResizeObserver((entries) => {
 
 onMounted(() => {
   resizeObserver.observe(innerRef.value)
-  console.log(inputRef.value.value)
 })
 
 const isFloating = computed(() => {
