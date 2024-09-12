@@ -4505,3 +4505,8 @@
 .tiptap ol {
   list-style: decimal;
 }
+
+.px-colorTableCell .activeClass {
+  color: #ef4444;
+  font-weight: 700;
+}
