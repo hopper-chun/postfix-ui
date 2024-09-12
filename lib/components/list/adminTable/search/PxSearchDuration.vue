@@ -2,16 +2,6 @@
 import { computed } from 'vue'
 import { subDays, isAfter, isBefore, format, parseISO } from 'date-fns'
 
-const constTabs = [
-  { term: '0', label: '오늘' },
-  { term: '3', label: '3일' },
-  { term: '7', label: '7일' },
-  { term: '30', label: '1개월' },
-  { term: '90', label: '3개월' },
-  { term: '365', label: '1년' },
-  { term: 'all', label: '전체' },
-]
-
 const props = defineProps({
   filters: { type: Array, required: true },
   dateOptions: {
@@ -19,9 +9,31 @@ const props = defineProps({
     required: true,
   },
   isSimple: { type: Boolean },
+  searchType: { type: String },
 })
 const emit = defineEmits(['onAppendQuerys'])
 defineExpose({ querys })
+
+const constTabs = computed(() => {
+  if (props.searchType === 'month') {
+    return [
+      { term: '1', label: '1개월' },
+      { term: '3', label: '3개월' },
+      { term: '6', label: '1년' },
+      { term: '12', label: '전체' },
+    ]
+  } else {
+    return [
+      { term: '0', label: '오늘' },
+      { term: '3', label: '3일' },
+      { term: '7', label: '7일' },
+      { term: '30', label: '1개월' },
+      { term: '90', label: '3개월' },
+      { term: '365', label: '1년' },
+      { term: 'all', label: '전체' },
+    ]
+  }
+})
 
 const state = computed(() => {
   const ret = {
@@ -60,16 +72,6 @@ const state = computed(() => {
   return ret
 })
 
-const calenderTextColor = computed(() => {
-  if (state.value.currentTabValue === '') {
-    return 'indigo'
-  } else if (state.value.currentTabValue === 'all') {
-    return 'grayLite'
-  } else {
-    return 'gray'
-  }
-})
-
 // JSON.stringify(constTabs[constTabs.length - 2]), // 1년으로 초기값 설정
 
 function querys() {
@@ -79,20 +81,34 @@ function querys() {
   ]
 
   if (state.value.currentTabValue === '') {
-    ret.push({ key: 'beginDate', value: format(state.value.beginDate, 'yyyy-MM-dd') })
-    ret.push({ key: 'endDate', value: format(state.value.endDate, 'yyyy-MM-dd') })
+    if (props.searchType === 'month') {
+      ret.push({ key: 'beginDate', value: format(state.value.beginDate, 'yyyy-MM') })
+      ret.push({ key: 'endDate', value: format(state.value.endDate, 'yyyy-MM') })
+    } else {
+      ret.push({ key: 'beginDate', value: format(state.value.beginDate, 'yyyy-MM-dd') })
+      ret.push({ key: 'endDate', value: format(state.value.endDate, 'yyyy-MM-dd') })
+    }
   }
   return ret
 }
 
 const appendQuerys = (arg) => {
   // props.searchFilter.appendQuerys([
-  emit('onAppendQuerys', [
-    { key: 'dateType', value: state.value.dateType },
-    { key: 'dateTerm', value: arg?.dateTerm || '' },
-    { key: 'beginDate', value: (arg?.beginDate && format(arg.beginDate, 'yyyy-MM-dd')) || '' },
-    { key: 'endDate', value: (arg?.endDate && format(arg.endDate, 'yyyy-MM-dd')) || '' },
-  ])
+  if (props.searchType === 'month') {
+    emit('onAppendQuerys', [
+      { key: 'dateType', value: state.value.dateType },
+      { key: 'dateTerm', value: arg?.dateTerm || '' },
+      { key: 'beginDate', value: (arg?.beginDate && format(arg.beginDate, 'yyyy-MM')) || '' },
+      { key: 'endDate', value: (arg?.endDate && format(arg.endDate, 'yyyy-MM')) || '' },
+    ])
+  } else {
+    emit('onAppendQuerys', [
+      { key: 'dateType', value: state.value.dateType },
+      { key: 'dateTerm', value: arg?.dateTerm || '' },
+      { key: 'beginDate', value: (arg?.beginDate && format(arg.beginDate, 'yyyy-MM-dd')) || '' },
+      { key: 'endDate', value: (arg?.endDate && format(arg.endDate, 'yyyy-MM-dd')) || '' },
+    ])
+  }
 }
 
 const changeBeginDate = (beginDate) => {
@@ -127,9 +143,16 @@ const handleTabChanged = (dateTerm) => {
       :optionsValue="(option) => option.term"
       @update:modelValue="handleTabChanged"
     ></PxTabInPill>
+
     <div class="px-searchDuration--date">
-      <PxDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></PxDatePicker>
-      <PxDatePicker size="xs" class="datePicker" :class="calenderTextColor" :modelValue="state.endDate" @update:modelValue="changeEndDate"></PxDatePicker>
+      <template v-if="searchType === 'month'">
+        <PxMonthPicker size="xs" class="datePicker" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></PxMonthPicker>
+        <PxMonthPicker size="xs" class="datePicker" :modelValue="state.endDate" @update:modelValue="changeEndDate"></PxMonthPicker>
+      </template>
+      <template v-else>
+        <PxDatePicker size="xs" class="datePicker" :modelValue="state.beginDate" @update:modelValue="changeBeginDate"></PxDatePicker>
+        <PxDatePicker size="xs" class="datePicker" :modelValue="state.endDate" @update:modelValue="changeEndDate"></PxDatePicker>
+      </template>
     </div>
   </div>
 </template>
