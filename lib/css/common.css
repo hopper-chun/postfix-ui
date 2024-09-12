@@ -2166,6 +2166,7 @@
   font-size: 14px;
 }
 
+.px-dialog-address .px-dialog--body,
 .px-dialog.full .px-dialog--body,
 .px-dialog.xl .px-dialog--body,
 .px-dialog.lg .px-dialog--body,

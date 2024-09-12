@@ -65,7 +65,7 @@ const handleAppendAddr = (closeDialog, value) => {
 }
 </script>
 <template>
-  <div>
+  <div class="px-dialog-address">
     <slot>
       <PxButton color="gray_border" @click="handleOpenDialog">주소검색</PxButton>
     </slot>
@@ -105,8 +105,3 @@ const handleAppendAddr = (closeDialog, value) => {
     </PxDialog>
   </div>
 </template>
-<style>
-.px-dialog--body {
-  overflow-y: hidden;
-}
-</style>
