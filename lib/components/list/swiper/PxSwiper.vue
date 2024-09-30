@@ -39,14 +39,20 @@ onMounted(() => {
 })
 
 watch(() => props.options, loadSwiper)
+
+const handleSlideTo = (index) => {
+  swiperRef.value.swiper.slideTo(index)
+}
+
+defineExpose({ handleSlideTo })
 </script>
 <template>
   <div class="px-swiper">
     <template v-if="custom">
-      <swiper-container init="false" ref="swiperRef" :style="[{ maxWidth: maxWidth }]"> <slot></slot> </swiper-container
+      <swiper-container init="false" ref="swiperRef" class="mySwiper" :style="[{ maxWidth: maxWidth }]"> <slot></slot> </swiper-container
     ></template>
     <template v-else>
-      <swiper-container init="false" ref="swiperRef" :style="[{ maxWidth: maxWidth }]">
+      <swiper-container init="false" ref="swiperRef" class="mySwiper" :style="[{ maxWidth: maxWidth }]">
         <swiper-slide v-for="(option, index) in options" class="px-swiper--slide">
           <slot :option="option" :index="index"></slot>
         </swiper-slide>
