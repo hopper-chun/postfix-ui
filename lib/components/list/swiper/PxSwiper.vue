@@ -44,7 +44,15 @@ const handleSlideTo = (index) => {
   swiperRef.value.swiper.slideTo(index)
 }
 
-defineExpose({ handleSlideTo })
+const handleUpdate = () => {
+  swiperRef.value.swiper.update()
+}
+
+const handleTranslateTo = (translate, speed, runCallbacks, translateBounds) => {
+  swiperRef.value.swiper.translateTo(translate, speed, runCallbacks, translateBounds)
+}
+
+defineExpose({ handleSlideTo, handleUpdate, handleTranslateTo })
 </script>
 <template>
   <div class="px-swiper">
