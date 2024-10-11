@@ -2171,8 +2171,9 @@
 .px-dialog.xl .px-dialog--body,
 .px-dialog.lg .px-dialog--body,
 .px-dialog.md .px-dialog--body,
-.px-dialog.sm .px-dialog--body {
-  overflow-y: hidden;
+.px-dialog.sm .px-dialog--body,
+.px-dialog--body {
+  overflow-y: auto;
 }
 
 .px-dialog.full > .px-dialog--container {
