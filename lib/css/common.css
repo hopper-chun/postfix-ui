@@ -1014,6 +1014,13 @@
   font-size: var(--px-text-sm);
 }
 
+.px-select--options.reverse {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+
 .px-select--optionList {
   position: relative;
   display: flex;
@@ -1419,6 +1426,11 @@
   top: calc(100% + 8px);
 }
 
+.px-datepicker--panel_wrapper.reverse {
+  bottom: calc(100% + 8px);
+  top: auto;
+}
+
 /* form - datePicker panel */
 .px-datepicker--panel {
   width: 100%;
@@ -1461,6 +1473,11 @@
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
+  }
+
+  .px-datepicker--panel_wrapper.reverse {
+    bottom: auto;
+    top: 50%;
   }
 }
 

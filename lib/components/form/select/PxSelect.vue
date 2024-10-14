@@ -29,6 +29,9 @@ const { id, modelValue, options } = toRefs(props)
 const { error } = useError(id, selectRef)
 const { localValue, handleChange } = useSelect(id, modelValue, options, props.optionsValue, emit)
 
+const reverse = ref(false)
+const isOpen = ref(false)
+
 const handleSelect = (value) => {
   handleChange(value)
   isOpen.value = false
@@ -37,9 +40,14 @@ const handleSelect = (value) => {
 const handleOpen = () => {
   if (!props.disabled) {
     isOpen.value = !isOpen.value
+
+    if (containerRef.value.getBoundingClientRect().top + 380 > window.innerHeight) {
+      reverse.value = true
+    } else {
+      reverse.value = false
+    }
   }
 }
-const isOpen = ref(false)
 
 const clickHandler = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click'
 
@@ -59,6 +67,8 @@ onUnmounted(() => {
   window.removeEventListener(clickHandler, outsideClick)
 })
 const randomId = useMakeId()
+
+// 클릭할 때, 이놈의 offsetTop + 높이가 screenHeight를 넘어서면 메뉴가 위에서 뜨게?
 </script>
 
 <template>
@@ -110,7 +120,7 @@ const randomId = useMakeId()
               leave-from-class="transition_show"
               leave-to-class="transition_hidden"
             >
-              <div v-if="isOpen" class="px-select--options">
+              <div v-if="isOpen" class="px-select--options" :class="{ reverse }">
                 <div
                   v-for="option in options"
                   @click="handleSelect(option)"

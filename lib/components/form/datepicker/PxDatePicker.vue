@@ -32,8 +32,9 @@ const local = ref({
 })
 const inputRef = ref(null)
 const inputHeight = ref(0)
-const show = ref(false)
 
+const show = ref(false)
+const reverse = ref(false)
 const loadProps = () => {
   if (!props.modelValue) {
     local.value.date = new Date()
@@ -75,6 +76,12 @@ const handleClick = () => {
     return
   }
   show.value = !show.value
+
+  if (inputRef.value.getBoundingClientRect().top + 380 > window.innerHeight) {
+    reverse.value = true
+  } else {
+    reverse.value = false
+  }
 }
 
 const clickHandler = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click'
@@ -103,6 +110,8 @@ const handlerKeyEnter = () => {
   }
   handleClose(date)
 }
+
+// 클릭할 때, 이놈의 offsetTop + 높이가 screenHeight를 넘어서면 메뉴가 위에서 뜨게?
 </script>
 
 <template>
@@ -126,7 +135,7 @@ const handlerKeyEnter = () => {
       >
       </PxInput>
     </div>
-    <div class="px-datepicker--panel_wrapper" v-if="show">
+    <div class="px-datepicker--panel_wrapper" v-if="show" :class="{ reverse }">
       <DatePickerPanel :modelValue="local.date" :lang="lang" :cbMonth="cbMonth" :dotDays="dotDays" @update:modelValue="handleClose($event)"></DatePickerPanel>
     </div>
   </div>
