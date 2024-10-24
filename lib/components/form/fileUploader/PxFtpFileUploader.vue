@@ -43,6 +43,6 @@ const handleAppendFiles = async (files) => {
 <template>
   <div>
     <!-- 얘는 네임드 업로드인데 버튼만 있음. 네임드 업로드하는 매커니즘 자체는 이 컴포넌트가 가지고 있고-->
-    <PxFileUpload :id="id" multiple @onSelect="handleAppendFiles"></PxFileUpload>
+    <PxFileUpload :id="id" multiple @onSelect="handleAppendFiles" :disabled="disabled"></PxFileUpload>
   </div>
 </template>
