@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { computed, ref } from 'vue'
 
 import PxSelectInputRadioCheck from './components/PxSelectInputRadioCheck.vue'
-// import { filters } from '@/filters'
+import { date8 } from '../../../../filters'
 
 const props = defineProps({
   filters: { type: Array, required: true },
@@ -43,8 +43,8 @@ const filters4Display = computed(() =>
     } else if (group === 'date') {
       const splited = value.split(',')
       if (splited.length === 2) {
-        splited[0] = filters.date8(splited[0])
-        splited[1] = filters.date8(splited[1])
+        splited[0] = date8(splited[0])
+        splited[1] = date8(splited[1])
         value = splited.join(' ~ ')
       }
       // } else if (group === 'datepicker') {
