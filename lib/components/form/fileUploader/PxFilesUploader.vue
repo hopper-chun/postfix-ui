@@ -86,7 +86,7 @@ const handleDownload = async (file) => {
     </div>
     <div class="px-fileUploader--container">
       <div v-if="!viewMode">
-        <PxFileUpload :id="id" @onSelect="handleAppendFile" :extensions="extensions" :disabled="!hasRoom" v-if="hasRoom">
+        <PxFileUpload :id="id" @onSelect="handleAppendFile" :extensions="extensions" :disabled="disabled" v-if="hasRoom">
           <template v-if="!!slots.button" #button>
             <slot name="button"></slot>
           </template>
@@ -101,7 +101,7 @@ const handleDownload = async (file) => {
             <div class="icon" @click="handleDownload(file)">
               <PxIcon name="icon-download-rounded"></PxIcon>
             </div>
-            <div class="icon" @click="handleRemove(index)">
+            <div class="icon" @click="handleRemove(index)" v-if="disabled">
               <PxIcon name="icon-close"></PxIcon>
             </div>
           </div>
