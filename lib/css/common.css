@@ -4198,6 +4198,10 @@
     height: 30px;
   }
 
+  .px-textarea--view {
+    word-break: break-all;
+  }
+
   .labelFlex .px-helperText {
     padding-left: 120px;
   }
