@@ -62,6 +62,7 @@ onBeforeUnmount(() => {
   // 언마운트 시점에서도 active가 여전히 true면 무조건 overflow-y-auto로 변경
   // 이 설정이 언젠가 overflow-hidden가 디폴트인 페이지 세팅에서 문제를 일으킬 수 있음...
   if (document.querySelector('body').style.overflow !== 'hidden' && active.value) {
+    // 얘가 상기 조건 없이 아무때나 발동하면 일부 멀쩡한 다이얼로그가 맛이 감.. 24.11.20
     document.querySelector('body').style.overflowY = bodyState.value
   }
 })

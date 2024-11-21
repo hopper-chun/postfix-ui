@@ -33,6 +33,7 @@ const props = defineProps({
   use10000: { type: Boolean, default: false },
   fnClass4Row: { type: Function },
   emptyText: { type: String, default: '표시할 정보가 없습니다.' },
+  useMobile: { type: Boolean, default: false },
 })
 const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes', 'onChangeLimit', 'onChangePage', 'onReload', 'onClickSort'])
 
@@ -235,6 +236,7 @@ watchEffect(() => {
       </template>
       <template v-else>
         <PxTable
+          :useMobile="useMobile"
           :emptyText="useLocale ? 'There is no data' : emptyText"
           :isNarrow="true"
           :headers="tableConfig.state.headers"
