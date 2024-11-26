@@ -4137,6 +4137,32 @@
   transform: translate3d(50%, 50%, 0);
 }
 
+/* pxInfobox */
+.px-infobox {
+  position: relative;
+  display: inline-block;
+}
+
+.px-infobox .px-infobox-icon-container {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.px-infobox .px-infobox-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.px-infobox .px-infobox-bubble {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  word-break: keep-all;
+}
+
 /* pxCustomBoard */
 .px-custom-board--searching,
 .px-custom-board--empty {
