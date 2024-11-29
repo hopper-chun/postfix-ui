@@ -20,8 +20,10 @@ const remainedFilterTypes = computed(() => {
     return props.filterTypes
   }
 
-  const onePick = props.filterTypes.filter((ft) => props.filters.findIndex((filter) => ft.key === filter[0].key) !== -1)
-  const others = props.filterTypes.filter((ft) => props.filters.findIndex((filter) => ft.key === filter[0].key) === -1)
+  const lastOne = props.filters[props.filters.length - 1][0]
+
+  const onePick = props.filterTypes.filter((ft) => ft.key === lastOne.key)
+  const others = props.filterTypes.filter((ft) => ft.key !== lastOne.key)
 
   return onePick.concat(others)
 
