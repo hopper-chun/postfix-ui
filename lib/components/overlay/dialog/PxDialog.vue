@@ -63,6 +63,7 @@ onBeforeUnmount(() => {
   // 이 설정이 언젠가 overflow-hidden가 디폴트인 페이지 세팅에서 문제를 일으킬 수 있음...
   if (document.querySelector('body').style.overflow !== 'hidden' && active.value) {
     // 얘가 상기 조건 없이 아무때나 발동하면 일부 멀쩡한 다이얼로그가 맛이 감.. 24.11.20
+    // 다이얼로그가 닫히거나 켜진채로 사라져야 할 때(탭이 변경되거나 해서 v-if등으로 close()없이 사라질 때) 그 행위를 유발하는 과정 전에 await close() 등으로 close를 발동시키고 이동시킬 것
     document.querySelector('body').style.overflowY = bodyState.value
   }
 })
