@@ -22,6 +22,20 @@ const swiperParams = computed(() => {
         nextEl: '.next_btn' + randomKey,
         prevEl: '.prev_btn' + randomKey,
       },
+      on: {
+        init: function () {
+          const nextButton = document.querySelector('.next_btn' + randomKey)
+          const prevButton = document.querySelector('.prev_btn' + randomKey)
+          nextButton.addEventListener('click', function (event) {
+            event.stopPropagation()
+            event.preventDefault()
+          })
+          prevButton.addEventListener('click', function (event) {
+            event.stopPropagation()
+            event.preventDefault()
+          })
+        },
+      },
     }
   } else
     return {

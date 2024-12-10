@@ -19,6 +19,7 @@ const props = defineProps({
   clear: { type: Boolean, default: false },
   showPassword: { type: Boolean, default: false },
   maxLength: { type: [String, Number] },
+  maxLengthLabel: { type: Boolean, default: true }, // 인풋의 maxcount 수치를 가시화
   viewMode: { type: Boolean, default: false },
   maxCount: { type: Number },
   inputFilter: { type: String },
@@ -148,7 +149,7 @@ const randomId = useMakeId()
               :placeholder="placeholder"
               :disabled="disabled"
               :value="localValue"
-              @input="handleInput($event, { numberOnly, maxCount, inputFilter })"
+              @input="handleInput($event, { numberOnly, maxCount, inputFilter, maxLength })"
               @focus="handleFocus"
               @blur="handleBlur"
               @focusout="isHashtag ? handleHashtags($event, isHashtag) : handleFocusout()"
@@ -184,7 +185,7 @@ const randomId = useMakeId()
         <div>
           <!-- this is empty div for align of lower textSpace and label -->
         </div>
-        <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxLength" :localValue="localValue">
+        <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxLength" :maxLengthLabel="maxLengthLabel" :localValue="localValue">
           <template #helperIcon> <slot name="helperIcon"></slot> </template>
         </HelperText>
       </div>

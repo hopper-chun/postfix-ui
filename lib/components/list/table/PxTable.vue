@@ -16,6 +16,7 @@ const props = defineProps({
   fnClass4Row: { type: Function },
   searching: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
+  useMobile: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['onClickHeader', 'update:checkboxes'])
@@ -165,7 +166,12 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
     class="px-table"
     :style="isMobile ? `` : tableHeight ? `overflow-y:auto; height : ${height};` : `overflow-y:auto; max-height : ${height}; min-height : 30px`"
   >
-    <table>
+    <div v-if="useMobile && isMobile">
+      <div v-for="(row, rowIndex) in rows" :key="row">
+        <slot name="mobile" :row="row" :index="rowIndex"></slot>
+      </div>
+    </div>
+    <table v-else>
       <thead ref="theadRef">
         <!-- 해더 스팬이 있다면 두번 돌아야 한다 -->
         <tr v-for="spanIndex in isSpanHeader ? [0, 1] : [0]">

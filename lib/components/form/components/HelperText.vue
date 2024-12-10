@@ -8,6 +8,7 @@ const props = defineProps({
   maxLength: { type: [String, Number] },
   localValue: { type: [String, Number] },
   error: { type: String },
+  maxLengthLabel: { type: Boolean, default: true }, // 인풋의 maxLength 수치를 가시화
 })
 
 const slots = useSlots()
@@ -25,6 +26,6 @@ const slots = useSlots()
         <div class="px-helperText--text" v-html="helperText"></div
       ></template>
     </div>
-    <div v-if="maxLength" class="px-helperText--length">{{ localValue.length }}/{{ maxLength }}</div>
+    <div v-if="maxLength && maxLengthLabel" class="px-helperText--length">{{ localValue.length }}/{{ maxLength }}</div>
   </div>
 </template>
