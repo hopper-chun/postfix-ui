@@ -7,6 +7,6 @@ import { install } from '../lib'
 
 const app = createApp(App)
 
-install(app)
+install(app, {})
 
 app.mount('#app')

@@ -4,6 +4,7 @@ import { onClickOutside } from '@vueuse/core'
 import { useResize } from '@/composables'
 
 const props = defineProps({
+  spanHeaders: { type: Array },
   headers: { type: Array, required: true },
   rows: { type: Array, required: true },
   narrow: { type: Boolean, default: false },
@@ -154,6 +155,8 @@ onMounted(() => {
 onBeforeUnmount(() => {
   ro.disconnect(targetElement)
 })
+
+const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
 </script>
 
 <template>
@@ -164,18 +167,30 @@ onBeforeUnmount(() => {
   >
     <table>
       <thead ref="theadRef">
-        <tr>
-          <th v-if="hasCheckboxes" class="hasCheckboxes" :class="[{ isNarrow: narrow }]" nowrap>
-            <PxCheckbox id="checkAll" :disabled="singleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
-          </th>
+        <!-- 해더 스팬이 있다면 두번 돌아야 한다 -->
+        <tr v-for="spanIndex in isSpanHeader ? [0, 1] : [0]">
+          <template v-if="hasCheckboxes">
+            <!-- 해더 Checkbox 는 따로 정보가 넘어오지 않고 그냥 isSpanHeader 이라면 rowspan을 2를 넣는다 -->
+            <th v-if="spanIndex === 0" class="hasCheckboxes" :class="[{ isNarrow: narrow }]" nowrap :rowspan="isSpanHeader ? 2 : undefined">
+              <PxCheckbox id="checkAll" :disabled="singleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
+            </th>
+          </template>
           <template v-for="(header, headerIndex) in computedHeaders" :key="header">
-            <th v-if="header.headerSlotId">
+            <!--  isSpanHeader 이고 skip이면 생략 -->
+            <template v-if="isSpanHeader && header.PX_SPAN[spanIndex].skip"></template>
+            <!--  isSpanHeader 이고 colspan이면 span값 넣어주고 라벨 넣고 중앙 정렬 -->
+            <th v-else-if="isSpanHeader && header.PX_SPAN[spanIndex].colspan" :colspan="header.PX_SPAN[spanIndex].colspan" :style="'text-align: center'">
+              {{ header.PX_SPAN[spanIndex].label }}
+            </th>
+            <!-- 나머지는 슬롯 해더인데 혹시 rowspan있으면 값 넣어준다 -->
+            <th v-else-if="header.headerSlotId" :rowspan="(isSpanHeader && header.PX_SPAN[spanIndex].rowspan) || undefined">
               <slot :name="header.headerSlotId" :header="header" :index="headerIndex"></slot>
               <div class="px-table--tooltip" v-if="header.tooltip">
                 <div class="tooltipIcon" @click="handleClickTooltip($event, header.tooltip)"></div>
               </div>
             </th>
-            <th :class="[{ isNarrow: narrow }]" nowrap v-else>
+            <!-- 나머지는 일반 해더인데 혹시 rowspan있으면 값 넣어준다 -->
+            <th :class="[{ isNarrow: narrow }]" nowrap v-else :rowspan="(isSpanHeader && header.PX_SPAN[spanIndex].rowspan) || undefined">
               <a
                 @click="handleClickHeader(header, headerIndex)"
                 class="px-table--header"

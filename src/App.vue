@@ -4,12 +4,23 @@ import Test from './Test.vue'
 const handle = () => {
   console.log('click2')
 }
+
+const headers = [
+  { field: 'AA', label: 'CLIENT_ID', PX_SPAN: [{ rowspan: 2 }, { skip: true }] },
+  { field: 'sendSMS', label: 'SMS 발송', PX_SPAN: [{ colspan: 2, label: 'SMS' }, {}] },
+  { field: 'succSMS', label: 'SMS 성공', PX_SPAN: [{ skip: true }, {}] },
+  { field: 'failSMS', label: 'SMS 실패', PX_SPAN: [{ colspan: 2, label: 'LMS' }, {}] },
+  { field: 'sendLMS', label: 'LMS 발송', PX_SPAN: [{ skip: true }, {}] },
+]
+
+const rows = []
 </script>
 
 <template>
   <div class_="w-[400px] h-[400px] bg-red-500">
-    <PxButton> Hello World</PxButton>
+    <PxTable :headers="headers" :checkboxes="[]" :spanHeaders="spanHeaders" :rows="rows"></PxTable>
+    <!-- <PxButton> Hello World</PxButton> -->
 
-    <component :is="Test" v-on:onClick2="handle"></component>
+    <!-- <component :is="Test" v-on:onClick2="handle"></component> -->
   </div>
 </template>
