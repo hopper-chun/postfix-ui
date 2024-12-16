@@ -1,5 +1,6 @@
 <script setup>
 import { ref, useSlots } from 'vue'
+import { useError } from '@/composables'
 
 const props = defineProps({
   id: { type: String, required: true },
@@ -7,9 +8,12 @@ const props = defineProps({
   fileType: { type: String, default: 'file' },
   multiple: { type: Boolean },
   disabled: { type: Boolean },
+  fileSize: { type: Number, default: 0 },
 })
+
 const emit = defineEmits(['onSelect'])
 const slots = useSlots()
+const { clearError, causeError } = useError()
 
 const fileRef = ref(null)
 
@@ -30,8 +34,14 @@ const loadImg = (file) => {
   })
 }
 const selectFile = async (event) => {
+  clearError()
   if (!props.multiple) {
     const file = event.target.files[0]
+
+    if (props.fileSize && event.target.files[0].size > props.fileSize) {
+      causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
+      return
+    }
 
     const fileBuffer = await loadImg(file)
 
@@ -43,6 +53,11 @@ const selectFile = async (event) => {
     emit('onSelect', { originalFilename: file.name, formData, fileBuffer })
   } else {
     const files = Array.from(event.target.files).map((file) => {
+      if (props.fileSize && files.size > props.fileSize) {
+        causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
+        return
+      }
+
       const formData = new FormData()
       formData.append('file', file)
 
