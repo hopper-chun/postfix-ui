@@ -1994,6 +1994,7 @@
   position: sticky;
   top: 0;
   background-color: var(--px-slate-100);
+  z-index: 10;
 }
 
 .px-table thead tr {
