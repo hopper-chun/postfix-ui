@@ -6,7 +6,7 @@ const props = defineProps({
   currentState: { type: Boolean },
 })
 
-const accState = ref(props.currentState)
+const isOpen = ref(props.currentState)
 
 const useSlotFunc = ref(false)
 
@@ -16,11 +16,11 @@ const handleClickAccContainer = (arg) => {
   }
 
   if (arg === 'on') {
-    accState.value = true
+    isOpen.value = true
   } else if (arg === 'off') {
-    accState.value = false
+    isOpen.value = false
   } else {
-    accState.value = !accState.value
+    isOpen.value = !isOpen.value
   }
 }
 
@@ -28,11 +28,11 @@ const handleClickAcc = (arg) => {
   useSlotFunc.value = true
 
   if (arg === 'on') {
-    accState.value = true
+    isOpen.value = true
   } else if (arg === 'off') {
-    accState.value = false
+    isOpen.value = false
   } else {
-    accState.value = !accState.value
+    isOpen.value = !isOpen.value
   }
 }
 </script>
@@ -40,11 +40,11 @@ const handleClickAcc = (arg) => {
 <template>
   <div class="px-accordion">
     <div class="px-accordion--header" @click="handleClickAccContainer">
-      <slot name="header" :handleClickAcc="handleClickAcc" :accState="accState"> </slot>
+      <slot name="header" :handleClickAcc="handleClickAcc" :isOpen="isOpen"> </slot>
     </div>
-    <div class="px-accordion--body" :class="{ open: accState }" :style="{ transitionDuration: `${duration}ms` }">
+    <div class="px-accordion--body" :class="{ open: isOpen }" :style="{ transitionDuration: `${duration}ms` }">
       <div class="expandable">
-        <slot name="body" :handleClickAcc="handleClickAcc" :accState="accState"></slot>
+        <slot name="body" :handleClickAcc="handleClickAcc" :isOpen="isOpen"></slot>
       </div>
     </div>
   </div>

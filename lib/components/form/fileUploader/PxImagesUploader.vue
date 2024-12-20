@@ -12,6 +12,7 @@ const props = defineProps({
   maxCount: { type: Number, default: 1 },
   disabled: { type: Boolean, default: false },
   style: { type: String, default: 'h-[80px] w-[80px]' },
+  fileSize: { type: Number, default: 0 },
   viewMode: { type: Boolean, default: false },
   public: { type: Boolean, default: false },
   label: { type: String },
@@ -61,6 +62,11 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer }) => {
   try {
     const ret = await axiosInstance.post(`${props.apiUrl}/${props.public ? '?public=1' : ''}`, formData)
     console.log('==========================', ret)
+
+    // if(props.fileSize) {
+
+    // }
+
     if (ret) {
       // local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
       local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename })
@@ -171,7 +177,14 @@ watch(
 
             <!-- 업로드 버튼 -->
             <div>
-              <PxFileUpload :extensions="extensions" fileType="image" :id="id" @onSelect="handleSelect($event)" v-if="id && hasRoom && !disabled">
+              <PxFileUpload
+                :fileSize="fileSize"
+                :extensions="extensions"
+                fileType="image"
+                :id="id"
+                @onSelect="handleSelect($event)"
+                v-if="id && hasRoom && !disabled"
+              >
                 <template v-if="!!slots.button" #button>
                   <slot name="button"></slot>
                 </template>

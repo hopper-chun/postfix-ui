@@ -62,7 +62,7 @@ const randomId = useMakeId()
     <template v-if="viewMode">
       <div class="px-textarea--view">
         <PxFormForView :viewMode="viewMode" :label="label">
-          <div class="contents">
+          <div class="px-textarea--contents">
             <div v-for="line in (modelValue || '').split('\n')">{{ line || `&nbsp` }}</div>
           </div>
         </PxFormForView>

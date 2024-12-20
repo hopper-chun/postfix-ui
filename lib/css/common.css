@@ -1994,6 +1994,7 @@
   position: sticky;
   top: 0;
   background-color: var(--px-slate-100);
+  z-index: 10;
 }
 
 .px-table thead tr {
@@ -2193,6 +2194,11 @@
   overflow-y: auto;
 }
 
+/* size = overflow 일 때 모든 오버플로우를 허용한다 */
+.px-dialog.overflow .px-dialog--body {
+  overflow-y: visible;
+}
+
 .px-dialog.full > .px-dialog--container {
   width: calc(100vw - 50px) !important;
   height: calc(100vh - 50px) !important;
@@ -2305,6 +2311,11 @@
   height: 24px;
   cursor: pointer;
   background: url('../assets/icons/icon-close.svg') no-repeat center / 24px;
+}
+
+/* size = overflow 일 때 모든 오버플로우를 허용한다 */
+.px-dialog.overflow .px-dialog--contents {
+  overflow-y: visible;
 }
 
 .px-dialog--contents {

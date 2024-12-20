@@ -5,7 +5,7 @@ import { useFunctionRef, useResize } from '@/composables'
 const props = defineProps({
   direction: { type: String },
   hover: { type: Boolean },
-  options: { type: [Array, Object], required: true },
+  options: { type: [Array, Object] },
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
 })
@@ -85,7 +85,8 @@ onUnmounted(() => {
   <div class="px-dropdown" :ref="functionRef">
     <div ref="containerRef" @click="handleClick" @mouseover="handleHover('on')" @mouseleave="handleHover('off')" class="px-dropdown--container">
       <slot></slot>
-      <div ref="listRef" class="px-dropdown--lists" :class="[direction, { open }]">
+      <!-- 옵션이 있다면 -->
+      <div v-if="props.options && options.length > 0" ref="listRef" class="px-dropdown--lists" :class="[direction, { open }]">
         <div class="expandable">
           <div class="px-dropdown--list" v-for="option in options" @click="handleSelect(option)">
             <slot name="content" :option="option" :optionsLabel="optionsLabel(option)" :optionsValue="optionsValue(option)">
@@ -93,6 +94,14 @@ onUnmounted(() => {
                 {{ optionsLabel(option) }}
               </div>
             </slot>
+          </div>
+        </div>
+      </div>
+      <!-- 옵션이 없다면 -->
+      <div v-else ref="listRef" class="px-dropdown--lists" :class="[direction, { open }]">
+        <div class="expandable">
+          <div class="px-dropdown--list" @click="handleSelect()">
+            <slot name="content"> </slot>
           </div>
         </div>
       </div>
