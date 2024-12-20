@@ -37,12 +37,10 @@ const hasRoom = computed(() => {
 })
 
 const load = () => {
-  
   local.images = props.modelValue.map((image) => {
     return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename }
     // return { seq: image.seq, localPath: image.localPath, cdnPath: image.cdnPath }
   })
-
 }
 
 const updateModelValue = () => {
@@ -111,13 +109,13 @@ const handleClick = (file, index) => {
 load()
 watch(
   () => props.modelValue,
-  () => load(),{deep:true}
+  () => load(),
+  { deep: true }
 )
 </script>
 
 <template>
   <div class="px-imagesUploader">
-    
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :label="label">
         <div class="px-imagesUploader--container">
