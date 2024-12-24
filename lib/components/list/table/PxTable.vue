@@ -225,7 +225,12 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
             <template v-if="row.PX_ROWSPAN?.skip?.[header.field || header.slotId]"></template>
             <td
               v-else
-              :class="[{ isNarrow: narrow }, header.class || '', { center: header.align === 'center' }, { right: header.align === 'right' }]"
+              :class="[
+                { isNarrow: narrow },
+                header.class || '',
+                { center: (header.rowAlign || header.align) === 'center' },
+                { right: (header.rowAlign || header.align) === 'right' },
+              ]"
               :width="header.width"
               :rowspan="row.PX_ROWSPAN?.span?.[header.field || header.slotId] || undefined"
             >
