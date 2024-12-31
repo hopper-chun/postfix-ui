@@ -185,18 +185,32 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
             <!--  isSpanHeader 이고 skip이면 생략 -->
             <template v-if="isSpanHeader && header.PX_SPAN[spanIndex].skip"></template>
             <!--  isSpanHeader 이고 colspan이면 span값 넣어주고 라벨 넣고 중앙 정렬 -->
-            <th v-else-if="isSpanHeader && header.PX_SPAN[spanIndex].colspan" :colspan="header.PX_SPAN[spanIndex].colspan" :style="'text-align: center'">
+            <th
+              v-else-if="isSpanHeader && header.PX_SPAN[spanIndex].colspan"
+              :colspan="header.PX_SPAN[spanIndex].colspan"
+              :style="'text-align: center'"
+              :class="header.class ? header.class : ''"
+            >
               {{ header.PX_SPAN[spanIndex].label }}
             </th>
             <!-- 나머지는 슬롯 해더인데 혹시 rowspan있으면 값 넣어준다 -->
-            <th v-else-if="header.headerSlotId" :rowspan="(isSpanHeader && header.PX_SPAN[spanIndex].rowspan) || undefined">
+            <th
+              v-else-if="header.headerSlotId"
+              :class="header.class ? header.class : ''"
+              :rowspan="(isSpanHeader && header.PX_SPAN[spanIndex].rowspan) || undefined"
+            >
               <slot :name="header.headerSlotId" :header="header" :index="headerIndex"></slot>
               <div class="px-table--tooltip" v-if="header.tooltip">
                 <div class="tooltipIcon" @click="handleClickTooltip($event, header.tooltip)"></div>
               </div>
             </th>
             <!-- 나머지는 일반 해더인데 혹시 rowspan있으면 값 넣어준다 -->
-            <th :class="[{ isNarrow: narrow }]" nowrap v-else :rowspan="(isSpanHeader && header.PX_SPAN[spanIndex].rowspan) || undefined">
+            <th
+              :class="[{ isNarrow: narrow }, header.class ? header.class : '']"
+              nowrap
+              v-else
+              :rowspan="(isSpanHeader && header.PX_SPAN[spanIndex].rowspan) || undefined"
+            >
               <a
                 @click="handleClickHeader(header, headerIndex)"
                 class="px-table--header"
