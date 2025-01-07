@@ -4,6 +4,7 @@ import { onClickOutside } from '@vueuse/core'
 import { useResize } from '@/composables'
 
 const props = defineProps({
+  id: { type: String }, // 페이지 내 테이블이 2개 이상일 경우, 체크박스 id 구분을 위해 사용
   spanHeaders: { type: Array },
   headers: { type: Array, required: true },
   rows: { type: Array, required: true },
@@ -49,6 +50,7 @@ const handleCheckAll = (value) => {
     'update:checkboxes',
     props.rows.map((_) => checkedAll.value)
   )
+  console.log('ALL', props.rows)
 }
 
 const theadRef = ref(null)
@@ -66,6 +68,7 @@ const handleCheckbox = (index) => {
       else return props.singleCheckbox ? false : props.checkboxes[idx]
     })
   )
+  console.log('NOTALL', props.rows)
 }
 
 const targetElement = document.documentElement
@@ -178,7 +181,7 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
           <template v-if="hasCheckboxes">
             <!-- 해더 Checkbox 는 따로 정보가 넘어오지 않고 그냥 isSpanHeader 이라면 rowspan을 2를 넣는다 -->
             <th v-if="spanIndex === 0" class="hasCheckboxes" :class="[{ isNarrow: narrow }]" nowrap :rowspan="isSpanHeader ? 2 : undefined">
-              <PxCheckbox id="checkAll" :disabled="singleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
+              <PxCheckbox :id="`${id}_checkAll`" :disabled="singleCheckbox" v-model="checkedAll" @update:modelValue="handleCheckAll" />
             </th>
           </template>
           <template v-for="(header, headerIndex) in computedHeaders" :key="header">
@@ -233,7 +236,7 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
       <tbody>
         <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']">
           <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes">
-            <PxCheckbox :id="`cb_${rowIndex}`" :modelValue="checkboxes[rowIndex]" @update:modelValue="handleCheckbox(rowIndex)" />
+            <PxCheckbox :id="`cb_${id}_${rowIndex}`" :modelValue="checkboxes[rowIndex]" @update:modelValue="handleCheckbox(rowIndex)" />
           </td>
           <template v-for="(header, columnIndex) in computedHeaders" :key="header">
             <template v-if="row.PX_ROWSPAN?.skip?.[header.field || header.slotId]"></template>
