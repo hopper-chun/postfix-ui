@@ -7,6 +7,7 @@ import { useFunctionRef, useResize } from '@/composables'
 import { currency } from '@/filters/common'
 
 const props = defineProps({
+  id: { type: String }, // 페이지 내 테이블이 2개 이상일 경우, 체크박스 id 구분을 위해 사용
   useLocale: { type: Boolean, default: false },
   title: { type: String },
   totalCount: { type: Number, required: true },
@@ -236,6 +237,7 @@ watchEffect(() => {
       </template>
       <template v-else>
         <PxTable
+          :id="id"
           :useMobile="useMobile"
           :emptyText="useLocale ? 'There is no data' : emptyText"
           :isNarrow="true"

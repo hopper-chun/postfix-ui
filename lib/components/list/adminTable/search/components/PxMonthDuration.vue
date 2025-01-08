@@ -1,15 +1,15 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { subDays, isAfter, isBefore, format, parseISO } from 'date-fns'
+import { subMonths, isAfter, isBefore, format, parseISO } from 'date-fns'
 
 const constTabs = [
-  { term: '0', label: '1개월' },
-  { term: '30', label: '2개월' },
-  { term: '60', label: '3개월' },
-  { term: '90', label: '4개월' },
-  { term: '120', label: '5개월' },
-  { term: '150', label: '6개월' },
-  { term: '365', label: '1년' },
+  { term: '1', label: '1개월' },
+  { term: '2', label: '2개월' },
+  { term: '3', label: '3개월' },
+  { term: '4', label: '4개월' },
+  { term: '5', label: '5개월' },
+  { term: '6', label: '6개월' },
+  { term: '12', label: '1년' },
 ]
 
 const props = defineProps({
@@ -51,7 +51,7 @@ const changeEndDate = (endDate) => {
 
 const handleTabChanged = (dateTerm) => {
   let endDate = new Date()
-  let beginDate = subDays(endDate, dateTerm * 1)
+  let beginDate = subMonths(endDate, dateTerm * 1)
 
   emit('update:beginDate', beginDate)
   emit('update:endDate', endDate)
