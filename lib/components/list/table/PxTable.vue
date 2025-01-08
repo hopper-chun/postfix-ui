@@ -50,7 +50,6 @@ const handleCheckAll = (value) => {
     'update:checkboxes',
     props.rows.map((_) => checkedAll.value)
   )
-  console.log('ALL', props.rows)
 }
 
 const theadRef = ref(null)
@@ -68,7 +67,6 @@ const handleCheckbox = (index) => {
       else return props.singleCheckbox ? false : props.checkboxes[idx]
     })
   )
-  console.log('NOTALL', props.rows)
 }
 
 const targetElement = document.documentElement
