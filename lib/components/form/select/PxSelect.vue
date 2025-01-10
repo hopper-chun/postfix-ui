@@ -17,7 +17,7 @@ const props = defineProps({
   optionsValue: { type: Function, default: (option) => option },
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
-  disabledValue: { type: Array },
+  disabledValue: { type: Array }, // 배열로 value에 해당하는 값을 지정하면, 해당 값은 옵션 리스트 창에서 비활성화 됨
 })
 
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
