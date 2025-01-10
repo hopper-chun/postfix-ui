@@ -17,6 +17,7 @@ const props = defineProps({
   optionsValue: { type: Function, default: (option) => option },
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
+  disabledValue: { type: Array },
 })
 
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
@@ -33,6 +34,9 @@ const reverse = ref(false)
 const isOpen = ref(false)
 
 const handleSelect = (value) => {
+  if (props.disabledValue && props.disabledValue.includes(props.optionsValue(value))) {
+    return
+  }
   handleChange(value)
   isOpen.value = false
 }
@@ -125,7 +129,10 @@ const randomId = useMakeId()
                   v-for="option in options"
                   @click="handleSelect(option)"
                   class="px-select--optionList"
-                  :class="[{ selected: optionsLabel(localValue) === optionsLabel(option) }]"
+                  :class="[
+                    { selected: optionsLabel(localValue) === optionsLabel(option) },
+                    { selectDisabled: disabledValue && disabledValue.includes(optionsValue(option)) },
+                  ]"
                 >
                   <slot name="option" :option="option">
                     <span class="truncate">
