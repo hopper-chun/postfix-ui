@@ -76,13 +76,16 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
   position: fixed;
   z-index: 50;
   background-color: white;
-  padding: 20px;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  padding-top: 20px;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
   top: 0;
   right: 0;
   bottom: 0;
-  width: 320px;
+  width: 380px;
   border-left: 1px solid var(--px-border-input);
+  word-break: keep-all;
 }
 
 .px-tooltipDailog--header {
@@ -90,6 +93,7 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
   align-items: center;
   justify-content: space-between;
   height: 48px;
+  padding: 0 20px;
   border-bottom: 1px solid var(--px-border-input);
 }
 
@@ -106,19 +110,25 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
 
 .px-tooltipDailog--body {
   overflow-y: auto;
-  padding-top: 20px;
-  font-size: 15px;
+  padding: 20px 20px;
+
+  font-size: 14px;
+  max-height: calc(100vh - 80px);
 }
 
 @media screen and (max-width: 639px) {
   .px-tooltipDailog {
     top: auto;
     left: 0;
-    bottom: auto;
+    bottom: 0;
     width: 100%;
     border-left: none;
     border-top: 1px solid var(--px-border-input);
     height: 400px;
+  }
+
+  .px-tooltipDailog--body {
+    max-height: auto;
   }
 }
 </style>
