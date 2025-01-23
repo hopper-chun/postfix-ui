@@ -24,16 +24,29 @@ const local = ref({
   checkes: [],
   beginDate: new Date(),
   endDate: new Date(),
+
+  lastValue: null,
 })
 const originLocal = _.cloneDeep(local.value)
 
-const clearLocalValue = () => {
-  local.value = _.cloneDeep(originLocal)
+const clearLocalValue = (lastValue) => {
+  // local.value = _.cloneDeep(originLocal)
+  local.value.text = ''
+  local.value.radio = ''
+  local.value.checkes = []
+
+  if (lastValue !== undefined) {
+    if (local.value.lastValue !== lastValue) {
+      local.value.lastValue = lastValue
+      return true
+    }
+  }
+  return false
 }
 
 const handleRadioUpdate = (key) => {
   emit('onAppendQuerys', [{ key, value: local.value.radio }])
-  clearLocalValue()
+  return clearLocalValue(local.value.radio)
 }
 
 function search() {
@@ -57,9 +70,7 @@ function search() {
   }
 
   emit('onAppendQuerys', [{ key: selectedFilter.value.key, value }])
-  clearLocalValue()
-
-  return true
+  return clearLocalValue(value)
 }
 
 watchEffect(() => {
