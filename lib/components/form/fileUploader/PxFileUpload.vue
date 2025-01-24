@@ -35,6 +35,9 @@ const loadImg = (file) => {
 }
 const selectFile = async (event) => {
   clearError()
+
+  // extention으로 제한 걸어도 모든파일(*.*)을 통해서 이상한걸 업로드 할 수 있게 됨. 여기서 한번 더 잡아줘야함
+
   if (!props.multiple) {
     const file = event.target.files[0]
 
