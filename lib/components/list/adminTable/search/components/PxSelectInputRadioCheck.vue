@@ -25,41 +25,75 @@ const local = ref({
   beginDate: new Date(),
   endDate: new Date(),
 })
-const originLocal = _.cloneDeep(local.value)
 
 const clearLocalValue = () => {
-  local.value = _.cloneDeep(originLocal)
+  local.value.text = ''
+  local.value.radio = ''
+  local.value.checkes = []
 }
 
-const handleRadioUpdate = (key) => {
-  emit('onAppendQuerys', [{ key, value: local.value.radio }])
-  clearLocalValue()
-}
+// const handleRadioUpdate = (key) => {
+//   emit('onAppendQuerys', [{ key, value: local.value.radio }])
+//   clearLocalValue()
+// }
+
+// function search() {
+//   let value = null
+//   if (local.value.text) {
+//     value = local.value.text
+//   } else if (local.value.radio) {
+//     value = local.value.radio
+//   } else if (local.value.checkes.length > 0) {
+//     value = local.value.checkes.join(',')
+//   } else if (selectedFilter.value.group === 'date') {
+//     value = [format(local.value.beginDate, 'yyyyMMdd'), format(local.value.endDate, 'yyyyMMdd')].join(',')
+//   } else if (selectedFilter.value.group === 'month') {
+//     value = [format(local.value.beginDate, 'yyyyMM'), format(local.value.endDate, 'yyyyMM')].join(',')
+//   } else if (selectedFilter.value.group === 'datepicker') {
+//     value = format(local.value.beginDate, 'yyyyMMdd')
+//   } else if (selectedFilter.value.group === 'monthpicker') {
+//     value = format(local.value.beginDate, 'yyyyMM')
+//   } else if (selectedFilter.value.group === 'yearpicker') {
+//     value = format(local.value.beginDate, 'yyyy')
+//   } else {
+//     // return false
+//   }
+
+//   emit('onAppendQuerys', [{ key: selectedFilter.value.key, value }])
+
+//   clearLocalValue()
+
+//   // return true
+// }
 
 function search() {
-  let value = null
-  if (local.value.text) {
+  const { key, group } = selectedFilter.value
+
+  let value
+  if (group === 'text') {
     value = local.value.text
-  } else if (local.value.checkes.length > 0) {
+  } else if (group === 'radio') {
+    value = local.value.radio
+  } else if (group === 'select') {
+    value = local.value.radio
+  } else if (group === 'check') {
     value = local.value.checkes.join(',')
-  } else if (selectedFilter.value.group === 'date') {
+  } else if (group === 'date') {
     value = [format(local.value.beginDate, 'yyyyMMdd'), format(local.value.endDate, 'yyyyMMdd')].join(',')
-  } else if (selectedFilter.value.group === 'month') {
+  } else if (group === 'month') {
     value = [format(local.value.beginDate, 'yyyyMM'), format(local.value.endDate, 'yyyyMM')].join(',')
-  } else if (selectedFilter.value.group === 'datepicker') {
+  } else if (group === 'datepicker') {
     value = format(local.value.beginDate, 'yyyyMMdd')
-  } else if (selectedFilter.value.group === 'monthpicker') {
+  } else if (group === 'monthpicker') {
     value = format(local.value.beginDate, 'yyyyMM')
-  } else if (selectedFilter.value.group === 'yearpicker') {
+  } else if (group === 'yearpicker') {
     value = format(local.value.beginDate, 'yyyy')
   } else {
-    return false
+    throw '잘못된 filterType 입니다.'
   }
 
-  emit('onAppendQuerys', [{ key: selectedFilter.value.key, value }])
+  emit('onAppendQuerys', [{ key, value }])
   clearLocalValue()
-
-  return true
 }
 
 watchEffect(() => {
@@ -87,9 +121,21 @@ watchEffect(() => {
         :optionsValue="(option) => option[0]"
         :optionsLabel="(option) => option[1]"
         v-model="local.radio"
+        @update:modelValue="search"
         class="search_radio"
-        @update:modelValue="() => handleRadioUpdate(selectedFilter.key)"
       ></PxRadio>
+      <!-- @update:modelValue="() => handleRadioUpdate(selectedFilter.key)" -->
+    </template>
+    <template v-else-if="selectedFilter.group === 'select'">
+      <PxSelect
+        :options="selectedFilter.options"
+        :optionsValue="(option) => option[0]"
+        :optionsLabel="(option) => option[1]"
+        v-model="local.radio"
+        class="flex min-h-[34px] items-center justify-center"
+        @update:modelValue="search"
+        :defaultLabel="selectedFilter.defaultLabel || '선택해주세요'"
+      ></PxSelect>
     </template>
     <template v-else-if="selectedFilter.group === 'check'">
       <PxMultiCheckbox

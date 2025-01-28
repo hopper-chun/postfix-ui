@@ -42,6 +42,8 @@ const filters4Display = computed(() =>
         .join(',')
     } else if (group === 'radio') {
       value = options.find((option) => option[0] === value)[1]
+    } else if (group === 'select') {
+      value = options.find((option) => option[0] === value)[1]
     } else if (group === 'date') {
       const splited = value.split(',')
       if (splited.length === 2) {
@@ -75,9 +77,10 @@ const handleReset = () => {
 const handleSearch = () => {
   const ret = selectInputRadioCheckRef.value.search()
 
-  if (!ret) {
-    emit('onSearch')
-  }
+  // ret가 true면.. 잘 했다는건데 왜 !ret 이렇게 코딩했는지 기억이 안남 2025-01-26
+  // if (!ret) {
+  emit('onSearch')
+  // }
 }
 </script>
 

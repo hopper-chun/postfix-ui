@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { subDays, isAfter, isBefore, format, parseISO } from 'date-fns'
+import { subDays, isAfter, startOfDay } from 'date-fns'
 
 const constTabs = [
   { term: '0', label: '오늘' },
@@ -33,7 +33,7 @@ const calenderTextColor = computed(() => {
 })
 
 const changeBeginDate = (beginDate) => {
-  if (isAfter(beginDate, props.endDate)) {
+  if (isAfter(startOfDay(beginDate), startOfDay(props.endDate))) {
     alert('시작일은 종료일 이전이여야 합니다.')
   } else {
     emit('update:beginDate', beginDate)
@@ -41,7 +41,7 @@ const changeBeginDate = (beginDate) => {
   }
 }
 const changeEndDate = (endDate) => {
-  if (isBefore(endDate, props.beginDate)) {
+  if (isAfter(startOfDay(props.beginDate), startOfDay(endDate))) {
     alert('종료일은 시작일 이후여야 합니다.')
   } else {
     emit('update:endDate', endDate)
