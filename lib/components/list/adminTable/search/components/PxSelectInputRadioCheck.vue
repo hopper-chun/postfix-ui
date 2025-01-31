@@ -30,6 +30,10 @@ const clearLocalValue = () => {
   local.value.text = ''
   local.value.radio = ''
   local.value.checkes = []
+
+  // 초기화 할 때 datepicker 도 초기화 해달라는 요청이 있었음
+  local.value.beginDate = new Date()
+  local.value.endDate = new Date()
 }
 
 // const handleRadioUpdate = (key) => {
