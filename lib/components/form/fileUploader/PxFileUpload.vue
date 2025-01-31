@@ -37,6 +37,18 @@ const selectFile = async (event) => {
   clearError()
 
   // extention으로 제한 걸어도 모든파일(*.*)을 통해서 이상한걸 업로드 할 수 있게 됨. 여기서 한번 더 잡아줘야함
+  const allowedExtenstions = props.extensions ? props.extensions.split(',').map((ext) => ext.trim().replace(/^\./, '').toLowerCase()) : []
+
+  if (allowedExtenstions.length > 0) {
+    for (const file of event.target.files) {
+      const fileExe = file.name.split('.').pop().toLowerCase()
+
+      if (!allowedExtenstions.includes(fileExe)) {
+        alert(`확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
+        return
+      }
+    }
+  }
 
   if (!props.multiple) {
     const file = event.target.files[0]
