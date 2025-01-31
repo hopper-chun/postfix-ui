@@ -1,24 +1,46 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { subDays, isAfter, startOfDay } from 'date-fns'
-
-const constTabs = [
-  { term: '0', label: '오늘' },
-  { term: '3', label: '3일' },
-  { term: '7', label: '7일' },
-  { term: '30', label: '1개월' },
-  { term: '90', label: '3개월' },
-  { term: '365', label: '1년' },
-  // { term: 'all', label: '전체' },
-]
+import { subDays, isAfter, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfMonth, addMonths } from 'date-fns'
 
 const props = defineProps({
   filterType: { type: Object, required: true },
   beginDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   isSimple: { type: Boolean },
+  isNumberOfDays: { type: Boolean }, // 기존의 TERM (일수) 기반 방식
 })
 const emit = defineEmits(['update:beginDate', 'update:endDate'])
+
+const constTabs = computed(() => {
+  if (!props.isNumberOfDays) {
+    const now = new Date()
+    const today = startOfDay(now)
+    const thisWeek = startOfWeek(now)
+    const thisMonth = startOfMonth(now)
+    const thisYear = startOfYear(now)
+    const beginOfLastMonth = startOfMonth(addMonths(now, -1))
+    const endOfLastMonth = endOfMonth(addMonths(now, -1))
+
+    // console.log('thisWeek', { thisWeek, thisMonth, thisYear, endOfLastMonth, endOfLastMonth })
+    return [
+      { label: '오늘', days: [today, today] },
+      { label: '이번주', days: [thisWeek, today] },
+      { label: '이번달', days: [thisMonth, today] },
+      { label: '지난달', days: [beginOfLastMonth, endOfLastMonth] },
+      { label: '올해', days: [thisYear, today] },
+    ]
+  } else {
+    return [
+      { days: '0', label: '오늘' },
+      { days: '3', label: '3일' },
+      { days: '7', label: '7일' },
+      { days: '30', label: '1개월' },
+      { days: '90', label: '3개월' },
+      { days: '365', label: '1년' },
+      // { term: 'all', label: '전체' },
+    ]
+  }
+})
 
 const local = ref({
   currentTabValue: '',
@@ -49,12 +71,17 @@ const changeEndDate = (endDate) => {
   }
 }
 
-const handleTabChanged = (dateTerm) => {
-  let endDate = new Date()
-  let beginDate = subDays(endDate, dateTerm * 1)
+const handleTabChanged = (days) => {
+  if (!props.isNumberOfDays) {
+    emit('update:beginDate', days[0])
+    emit('update:endDate', days[1])
+  } else {
+    const endDate = new Date()
+    const beginDate = subDays(endDate, dateTerm * 1)
 
-  emit('update:beginDate', beginDate)
-  emit('update:endDate', endDate)
+    emit('update:beginDate', beginDate)
+    emit('update:endDate', endDate)
+  }
 }
 </script>
 <template>
@@ -64,7 +91,7 @@ const handleTabChanged = (dateTerm) => {
       v-model="local.currentTabValue"
       :options="constTabs"
       :optionsLabel="(option) => option.label"
-      :optionsValue="(option) => option.term"
+      :optionsValue="(option) => option.days"
       @update:modelValue="handleTabChanged"
       style="flex-shrink: 0"
     ></PxTabInPill>
