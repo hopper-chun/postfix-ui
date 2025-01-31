@@ -72,6 +72,7 @@ const handleRemove = (key) => {
 
 const handleReset = () => {
   emit('onRemoveQuery')
+  selectInputRadioCheckRef.value.clearDate()
 }
 
 const handleSearch = () => {

@@ -14,7 +14,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:option', 'update:modelValue', 'onKeyDownEnter', 'onAppendQuerys'])
 
-defineExpose({ search })
+defineExpose({ search, clearDate })
 
 const selectedFilter = ref({})
 
@@ -32,10 +32,12 @@ const clearLocalValue = () => {
   local.value.checkes = []
 
   // 초기화 할 때 datepicker 도 초기화 해달라는 요청이 있었음
+}
+
+function clearDate() {
   local.value.beginDate = new Date()
   local.value.endDate = new Date()
 }
-
 // const handleRadioUpdate = (key) => {
 //   emit('onAppendQuerys', [{ key, value: local.value.radio }])
 //   clearLocalValue()
