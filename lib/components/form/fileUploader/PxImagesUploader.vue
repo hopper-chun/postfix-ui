@@ -19,6 +19,7 @@ const props = defineProps({
   extensions: { type: String },
   buttonOnly: { type: Boolean, default: false },
   moveItem: { type: Boolean, default: false },
+  maxResolution: { type: Object },
 })
 const emit = defineEmits(['update:modelValue'])
 const { clearError } = useError()
@@ -53,13 +54,20 @@ const updateModelValue = () => {
         seq: image.seq,
         cdnPath: image.cdnPath || '',
         originalFilename: image.originalFilename,
+        width: image.width,
+        height: image.height,
       }
     })
   )
 }
 
-const handleSelect = async ({ originalFilename, formData, fileBuffer }) => {
+const handleSelect = async ({ originalFilename, formData, fileBuffer, width, height }) => {
   try {
+    if (props.maxResolution && (props.maxResolution.width < width || props.maxResolution.height < height)) {
+      alert(`해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.`)
+      return
+    }
+
     const ret = await axiosInstance.post(`${props.apiUrl}/${props.public ? '?public=1' : ''}`, formData)
     console.log('==========================', ret)
 
@@ -69,7 +77,7 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer }) => {
 
     if (ret) {
       // local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
-      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename })
+      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height })
       updateModelValue()
     }
   } catch (ex) {

@@ -25,7 +25,25 @@ const loadImg = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = (event) => {
-      resolve(event.target.result)
+      // 이미지 객체를 생성합니다.
+      const image = new Image()
+
+      image.onload = function () {
+        // 이미지 객체의 너비와 높이를 가져옵니다.
+        const width = this.width
+        const height = this.height
+
+        resolve({ fileBuffer: event.target.result, width, height })
+
+        // // 이미지의 크기를 체크합니다.
+        // if (width > 1024 || height > 1024) {
+        //   // 이미지가 1024px 보다 크면 에러 처리합니다.
+        //   alert('이미지의 크기는 최대 1024px x 1024px 이하이어야 합니다.')
+        //   fileInput.value = ''
+        // }
+      }
+      // 이미지 객체에 파일 데이터를 설정하고 로드합니다.
+      image.src = event.target.result
     }
     reader.addEventListener('error', () => {
       reject('Failed to load img')
@@ -58,14 +76,14 @@ const selectFile = async (event) => {
       return
     }
 
-    const fileBuffer = await loadImg(file)
+    const { fileBuffer, width, height } = await loadImg(file)
 
     const formData = new FormData()
     formData.append('file', file)
 
     reset()
 
-    emit('onSelect', { originalFilename: file.name, formData, fileBuffer })
+    emit('onSelect', { originalFilename: file.name, formData, fileBuffer, width, height })
   } else {
     const files = Array.from(event.target.files).map((file) => {
       if (props.fileSize && files.size > props.fileSize) {

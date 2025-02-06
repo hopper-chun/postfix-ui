@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import Test from './Test.vue'
 
 const handle = () => {
@@ -14,11 +15,15 @@ const headers = [
 ]
 
 const rows = []
+const aaa = ref([])
 </script>
 
 <template>
   <div class_="w-[400px] h-[400px] bg-red-500">
-    <PxTable :headers="headers" :checkboxes="[]" :spanHeaders="spanHeaders" :rows="rows"></PxTable>
+    <div class="p-[200px]">
+      <PxImagesUploader id="adf" v-model="aaa"></PxImagesUploader>
+    </div>
+    <!-- <PxTable :headers="headers" :checkboxes="[]" :spanHeaders="spanHeaders" :rows="rows"></PxTable> -->
     <!-- <PxButton> Hello World</PxButton> -->
 
     <!-- <component :is="Test" v-on:onClick2="handle"></component> -->
