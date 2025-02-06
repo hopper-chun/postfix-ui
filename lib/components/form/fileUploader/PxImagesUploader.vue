@@ -22,7 +22,7 @@ const props = defineProps({
   maxResolution: { type: Object },
 })
 const emit = defineEmits(['update:modelValue'])
-const { clearError } = useError()
+const { clearError, causeError } = useError()
 const slots = useSlots()
 
 const local = reactive({
@@ -64,7 +64,8 @@ const updateModelValue = () => {
 const handleSelect = async ({ originalFilename, formData, fileBuffer, width, height }) => {
   try {
     if (props.maxResolution && (props.maxResolution.width < width || props.maxResolution.height < height)) {
-      alert(`해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.`)
+      causeError({ id: props.id, msg: `해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.` })
+      // alert(`해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.`)
       return
     }
 
