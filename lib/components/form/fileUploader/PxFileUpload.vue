@@ -34,17 +34,16 @@ const loadImg = (file) => {
         const height = this.height
 
         resolve({ fileBuffer: event.target.result, width, height })
-
-        // // 이미지의 크기를 체크합니다.
-        // if (width > 1024 || height > 1024) {
-        //   // 이미지가 1024px 보다 크면 에러 처리합니다.
-        //   alert('이미지의 크기는 최대 1024px x 1024px 이하이어야 합니다.')
-        //   fileInput.value = ''
-        // }
       }
+
+      image.onerror = () => {
+        resolve({ fileBuffer: event.target.result })
+      }
+
       // 이미지 객체에 파일 데이터를 설정하고 로드합니다.
       image.src = event.target.result
     }
+
     reader.addEventListener('error', () => {
       reject('Failed to load img')
     })
