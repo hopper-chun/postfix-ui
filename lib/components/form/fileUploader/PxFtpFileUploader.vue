@@ -11,7 +11,7 @@ const props = defineProps({
   viewMode: { type: Boolean },
   ftpFolderSeq: { type: Number },
 })
-const emit = defineEmits(['update:cdnPath', 'onAppend'])
+const emit = defineEmits(['update:cdnPath', 'onAppend', 'onError'])
 
 const { download } = useDownload()
 
@@ -43,6 +43,6 @@ const handleAppendFiles = async (files) => {
 <template>
   <div>
     <!-- 얘는 네임드 업로드인데 버튼만 있음. 네임드 업로드하는 매커니즘 자체는 이 컴포넌트가 가지고 있고-->
-    <PxFileUpload :id="id" multiple @onSelect="handleAppendFiles" :disabled="disabled"></PxFileUpload>
+    <PxFileUpload :id="id" multiple @onSelect="handleAppendFiles" :disabled="disabled" @onError="emit('onError', $event)"></PxFileUpload>
   </div>
 </template>

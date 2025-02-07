@@ -18,7 +18,7 @@ const props = defineProps({
   public: { type: Boolean },
   single: { type: Boolean },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onError'])
 
 const local = ref({
   files: [],
@@ -69,7 +69,7 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
     </div>
     <div class="px-fileUploader--container">
       <div v-if="!viewMode">
-        <PxFileUpload :id="id" @onSelect="handleAppendFile" :extensions="extensions" :disabled="disabled">
+        <PxFileUpload :id="id" @onSelect="handleAppendFile" @onError="emit('onError', $event)" :extensions="extensions" :disabled="disabled">
           <template v-if="!!slots.button" #button>
             <slot name="button"></slot>
           </template>

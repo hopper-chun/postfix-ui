@@ -15,7 +15,7 @@ const props = defineProps({
   modelValue: { type: String, required: true },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onError'])
 
 const editor = useEditor({
   content: props.modelValue,
@@ -302,7 +302,7 @@ watch(
         </button>
 
         <div>
-          <PxFileUploader id="tiptapImageUploader" @update:modelValue="handleAddImage" v-model="files" public>
+          <PxFileUploader id="tiptapImageUploader" @onError="emit('onError', $event)" @update:modelValue="handleAddImage" v-model="files" public>
             <template #button>
               <div class="upload-button">
                 <PxIcon name="icon-photo" class="tiptap-icon"></PxIcon>

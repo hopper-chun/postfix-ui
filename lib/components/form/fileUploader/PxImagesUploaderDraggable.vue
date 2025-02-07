@@ -18,7 +18,7 @@ const props = defineProps({
   buttonOnly: { type: Boolean, default: false },
   draggable: { type: Boolean, default: false },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError } = useError()
 const slots = useSlots()
 
@@ -247,7 +247,14 @@ watch(
 
             <!-- 업로드 버튼 -->
             <div>
-              <PxFileUpload :extensions="extensions" fileType="image" :id="id" @onSelect="handleSelect($event)" v-if="id && hasRoom && !disabled">
+              <PxFileUpload
+                :extensions="extensions"
+                fileType="image"
+                :id="id"
+                @onSelect="handleSelect($event)"
+                @onError="emit('onError', $event)"
+                v-if="id && hasRoom && !disabled"
+              >
                 <template v-if="!!slots.button" #button>
                   <slot name="button"></slot>
                 </template>

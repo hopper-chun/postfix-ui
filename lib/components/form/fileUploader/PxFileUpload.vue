@@ -11,7 +11,7 @@ const props = defineProps({
   fileSize: { type: Number, default: 0 },
 })
 
-const emit = defineEmits(['onSelect'])
+const emit = defineEmits(['onSelect', 'onError'])
 const slots = useSlots()
 const { clearError, causeError } = useError()
 
@@ -61,7 +61,9 @@ const selectFile = async (event) => {
       const fileExe = file.name.split('.').pop().toLowerCase()
 
       if (!allowedExtenstions.includes(fileExe)) {
-        alert(`확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
+        emit('onError', `확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
+        causeError({ id: props.id, msg: `확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.` })
+        // alert(`확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
         return
       }
     }
@@ -71,6 +73,7 @@ const selectFile = async (event) => {
     const file = event.target.files[0]
 
     if (props.fileSize && event.target.files[0].size > props.fileSize) {
+      emit('onError', `파일 사이즈가 너무 큽니다`)
       causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
       return
     }
@@ -86,6 +89,7 @@ const selectFile = async (event) => {
   } else {
     const files = Array.from(event.target.files).map((file) => {
       if (props.fileSize && files.size > props.fileSize) {
+        emit('onError', `파일 사이즈가 너무 큽니다`)
         causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
         return
       }

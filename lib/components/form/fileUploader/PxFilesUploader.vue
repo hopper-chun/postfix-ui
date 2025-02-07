@@ -19,7 +19,7 @@ const props = defineProps({
   buttonOnly: { type: Boolean },
   public: { type: Boolean },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onError'])
 
 const { download } = useDownload()
 
@@ -86,7 +86,7 @@ const handleDownload = async (file) => {
     </div>
     <div class="px-fileUploader--container">
       <div v-if="!viewMode">
-        <PxFileUpload :id="id" @onSelect="handleAppendFile" :extensions="extensions" :disabled="disabled" v-if="hasRoom">
+        <PxFileUpload :id="id" @onSelect="handleAppendFile" @onError="emit('onError', $event)" :extensions="extensions" :disabled="disabled" v-if="hasRoom">
           <template v-if="!!slots.button" #button>
             <slot name="button"></slot>
           </template>

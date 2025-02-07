@@ -21,7 +21,7 @@ const props = defineProps({
   moveItem: { type: Boolean, default: false },
   maxResolution: { type: Object },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
 const slots = useSlots()
 
@@ -192,6 +192,7 @@ watch(
                 fileType="image"
                 :id="id"
                 @onSelect="handleSelect($event)"
+                @onError="emit('onError', $event)"
                 v-if="id && hasRoom && !disabled"
               >
                 <template v-if="!!slots.button" #button>
