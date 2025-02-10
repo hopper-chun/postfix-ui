@@ -30,7 +30,7 @@ const handleCheck = () => {
 }
 </script>
 <template>
-  <div :class="[{ viewMode }]" class="labelSwitch" style="position: relative">
+  <div :class="[{ viewMode }]" class="labelSwitch">
     <PxLabel
       v-if="label"
       :label="label"
