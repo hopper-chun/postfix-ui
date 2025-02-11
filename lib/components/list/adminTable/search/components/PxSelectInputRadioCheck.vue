@@ -168,7 +168,13 @@ watchEffect(() => {
     </template>
     <template v-else>
       <div class="search_input">
-        <PxInput placeholder="검색어를 입력해주세요." v-model="local.text" :disabled="disabled" @keypress.enter="$emit('onKeyDownEnter')" class=""></PxInput>
+        <PxInput
+          :placeholder="selectedFilter.placeholder || '검색어를 입력해주세요.'"
+          v-model="local.text"
+          :disabled="disabled"
+          @keypress.enter="$emit('onKeyDownEnter')"
+          class=""
+        ></PxInput>
       </div>
     </template>
   </div>
