@@ -15,7 +15,7 @@ const props = defineProps({
   singleCheckbox: { type: Boolean, default: false },
   emptyText: { type: String, default: '표시할 정보가 없습니다.' },
   fnClass4Row: { type: Function },
-  searching: { type: Boolean, default: false },
+  isSearching: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
   useMobile: { type: Boolean, default: false },
 })
@@ -267,7 +267,7 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
         </tr>
       </tbody>
     </table>
-    <template v-if="searching">
+    <template v-if="isSearching">
       <div class="px-table--searching">검색중입니다.</div>
     </template>
     <template v-else-if="rows.length === 0">

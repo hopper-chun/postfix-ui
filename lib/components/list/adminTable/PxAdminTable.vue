@@ -25,7 +25,7 @@ const props = defineProps({
   searchFilterButton: { type: Boolean, default: true },
   inactiveCheckbox: { type: Boolean, default: false }, //사용안함
   checkboxDisables: { type: Array }, //사용안함
-  searching: { type: Boolean, default: false },
+  isSearching: { type: Boolean, default: false },
   useTitle: { type: Boolean, default: true },
   paginationCount: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
@@ -151,7 +151,7 @@ watch(
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 watchEffect(() => {
-  if (props.searching) {
+  if (props.isSearching) {
     iconRef?.value?.classList.add('SEARCHING')
   } else {
     iconRef?.value?.classList.remove('SEARCHING')
@@ -250,7 +250,7 @@ watchEffect(() => {
           @update:checkboxes="$emit('update:checkboxes', $event)"
           @onClickHeader="handleClickSort"
           :checkboxDisables="checkboxDisables"
-          :searching="searching"
+          :isSearching="isSearching"
           :tableHeight="tableHeight"
           :fnClass4Row="fnClass4Row"
         >
