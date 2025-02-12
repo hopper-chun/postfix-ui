@@ -94,6 +94,7 @@ const ro = new ResizeObserver((entries) => {
         height.value = v + 'px'
       }
     }
+    console.log('리사이즈??')
     tooltip.value.isActive = false
   })
 })
