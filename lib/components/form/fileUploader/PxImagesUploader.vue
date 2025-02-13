@@ -20,6 +20,8 @@ const props = defineProps({
   buttonOnly: { type: Boolean, default: false },
   moveItem: { type: Boolean, default: false },
   maxResolution: { type: Object },
+  minResolution: { type: Object },
+  ratio: { type: Object },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
@@ -63,9 +65,21 @@ const updateModelValue = () => {
 
 const handleSelect = async ({ originalFilename, formData, fileBuffer, width, height }) => {
   try {
-    if (props.maxResolution && (props.maxResolution.width < width || props.maxResolution.height < height)) {
+    if (props.maxResolution && (props.maxResolution.width <= width || props.maxResolution.height <= height)) {
       causeError({ id: props.id, msg: `해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.` })
       // alert(`해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.`)
+      return
+    }
+
+    if (props.minResolution && (props.minResolution.width >= width || props.minResolution.height >= height)) {
+      causeError({ id: props.id, msg: `해상도는 최소 ${props.minResolution.width} * ${props.minResolution.height} 이상이어야 합니다.` })
+
+      return
+    }
+
+    if (props.ratio && width / height != props.ratio.width / props.ratio.height) {
+      causeError({ id: props.id, msg: `이미지의 가로:세로 비율이 ${props.ratio.width}:${props.ratio.height}여야 합니다` })
+
       return
     }
 
