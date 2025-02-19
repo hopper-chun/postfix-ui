@@ -21,8 +21,6 @@ const stop = () => {
   timerHandle = null
 }
 
-console.log(filters)
-
 onMounted(() => start(60 * 3))
 onBeforeUnmount(() => stop())
 

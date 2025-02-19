@@ -2,10 +2,6 @@
 import { ref } from 'vue'
 import Test from './Test.vue'
 
-const handle = () => {
-  console.log('click2')
-}
-
 const headers = [
   { field: 'AA', label: 'CLIENT_ID', PX_SPAN: [{ rowspan: 2 }, { skip: true }] },
   { field: 'sendSMS', label: 'SMS 발송', PX_SPAN: [{ colspan: 2, label: 'SMS' }, {}] },

@@ -36,7 +36,6 @@ const checkedAll = computed(() => {
 })
 
 const handleCheckAll = (value) => {
-  console.log(value)
   emit('onCheckAll', value)
 }
 </script>
