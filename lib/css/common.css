@@ -1201,8 +1201,8 @@
   align-items: center;
 }
 
-.px-multiCheckbox > div:not(:first-child) {
-  margin-left: 16px;
+.px-multiCheckbox > div:not(:last-child) {
+  margin-right: 16px;
 }
 
 .px-multiCheckbox.isRow {
@@ -2444,6 +2444,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-bottom: 4px;
 }
 
 .px-adminTable--body {
@@ -2466,6 +2467,7 @@
   align-items: center;
   justify-content: space-between;
   height: 56px;
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 639px) {
@@ -2502,6 +2504,7 @@
     /* order: 2; */
     margin-top: 4px;
     flex-wrap: wrap;
+    flex: 1 1 0%;
   }
 
   .px-adminTable--search .shell-table-left > * {
@@ -2523,7 +2526,7 @@
 
 @media screen and (max-width: 639px) {
   .px-adminTable--search .shell-table-right {
-    width: 100%;
+    /* width: 100%; */
     margin-right: 0px;
     order: 1;
   }
