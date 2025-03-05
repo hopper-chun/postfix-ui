@@ -35,6 +35,7 @@ const props = defineProps({
   fnClass4Row: { type: Function },
   emptyText: { type: String, default: '표시할 정보가 없습니다.' },
   useMobile: { type: Boolean, default: false },
+  useGrid: { type: Boolean, default: false },
 })
 const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes', 'onChangeLimit', 'onChangePage', 'onReload', 'onClickSort'])
 
@@ -239,6 +240,7 @@ watchEffect(() => {
         <PxTable
           :id="id"
           :useMobile="useMobile"
+          :useGrid="useGrid"
           :emptyText="useLocale ? 'There is no data' : emptyText"
           :isNarrow="true"
           :headers="tableConfig.state.headers"
@@ -254,8 +256,8 @@ watchEffect(() => {
           :tableHeight="tableHeight"
           :fnClass4Row="fnClass4Row"
         >
-          <template v-for="(fn, name) in $slots" v-slot:[name]="{ row, index }">
-            <slot v-if="!name.startsWith('SHELL-')" :name="name" :row="row" :index="index" />
+          <template v-for="(fn, name) in $slots" v-slot:[name]="{ row, index, handleCheckbox }">
+            <slot v-if="!name.startsWith('SHELL-')" :name="name" :row="row" :index="index" :handleCheckbox="handleCheckbox" />
           </template>
         </PxTable>
       </template>

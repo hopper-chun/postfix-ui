@@ -18,6 +18,7 @@ const props = defineProps({
   isSearching: { type: Boolean, default: false },
   tableHeight: { type: [Number, String] },
   useMobile: { type: Boolean, default: false },
+  useGrid: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['onClickHeader', 'update:checkboxes'])
@@ -171,6 +172,13 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
     <div v-if="useMobile && isMobile">
       <div v-for="(row, rowIndex) in rows" :key="row">
         <slot name="mobile" :row="row" :index="rowIndex"></slot>
+      </div>
+    </div>
+    <div v-else-if="useGrid">
+      <div class="px-table--grid">
+        <div v-for="(row, rowIndex) in rows" :key="row">
+          <slot name="grid" :row="row" :index="rowIndex" :handleCheckbox="handleCheckbox"></slot>
+        </div>
       </div>
     </div>
     <table v-else>

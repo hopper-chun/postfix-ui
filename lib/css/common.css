@@ -2173,6 +2173,21 @@
   color: #9ca3af;
 }
 
+.px-table .px-table--grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media screen and (max-width: 639px) {
+  .px-table .px-table--grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
 /* overlay dialog */
 .px-dialog {
   position: fixed;
@@ -2466,7 +2481,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  height: 48px;
   flex-wrap: wrap;
 }
 
@@ -2539,7 +2554,7 @@
 .px-adminTable--search .shell-table-right .func_container {
   display: flex;
   align-items: center;
-  height: 56px;
+  height: 48px;
 }
 
 .px-adminTable--search .shell-table-right .func_container > div:not(:first-child) {

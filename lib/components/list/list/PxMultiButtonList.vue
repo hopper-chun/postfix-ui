@@ -63,7 +63,7 @@ const handleClear = () => {
       </PxFormForView>
     </template>
     <template v-else>
-      <div>
+      <div class="labelSwitch">
         <PxLabel v-if="label" :label="label"></PxLabel>
         <div class="px-buttonList--wrapper">
           <div v-if="clearButton">
