@@ -65,14 +65,14 @@ const updateModelValue = () => {
 
 const handleSelect = async ({ originalFilename, formData, fileBuffer, width, height }) => {
   try {
-    if (props.maxResolution && (props.maxResolution.width <= width || props.maxResolution.height <= height)) {
-      causeError({ id: props.id, msg: `해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.` })
+    if (props.maxResolution && (props.maxResolution.width < width || props.maxResolution.height < height)) {
+      causeError({ id: props.id, msg: `해상도는 ${props.maxResolution.width || '-'} * ${props.maxResolution.height || '-'} 를 넘을 수 없습니다.` })
       // alert(`해상도는 ${props.maxResolution.width} * ${props.maxResolution.height} 를 넘을 수 없습니다.`)
       return
     }
 
-    if (props.minResolution && (props.minResolution.width >= width || props.minResolution.height >= height)) {
-      causeError({ id: props.id, msg: `해상도는 최소 ${props.minResolution.width} * ${props.minResolution.height} 이상이어야 합니다.` })
+    if (props.minResolution && (props.minResolution.width > width || props.minResolution.height > height)) {
+      causeError({ id: props.id, msg: `해상도는 최소 ${props.minResolution.width || '-'} * ${props.minResolution.height || '-'} 이상이어야 합니다.` })
 
       return
     }
