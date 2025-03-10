@@ -267,8 +267,10 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
               >
               <component v-else-if="header.render" :is="header.render(row)"></component>
               <slot v-else-if="header.slotId" :name="header.slotId" :row="row" :index="rowIndex"></slot>
-              <span v-else-if="header.fieldFn" style="white-space: nowrap">{{ header.filter ? header.filter(header.fieldFn(row)) : header.fieldFn(row) }}</span>
-              <span v-else style="white-space: nowrap">{{
+              <span v-else-if="header.fieldFn" :class="header.bodyClass" style="white-space: nowrap">{{
+                header.filter ? header.filter(header.fieldFn(row)) : header.fieldFn(row)
+              }}</span>
+              <span v-else style="white-space: nowrap" :class="header.bodyClass">{{
                 (row.$display && row.$display[header.field]) || (header.filter ? header.filter(row[header.field]) : row[header.field])
               }}</span>
             </td>
