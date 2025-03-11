@@ -21,7 +21,7 @@ const props = defineProps({
   useGrid: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['onClickHeader', 'update:checkboxes'])
+const emit = defineEmits(['onClickHeader', 'onClickRow', 'update:checkboxes'])
 
 const checkedAll = ref(false)
 const computedHeaders = computed(() => props.headers.filter((header) => (header.hasOwnProperty('using') ? header.using : true)))
@@ -241,7 +241,7 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']">
+        <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']" @click="() => $emit('onClickRow', row)">
           <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes">
             <PxCheckbox :id="`cb_${id}_${rowIndex}`" :modelValue="checkboxes[rowIndex]" @update:modelValue="handleCheckbox(rowIndex)" />
           </td>
