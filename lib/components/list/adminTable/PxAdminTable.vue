@@ -37,7 +37,7 @@ const props = defineProps({
   useMobile: { type: Boolean, default: false },
   useGrid: { type: Boolean, default: false },
 })
-const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes', 'onChangeLimit', 'onChangePage', 'onReload', 'onClickSort'])
+const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes', 'onChangeLimit', 'onChangePage', 'onReload', 'onClickSort', 'onClickRow'])
 
 const { functionRef, element } = useFunctionRef()
 const { isMobile } = useResize()
@@ -255,6 +255,7 @@ watchEffect(() => {
           :isSearching="isSearching"
           :tableHeight="tableHeight"
           :fnClass4Row="fnClass4Row"
+          @onClickRow="$emit('onClickRow', $event)"
         >
           <template v-for="(fn, name) in $slots" v-slot:[name]="{ row, index, handleCheckbox }">
             <slot v-if="!name.startsWith('SHELL-')" :name="name" :row="row" :index="index" :handleCheckbox="handleCheckbox" />
