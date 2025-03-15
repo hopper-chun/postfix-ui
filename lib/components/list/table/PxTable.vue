@@ -279,7 +279,7 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
       </tbody>
     </table>
     <template v-if="isSearching">
-      <div class="px-table--searching">검색중입니다.</div>
+      <div class="px-table--searching">조회중 입니다. 잠시 기다려 주세요.</div>
     </template>
     <template v-else-if="rows.length === 0">
       <div class="px-table--empty">{{ emptyText }}</div>
