@@ -53,56 +53,58 @@ const loadImg = (file) => {
 const selectFile = async (event) => {
   clearError()
 
-  // extention으로 제한 걸어도 모든파일(*.*)을 통해서 이상한걸 업로드 할 수 있게 됨. 여기서 한번 더 잡아줘야함
-  const allowedExtenstions = props.extensions ? props.extensions.split(',').map((ext) => ext.trim().replace(/^\./, '').toLowerCase()) : []
+  try {
+    // extention으로 제한 걸어도 모든파일(*.*)을 통해서 이상한걸 업로드 할 수 있게 됨. 여기서 한번 더 잡아줘야함
+    const allowedExtenstions = props.extensions ? props.extensions.split(',').map((ext) => ext.trim().replace(/^\./, '').toLowerCase()) : []
 
-  if (allowedExtenstions.length > 0) {
-    for (const file of event.target.files) {
-      const fileExe = file.name.split('.').pop().toLowerCase()
+    if (allowedExtenstions.length > 0) {
+      for (const file of event.target.files) {
+        const fileExe = file.name.split('.').pop().toLowerCase()
 
-      if (!allowedExtenstions.includes(fileExe)) {
-        emit('onError', `확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
-        causeError({ id: props.id, msg: `확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.` })
-        // alert(`확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
-        return
+        if (!allowedExtenstions.includes(fileExe)) {
+          emit('onError', `확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
+          causeError({ id: props.id, msg: `확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.` })
+          // alert(`확장자가 잘못되었습니다. ${props.extensions} 파일만 업로드 할 수 있습니다.`)
+          return
+        }
       }
     }
-  }
 
-  if (!props.multiple) {
-    const file = event.target.files[0]
+    if (!props.multiple) {
+      const file = event.target.files[0]
 
-    if (props.fileSize && event.target.files[0].size > props.fileSize) {
-      emit('onError', `파일 사이즈가 너무 큽니다`)
-      causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
-      return
-    }
-
-    const { fileBuffer, width, height } = await loadImg(file)
-
-    const formData = new FormData()
-    formData.append('file', file)
-
-    reset()
-
-    emit('onSelect', { originalFilename: file.name, formData, fileBuffer, width, height })
-  } else {
-    const files = Array.from(event.target.files).map((file) => {
-      if (props.fileSize && files.size > props.fileSize) {
+      if (props.fileSize && event.target.files[0].size > props.fileSize) {
         emit('onError', `파일 사이즈가 너무 큽니다`)
         causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
         return
       }
 
+      const { fileBuffer, width, height } = await loadImg(file)
+
       const formData = new FormData()
       formData.append('file', file)
 
-      return { originalFilename: file.name, formData }
-    })
+      emit('onSelect', { originalFilename: file.name, formData, fileBuffer, width, height })
+    } else {
+      const files = Array.from(event.target.files).map((file) => {
+        if (props.fileSize && files.size > props.fileSize) {
+          emit('onError', `파일 사이즈가 너무 큽니다`)
+          causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
+          return
+        }
 
+        const formData = new FormData()
+        formData.append('file', file)
+
+        return { originalFilename: file.name, formData }
+      })
+
+      emit('onSelect', files)
+    }
+  } finally {
+    // input 값을 리셋합니다
+    event.target.value = ''
     reset()
-
-    emit('onSelect', files)
   }
 }
 </script>

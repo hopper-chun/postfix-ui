@@ -169,6 +169,7 @@ watchEffect(() => {
     <template v-else>
       <div class="search_input">
         <PxInput
+          :inputFilter="selectedFilter.inputFilter || undefined"
           :placeholder="selectedFilter.placeholder || '검색어를 입력해주세요.'"
           v-model="local.text"
           :disabled="disabled"
