@@ -5,6 +5,7 @@ const props = defineProps({
   header: { type: Boolean, default: true },
   title: { type: String },
   closeButton: { type: Boolean, default: true },
+  closeClickOutside: { type: Boolean, default: true },
   fnBeforeClose: { type: Function },
   size: { type: String },
 })
@@ -36,8 +37,9 @@ const onMouseDown = () => {
 
 const onMouseUp = () => {
   if (isMouseDown.value) {
-    close()
+    props.closeClickOutside && close()
   }
+  isMouseDown.value = false
 }
 
 watch(
