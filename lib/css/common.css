@@ -3397,6 +3397,7 @@
   margin-left: 8px;
   line-height: 16px;
   color: var(--px-slate-500);
+  font-size: 12px;
 }
 
 @media screen and (max-width: 639px) {
