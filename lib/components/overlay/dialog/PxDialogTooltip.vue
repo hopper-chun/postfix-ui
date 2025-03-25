@@ -1,12 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { useTooltipDialog } from '@/composables'
+import { marked } from 'marked'
 
 const tootlipDialogRef = ref(null)
 const { isActive, tooltip } = useTooltipDialog()
 onClickOutside(tootlipDialogRef, () => (isActive.value = false))
+
+const compiledMarkdown = computed(() => marked.parse(tooltip.value))
+
+marked.setOptions({
+  sanitize: false, // HTML 태그 렌더링 허용
+  headerIds: false, // 헤더 ID 생성 방지 (선택사항)
+})
 </script>
+
 <!-- 툴팁을 클릭하면 툴팁의 내용이 다이얼로그로 감 -->
 
 <template>
@@ -24,7 +33,7 @@ onClickOutside(tootlipDialogRef, () => (isActive.value = false))
 
         <PxIcon name="icon-close" class="close" @click="isActive = false"></PxIcon>
       </div>
-      <div class="px-tooltipDailog--body" v-html="tooltip"></div>
+      <div class="px-tooltipDailog--body" v-html="compiledMarkdown"></div>
     </div>
   </transition>
 </template>

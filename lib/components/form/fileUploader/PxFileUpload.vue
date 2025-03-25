@@ -9,6 +9,7 @@ const props = defineProps({
   multiple: { type: Boolean },
   disabled: { type: Boolean },
   fileSize: { type: Number, default: 0 },
+  isDoing: { type: Boolean },
 })
 
 const emit = defineEmits(['onSelect', 'onError'])
@@ -112,9 +113,9 @@ const selectFile = async (event) => {
   <div v-if="!!slots.button" class="px-customUpload">
     <label :for="id" class="px-customUpload--label">
       <div>
-        <slot name="button"></slot>
+        <slot name="button" :isDoing="isDoing"></slot>
       </div>
-      <input v-if="!disabled" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
+      <input v-if="!disabled && !isDoing" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
     </label>
   </div>
   <div v-else-if="fileType === 'image'" class="px-imageUpload">
@@ -126,12 +127,16 @@ const selectFile = async (event) => {
     </label>
   </div>
   <div v-else class="px-fileUpload">
-    <label :for="id" class="px-fileUpload--label" :class="{ disabled }">
-      <div class="px-fileUpload--icon"></div>
+    <label :for="id" class="px-fileUpload--label" :class="{ disabled: disabled || isDoing }">
+      <div v-if="isDoing" class="SEARCHING">
+        <PxIcon name="icon-refresh" isLib class="px-adminTable--refresh_icon"></PxIcon>
+      </div>
+      <div v-else class="px-fileUpload--icon"></div>
       <!-- <PxIcon name="icon-upload" class="h-[24px] w-[24px]"></PxIcon> -->
-      <div class="px-fileUpload--text">파일 업로드</div>
 
-      <input v-if="!disabled" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
+      <div class="px-fileUpload--text">{{ isDoing ? '업로드 중' : '파일 업로드' }}</div>
+
+      <input v-if="!disabled && !isDoing" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
     </label>
   </div>
 </template>

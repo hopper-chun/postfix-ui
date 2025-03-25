@@ -1,5 +1,7 @@
 <script setup>
 import { reactive, computed, ref, useSlots } from 'vue'
+import { useTooltipDialog } from '@/composables'
+const { setTooltip } = useTooltipDialog()
 
 const props = defineProps({
   useLocale: { type: Boolean },
@@ -12,6 +14,7 @@ const props = defineProps({
   badge: { type: String },
   helperText: { type: String },
   useGrid: { type: Boolean, default: undefined },
+  md: { type: String },
 })
 const emit = defineEmits(['onEdit', 'onSave', 'onClickTooltip'])
 
@@ -60,7 +63,11 @@ const handleEdit = () => {
 }
 
 const handleTooltipClick = () => {
-  emit('onClickTooltip', tooltipContentRef.value.innerHTML)
+  if (props.md) {
+    setTooltip(tooltipContentRef.value.innerHTML)
+  } else {
+    emit('onClickTooltip', tooltipContentRef.value.innerHTML)
+  }
 }
 </script>
 <template>
@@ -73,10 +80,10 @@ const handleTooltipClick = () => {
             <span v-if="required" class="required"></span>
           </div>
 
-          <div v-if="!!slots.tooltip" class="px-sectionWrapper--tooltip">
+          <div v-if="!!slots.tooltip || md" class="px-sectionWrapper--tooltip">
             <button class="px-sectionWrapper--tooltipIcon" @click="handleTooltipClick"></button>
             <div ref="tooltipContentRef" style="display: none">
-              <slot name="tooltip"></slot>
+              <slot name="tooltip">{{ md }}</slot>
             </div>
           </div>
 

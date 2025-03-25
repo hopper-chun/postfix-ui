@@ -20,6 +20,8 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 
+const isDoing = ref(false)
+
 const local = ref({
   files: [],
 })
@@ -39,6 +41,8 @@ watch(
 const { clearError, setError } = useError()
 
 const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
+  isDoing.value = true
+
   clearError()
   try {
     const ret = await axiosInstance.post(`${props.apiUrl}/${props.public ? '?public=1' : ''}`, formData)
@@ -56,6 +60,8 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
   } catch (ex) {
     console.error('=================', ex)
     setError(ex)
+  } finally {
+    isDoing.value = false
   }
 }
 </script>
@@ -69,7 +75,7 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
     </div>
     <div class="px-fileUploader--container">
       <div v-if="!viewMode">
-        <PxFileUpload :id="id" @onSelect="handleAppendFile" @onError="emit('onError', $event)" :extensions="extensions" :disabled="disabled">
+        <PxFileUpload :id="id" :isDoing="isDoing" @onSelect="handleAppendFile" @onError="emit('onError', $event)" :extensions="extensions" :disabled="disabled">
           <template v-if="!!slots.button" #button>
             <slot name="button"></slot>
           </template>

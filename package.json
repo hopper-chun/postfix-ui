@@ -29,6 +29,7 @@
     "@vueuse/core": "^11.0.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
+    "marked": "^15.0.7",
     "swiper": "^11.1.12",
     "tiptap-extension-resize-image": "^1.1.8",
     "validator": "^13.12.0",
