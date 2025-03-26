@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { ref, watch, watchEffect } from 'vue'
 
 import BoardListConfig from './components/BoardListConfig.vue'
-import { useFunctionRef, useResize } from '@/composables'
+import { useFunctionRef, useResize, useTooltipDialog } from '@/composables'
 import { currency } from '@/filters/common'
 
 const props = defineProps({
@@ -36,11 +36,19 @@ const props = defineProps({
   emptyText: { type: String, default: '표시할 정보가 없습니다.' },
   useMobile: { type: Boolean, default: false },
   useGrid: { type: Boolean, default: false },
+  md: { type: String },
 })
 const emits = defineEmits(['onSearch', 'onClearSearchFilter', 'update:checkboxes', 'onChangeLimit', 'onChangePage', 'onReload', 'onClickSort', 'onClickRow'])
 
 const { functionRef, element } = useFunctionRef()
 const { isMobile } = useResize()
+const { setTooltip } = useTooltipDialog()
+
+const handleTooltipClick = () => {
+  if (props.md) {
+    setTooltip(props.md)
+  }
+}
 
 const iconRef = ref(null)
 
@@ -167,6 +175,7 @@ watchEffect(() => {
           <div class="px-adminTable--title">
             <div class="title">{{ title }}</div>
             <div class="count">({{ currency(totalCount) }})</div>
+            <button v-if="props.md" class="px-adminTable--tooltipIcon" @click="handleTooltipClick"></button>
           </div>
         </slot>
         <div @click="handleRefresh" class="px-adminTable--refresh mobile">

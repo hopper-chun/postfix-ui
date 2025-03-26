@@ -63,6 +63,8 @@ const updateModelValue = () => {
   )
 }
 
+const isError = ref([])
+
 const handleSelect = async ({ originalFilename, formData, fileBuffer, width, height }) => {
   try {
     if (props.maxResolution && (props.maxResolution.width < width || props.maxResolution.height < height)) {
@@ -102,9 +104,6 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
 }
 
 const handleClickArrow = (direction, index) => {
-  // 방향, 인덱스만 받으면 됨
-  //
-
   if (direction === 'left') {
     const temp = local.images[index]
     local.images.splice(index, 1)
@@ -128,11 +127,22 @@ const handleOpen = (src) => {
 
 const handleAttachRemove = (index) => {
   local.images.splice(index, 1)
+  isError.value.splice(index, 1) // 에러 상황도 같이 제거되어야 함
   updateModelValue()
 }
 
 const handleClick = (file, index) => {
   selectedImgSrc.value = file
+}
+
+// 이미지 로드에 실패하면 해당 index는 에러체크(true)
+const handleError = (index) => {
+  isError.value[index] = true
+}
+
+// 이미지 로드에 성공하면 해당 index는 false
+const handleLoad = (index) => {
+  isError.value[index] = false
 }
 
 load()
@@ -143,14 +153,24 @@ watch(
 )
 </script>
 
+<!-- 
+플로우
+1. 이미지를 미리보기했을 때, 어느 방향이든 에러가 나면, 해당 index의 상태를 true로 둠.
+-->
 <template>
   <div class="px-imagesUploader">
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :label="label">
         <div class="px-imagesUploader--container">
-          <template v-for="image in local.images">
+          <template v-for="(image, index) in local.images">
             <div class="px-imagesUploader--thumbnail">
-              <div @click="handleOpen(image.cdnPath)">
+              <!-- 미리보기 에러났을 때 -->
+              <a v-if="isError[index]" :href="image.cdnPath" target="_blank">
+                <div class="px-imageUpload--label" style="text-align: center">다운로드</div>
+              </a>
+
+              <!-- 정상 -->
+              <div v-else @click="handleOpen(image.cdnPath)">
                 <img :src="image.cdnPath" alt="" class="px-imageUpload--label" />
               </div>
             </div>
@@ -177,7 +197,22 @@ watch(
                 <template v-else>
                   <!-- 이미지임 -->
                   <div>
-                    <img :draggable="false" @click="handleOpen(file.cdnPath)" class="px-imageUpload--label" :src="imageSrc(file)" alt="" />
+                    <!-- 미리보기 에러났을 때 -->
+                    <a v-if="isError[index]" :href="file.cdnPath" target="_blank">
+                      <div class="px-imageUpload--label" style="text-align: center">다운로드</div>
+                    </a>
+
+                    <!-- 정상 -->
+                    <img
+                      v-else
+                      :draggable="false"
+                      @click="handleOpen(file.cdnPath)"
+                      class="px-imageUpload--label"
+                      :src="imageSrc(file)"
+                      alt=""
+                      @error="handleError(index)"
+                      @load="handleLoad(index)"
+                    />
                   </div>
                 </template>
 
