@@ -174,7 +174,7 @@ watchEffect(() => {
         <slot name="SHELL-TITLE">
           <div class="px-adminTable--title">
             <div class="title">{{ title }}</div>
-            <div class="count">({{ currency(totalCount) }})</div>
+            <div class="count" v-if="Number.isInteger(totalCount)">({{ currency(totalCount) }})</div>
             <button v-if="props.md" class="px-adminTable--tooltipIcon" @click="handleTooltipClick"></button>
           </div>
         </slot>
