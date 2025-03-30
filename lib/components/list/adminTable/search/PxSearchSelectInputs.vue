@@ -44,7 +44,7 @@ const filters4Display = computed(() =>
       value = options.find((option) => option[0] === value)[1]
     } else if (group === 'select') {
       value = options.find((option) => option[0] === value)[1]
-    } else if (group === 'date') {
+    } else if (group === 'date' || group === 'month') {
       const splited = value.split(',')
       if (splited.length === 2) {
         splited[0] = date8(splited[0])
