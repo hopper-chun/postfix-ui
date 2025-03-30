@@ -63,6 +63,7 @@ const changeBeginDate = (beginDate) => {
   } else {
     emit('update:beginDate', beginDate)
     // appendQuerys({ dateTerm: '', beginDate, endDate: state.value.endDate })
+    emit('onSearch')
   }
 }
 const changeEndDate = (endDate) => {
@@ -71,6 +72,7 @@ const changeEndDate = (endDate) => {
   } else {
     emit('update:endDate', endDate)
     // appendQuerys({ dateTerm: '', beginDate: state.value.beginDate, endDate })
+    emit('onSearch')
   }
 }
 
