@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed, useSlots } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { useTooltipDialog } from '@/composables'
+
+const { setTooltip } = useTooltipDialog()
 
 const props = defineProps({
   label: { type: String },
@@ -8,6 +11,7 @@ const props = defineProps({
   id: { type: String },
   required: { type: Boolean },
   hover: { type: Boolean, default: true },
+  md: { type: String },
 })
 
 const emit = defineEmits(['onClickTooltip'])
@@ -17,7 +21,7 @@ const slots = useSlots()
 const isTooltipClick = ref(false)
 
 const useTooltip = computed(() => {
-  if (!!slots.tooltip) {
+  if (!!slots.tooltip || props.md) {
     return true
   } else false
 })
@@ -29,9 +33,13 @@ const tooltipContentRef = ref(null)
 const isTooltipHover = ref(false)
 
 const handleTooltipClick = () => {
-  emit('onClickTooltip', tooltipContentRef.value.innerHTML)
+  if (props.md) {
+    setTooltip(tooltipContentRef.value.innerHTML)
+  } else {
+    emit('onClickTooltip', tooltipContentRef.value.innerHTML)
 
-  isTooltipClick.value = !isTooltipClick.value
+    isTooltipClick.value = !isTooltipClick.value
+  }
 }
 
 // 클릭이 들어오면 클릭을 따른다.
@@ -81,7 +89,7 @@ onClickOutside(tooltipRef, (event) => {
 
       <div class="px-label--tooltipWrapper">
         <div class="px-label--tooltip" ref="tooltipContentRef">
-          <slot name="tooltip"></slot>
+          <slot name="tooltip">{{ md }}</slot>
         </div>
       </div>
     </div>

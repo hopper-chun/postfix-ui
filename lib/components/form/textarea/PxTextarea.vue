@@ -19,6 +19,7 @@ const props = defineProps({
   viewMode: { type: Boolean },
   // isHtml: { type: Boolean },
   cursor: { type: String },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onPaste', 'onClickTooltip'])
 const slots = useSlots()
@@ -61,7 +62,7 @@ const randomId = useMakeId()
   <div class="px-textarea">
     <template v-if="viewMode">
       <div class="px-textarea--view">
-        <PxFormForView :viewMode="viewMode" :label="label">
+        <PxFormForView :md="md" :viewMode="viewMode" :label="label">
           <div class="px-textarea--contents">
             <div v-for="line in (modelValue || '').split('\n')">{{ line || `&nbsp` }}</div>
           </div>
@@ -71,7 +72,7 @@ const randomId = useMakeId()
     <template v-else>
       <div class="px-textarea--edit">
         <div class="labelSwitch">
-          <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" @onClickTooltip="$emit('onClickTooltip', $event)">
+          <PxLabel :md="md" :label="label" :labelHelper="labelHelper" :required="required" :id="randomId" @onClickTooltip="$emit('onClickTooltip', $event)">
             <template v-if="!!slots.tooltip" #tooltip>
               <slot name="tooltip"></slot>
             </template>

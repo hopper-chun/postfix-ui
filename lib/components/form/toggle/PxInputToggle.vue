@@ -16,6 +16,7 @@ const props = defineProps({
   description: { type: String },
   viewMode: { type: Boolean, default: false },
   hover: { type: Boolean, default: true },
+  md: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
@@ -32,7 +33,15 @@ const randomId = useMakeId()
 <template>
   <div class="px-inputToggle" :class="{ viewMode: viewMode }">
     <div class="labelSwitch">
-      <PxLabel :label="label" :labelHelper="labelHelper" :hover="hover" :required="required" :id="randomId" @onClickTooltip="$emit('onClickTooltip', $event)">
+      <PxLabel
+        :md="md"
+        :label="label"
+        :labelHelper="labelHelper"
+        :hover="hover"
+        :required="required"
+        :id="randomId"
+        @onClickTooltip="$emit('onClickTooltip', $event)"
+      >
         <template v-if="!!slots.tooltip" #tooltip>
           <slot name="tooltip"></slot>
         </template>

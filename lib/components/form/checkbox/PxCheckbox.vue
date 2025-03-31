@@ -14,6 +14,7 @@ const props = defineProps({
   labelHelper: { type: String },
   required: { type: Boolean, default: false },
   hover: { type: Boolean, default: true },
+  md: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
@@ -38,6 +39,7 @@ const handleCheck = () => {
       :labelHelper="labelHelper"
       :required="required"
       :id="id"
+      :md="md"
       @onClickTooltip="$emit('onClickTooltip', $event)"
     >
       <template v-if="!!slots.tooltip" #tooltip>

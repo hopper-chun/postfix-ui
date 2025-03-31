@@ -16,6 +16,7 @@ const props = defineProps({
   nowrap: { type: Boolean },
   size: { type: String },
   required: { type: Boolean },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -38,13 +39,13 @@ const selectedValue = computed(() => {
 <template>
   <div class="px-buttonList">
     <template v-if="viewMode">
-      <PxFormForView :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required">
+      <PxFormForView :viewMode="viewMode" :md="md" :label="label" :labelHelper="labelHelper" :required="required">
         {{ selectedValue }}
       </PxFormForView>
     </template>
     <template v-else>
       <div>
-        <PxLabel v-if="label" :label="label" :labelHelper="labelHelper" :required="required"></PxLabel>
+        <PxLabel v-if="label" :md="md" :label="label" :labelHelper="labelHelper" :required="required"></PxLabel>
         <div class="px-buttonList--wrapper" :class="[{ nowrap }]">
           <div v-for="option in options" style="flex-shrink: 0">
             <div @click="handleClick(optionsValue(option))">

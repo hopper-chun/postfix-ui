@@ -25,6 +25,7 @@ const props = defineProps({
   inputFilter: { type: String },
   hover: { type: Boolean, default: true },
   isDatePicker: { type: Boolean, default: false },
+  md: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'onBlur', 'onClear', 'onClickTooltip'])
@@ -108,7 +109,7 @@ const randomId = useMakeId()
   <div class="px-input">
     <template v-if="viewMode">
       <div class="px-input--view labelSwitch" :class="[{ viewMode }]">
-        <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
+        <PxLabel :id="id" :md="md" :label="label" :labelHelper="labelHelper"> </PxLabel>
 
         <div v-if="format" class="px-input--view_text">
           <span>
@@ -125,6 +126,7 @@ const randomId = useMakeId()
           <div class="px-input--label_wrapper">
             <PxLabel
               :label="label"
+              :md="md"
               :hover="hover"
               :labelHelper="labelHelper"
               :required="required"

@@ -18,6 +18,7 @@ const props = defineProps({
   extensions: { type: String },
   buttonOnly: { type: Boolean },
   public: { type: Boolean },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 
@@ -81,7 +82,7 @@ const handleDownload = async (file) => {
   <div class="px-fileUploader labelSwitch start">
     <div v-if="label">
       <div :class="{ viewMode }">
-        <PxLabel :label="label" :labelHelper="labelHelper" :required="required"></PxLabel>
+        <PxLabel :label="label" :labelHelper="labelHelper" :md="md" :required="required"></PxLabel>
       </div>
     </div>
     <div class="px-fileUploader--container">

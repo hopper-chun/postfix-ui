@@ -16,6 +16,7 @@ const props = defineProps({
   required: { type: Boolean, default: false },
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 const slots = useSlots()
@@ -27,7 +28,7 @@ const { localValue, handleInput } = useInput(id, modelValue, format, emit)
 
 <template>
   <div class="px-radio labelSwitch" :class="{ viewMode }">
-    <PxLabel :label="label" :labelHelper="labelHelper" :required="required" :hover="hover" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
+    <PxLabel :md="md" :label="label" :labelHelper="labelHelper" :required="required" :hover="hover" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

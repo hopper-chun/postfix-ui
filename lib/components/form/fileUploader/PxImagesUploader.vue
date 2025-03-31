@@ -22,6 +22,7 @@ const props = defineProps({
   maxResolution: { type: Object },
   minResolution: { type: Object },
   ratio: { type: Object },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
@@ -160,7 +161,7 @@ watch(
 <template>
   <div class="px-imagesUploader">
     <template v-if="viewMode">
-      <PxFormForView :viewMode="viewMode" :label="label">
+      <PxFormForView :viewMode="viewMode" :label="label" :md="md">
         <div class="px-imagesUploader--container">
           <template v-for="(image, index) in local.images">
             <div class="px-imagesUploader--thumbnail">
@@ -180,7 +181,7 @@ watch(
     </template>
     <template v-else>
       <div class="labelSwitch start">
-        <PxLabel :label="label" :required="required"></PxLabel>
+        <PxLabel :label="label" :required="required" :md="md"></PxLabel>
 
         <div>
           <div class="SCROLLDESIGN px-imageUploader" @dragend="handleDragEnd" ref="parent">

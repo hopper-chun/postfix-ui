@@ -1,11 +1,11 @@
 <script setup>
-const props = defineProps(['user', 'viewMode'])
+const props = defineProps(['user', 'viewMode', 'md'])
 </script>
 
 <template>
   <div class="px-userInfoTableCell">
     <template v-if="viewMode">
-      <PxFormForView :viewMode="viewMode" label="이름">
+      <PxFormForView :viewMode="viewMode" :md="md" label="이름">
         <div class="px-userInfoTableCell--container" v-if="user">
           <div>
             <div>

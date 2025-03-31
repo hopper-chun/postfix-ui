@@ -17,6 +17,7 @@ const props = defineProps({
   extensions: { type: String },
   buttonOnly: { type: Boolean, default: false },
   draggable: { type: Boolean, default: false },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError } = useError()
@@ -170,7 +171,7 @@ watch(
 <template>
   <div class="px-imagesUploader">
     <template v-if="viewMode">
-      <PxFormForView :viewMode="viewMode" :label="label">
+      <PxFormForView :viewMode="viewMode" :label="label" :md="md">
         <div class="px-imagesUploader--container">
           <template v-for="image in local.images">
             <div class="px-imagesUploader--thumbnail">
@@ -184,7 +185,7 @@ watch(
     </template>
     <template v-else>
       <div class="labelSwitch start">
-        <PxLabel :label="label" :required="required"></PxLabel>
+        <PxLabel :label="label" :required="required" :md="md"></PxLabel>
 
         <div>
           <div class="SCROLLDESIGN px-imageUploader" @dragend="handleDragEnd">

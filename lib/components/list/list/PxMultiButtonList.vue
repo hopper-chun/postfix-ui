@@ -15,6 +15,7 @@ const props = defineProps({
   viewMode: { type: Boolean },
   prevent: { type: Boolean },
   clearButton: { type: String },
+  md: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -58,13 +59,13 @@ const handleClear = () => {
 <template>
   <div class="px-multiButtonList">
     <template v-if="viewMode">
-      <PxFormForView :viewMode="viewMode" :label="label">
+      <PxFormForView :viewMode="viewMode" :md="md" :label="label">
         {{ selectedValue.join(', ') }}
       </PxFormForView>
     </template>
     <template v-else>
       <div class="labelSwitch">
-        <PxLabel v-if="label" :label="label"></PxLabel>
+        <PxLabel v-if="label" :md="md" :label="label"></PxLabel>
         <div class="px-buttonList--wrapper">
           <div v-if="clearButton">
             <PxButton @click="handleClear" :size="size" :color="modelValue.length === 0 ? color : subColor">{{ clearButton }}</PxButton>

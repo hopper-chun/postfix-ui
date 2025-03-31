@@ -19,6 +19,7 @@ const props = defineProps({
   hover: { type: Boolean, default: true },
   dotDays: { type: Array },
   cbMonth: { type: Function },
+  md: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
@@ -116,7 +117,15 @@ const handlerKeyEnter = () => {
 
 <template>
   <div class="px-datepicker labelSwitch" :ref="functionRef">
-    <PxLabel :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
+    <PxLabel
+      :viewMode="viewMode"
+      :label="label"
+      :labelHelper="labelHelper"
+      :required="required"
+      :id="id"
+      :md="md"
+      @onClickTooltip="$emit('onClickTooltip', $event)"
+    >
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

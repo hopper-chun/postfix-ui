@@ -18,6 +18,7 @@ const props = defineProps({
   viewMode: { type: Boolean, default: false },
   hover: { type: Boolean, default: true },
   lang: { type: String, default: 'ko' },
+  md: { type: String },
 })
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
 const slots = useSlots()
@@ -70,7 +71,15 @@ onUnmounted(() => {
 
 <template>
   <div class="px-datepicker labelSwitch" :ref="functionRef">
-    <PxLabel :viewMode="viewMode" :label="label" :labelHelper="labelHelper" :required="required" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
+    <PxLabel
+      :viewMode="viewMode"
+      :md="md"
+      :label="label"
+      :labelHelper="labelHelper"
+      :required="required"
+      :id="id"
+      @onClickTooltip="$emit('onClickTooltip', $event)"
+    >
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>
       </template>

@@ -18,6 +18,7 @@ const props = defineProps({
   viewMode: { type: Boolean },
   hover: { type: Boolean, default: true },
   disabledValue: { type: Array }, // 배열로 value에 해당하는 값을 지정하면, 해당 값은 옵션 리스트 창에서 비활성화 됨
+  md: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'onClickTooltip'])
@@ -79,7 +80,7 @@ const randomId = useMakeId()
   <div class="px-select">
     <template v-if="viewMode">
       <div class="px-select--view labelSwitch" :class="[{ viewMode }]">
-        <PxLabel :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
+        <PxLabel :md="md" :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>
         <div class="px-input--view_text">{{ optionsLabel(localValue) }}</div>
       </div>
     </template>
@@ -87,6 +88,7 @@ const randomId = useMakeId()
       <div class="px-select--edit" :ref="containerRefFunc">
         <div class="px-select--wrapper labelSwitch">
           <PxLabel
+            :md="md"
             :label="label"
             :labelHelper="labelHelper"
             :required="required"
