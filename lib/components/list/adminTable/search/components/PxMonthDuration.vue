@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { subMonths, isAfter, startOfMonth } from 'date-fns'
+import { subMonths, isAfter, startOfMonth, endOfMonth } from 'date-fns'
 
 const constTabs = [
   { term: '1', label: '1개월' },
@@ -63,8 +63,8 @@ const changeEndDate = (endDate) => {
 }
 
 const handleTabChanged = (dateTerm) => {
-  let endDate = new Date()
-  let beginDate = subMonths(endDate, dateTerm * 1 - 1)
+  const endDate = endOfMonth(new Date())
+  const beginDate = startOfMonth(subMonths(new Date(), dateTerm * 1 - 1))
 
   emit('update:beginDate', beginDate)
   emit('update:endDate', endDate)
