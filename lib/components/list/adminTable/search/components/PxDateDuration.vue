@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { subDays, isAfter, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfMonth, addMonths } from 'date-fns'
+import { subDays, isAfter, startOfDay, startOfWeek, endOfWeek, startOfMonth, startOfYear, endOfMonth, endOfYear, addMonths } from 'date-fns'
 
 const props = defineProps({
   filterType: { type: Object, required: true },
@@ -9,25 +9,28 @@ const props = defineProps({
   isSimple: { type: Boolean },
   isNumberOfDays: { type: Boolean }, // 기존의 TERM (일수) 기반 방식
 })
-const emit = defineEmits(['update:beginDate', 'update:endDate'])
+const emit = defineEmits(['update:beginDate', 'update:endDate', 'onSearch'])
 
 const constTabs = computed(() => {
   if (!props.isNumberOfDays) {
     const now = new Date()
     const today = startOfDay(now)
-    const thisWeek = startOfWeek(now)
-    const thisMonth = startOfMonth(now)
-    const thisYear = startOfYear(now)
+    const beginOfThisWeek = startOfWeek(now)
+    const endOfThisWeek = endOfWeek(now)
+    const beginOfThisMonth = startOfMonth(now)
+    const endOfThisMonth = endOfMonth(now)
     const beginOfLastMonth = startOfMonth(addMonths(now, -1))
     const endOfLastMonth = endOfMonth(addMonths(now, -1))
+    const beginOfThisYear = startOfYear(now)
+    const endOfThisYear = endOfYear(now)
 
-    // console.log('thisWeek', { thisWeek, thisMonth, thisYear, endOfLastMonth, endOfLastMonth })
+    // console.log('thisWeek', { thisWeek, thisMonth, beginOfThisYear, endOfLastMonth, endOfLastMonth })
     return [
       { label: '오늘', days: [today, today] },
-      { label: '이번주', days: [thisWeek, today] },
-      { label: '이번달', days: [thisMonth, today] },
+      { label: '이번주', days: [beginOfThisWeek, endOfThisWeek] },
+      { label: '이번달', days: [beginOfThisMonth, endOfThisMonth] },
       { label: '지난달', days: [beginOfLastMonth, endOfLastMonth] },
-      { label: '올해', days: [thisYear, today] },
+      { label: '올해', days: [beginOfThisYear, endOfThisYear] },
     ]
   } else {
     return [
@@ -60,6 +63,7 @@ const changeBeginDate = (beginDate) => {
   } else {
     emit('update:beginDate', beginDate)
     // appendQuerys({ dateTerm: '', beginDate, endDate: state.value.endDate })
+    emit('onSearch')
   }
 }
 const changeEndDate = (endDate) => {
@@ -68,6 +72,7 @@ const changeEndDate = (endDate) => {
   } else {
     emit('update:endDate', endDate)
     // appendQuerys({ dateTerm: '', beginDate: state.value.beginDate, endDate })
+    emit('onSearch')
   }
 }
 
@@ -82,6 +87,7 @@ const handleTabChanged = (days) => {
     emit('update:beginDate', beginDate)
     emit('update:endDate', endDate)
   }
+  emit('onSearch')
 }
 </script>
 <template>

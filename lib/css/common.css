@@ -2821,7 +2821,7 @@
   margin-right: 8px;
   margin-bottom: 0;
   padding: 0 6px;
-  background-color: var(--px-slate-200);
+  background-color: var(--px-disabled-bg);
   /* space-x-[2px]  */
 }
 
@@ -2836,16 +2836,19 @@
 .px-searchSelectInputs--query .query_text {
   display: flex;
   align-items: center;
-  padding-bottom: 2px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .px-searchSelectInputs--query .query_text .title {
   border-right: 1px solid var(--px-slate-500);
   padding-right: 5px;
+  font-weight: 400;
 }
 
 .px-searchSelectInputs--query .query_text .value {
   padding-left: 4px;
+  font-size: var(--px-text-sm);
 }
 
 .px-searchSelectInputs--query .clear {

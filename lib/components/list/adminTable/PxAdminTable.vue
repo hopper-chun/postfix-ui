@@ -10,7 +10,7 @@ const props = defineProps({
   id: { type: String }, // 페이지 내 테이블이 2개 이상일 경우, 체크박스 id 구분을 위해 사용
   useLocale: { type: Boolean, default: false },
   title: { type: String },
-  totalCount: { type: Number, required: true },
+  totalCount: { type: Number },
   rows: { type: Array, required: true },
   searchOrder: { type: Object, required: true },
   searchPagination: { type: Object, required: true },
@@ -174,7 +174,7 @@ watchEffect(() => {
         <slot name="SHELL-TITLE">
           <div class="px-adminTable--title">
             <div class="title">{{ title }}</div>
-            <div class="count">({{ currency(totalCount) }})</div>
+            <div class="count" v-if="Number.isInteger(totalCount)">({{ currency(totalCount) }})</div>
             <button v-if="props.md" class="px-adminTable--tooltipIcon" @click="handleTooltipClick"></button>
           </div>
         </slot>
@@ -228,7 +228,7 @@ watchEffect(() => {
                   <PxPagination
                     :limit="tableConfig.state.limit"
                     :currentPage="searchPagination.state.page"
-                    :total="totalCount"
+                    :total="totalCount || 0"
                     @onChangePage="handleChangePage"
                   ></PxPagination>
                 </slot>
@@ -277,7 +277,7 @@ watchEffect(() => {
             <PxPagination
               :limit="tableConfig.state.limit"
               :currentPage="searchPagination.state.page"
-              :total="totalCount"
+              :total="totalCount || 0"
               @onChangePage="handleChangePage"
             ></PxPagination>
           </slot>

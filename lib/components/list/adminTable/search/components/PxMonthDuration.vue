@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { subMonths, isAfter, startOfMonth } from 'date-fns'
+import { subMonths, isAfter, startOfMonth, endOfMonth } from 'date-fns'
 
 const constTabs = [
   { term: '1', label: '1개월' },
@@ -12,13 +12,24 @@ const constTabs = [
   { term: '12', label: '1년' },
 ]
 
+// const constTabs = [
+//   { term: '1', label: '이번달' },
+//   { term: '2', label: '지난달' },
+//   { term: '3', label: '1/4분기' },
+//   { term: '4', label: '2/4분기' },
+//   { term: '5', label: '3/4분기' },
+//   { term: '6', label: '4/4분기' },
+//   { term: '5', label: '상반기' },
+//   { term: '5', label: '하반기' },
+// ]
+
 const props = defineProps({
   filterType: { type: Object, required: true },
   beginDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   isSimple: { type: Boolean },
 })
-const emit = defineEmits(['update:beginDate', 'update:endDate'])
+const emit = defineEmits(['update:beginDate', 'update:endDate', 'onSearch'])
 
 const local = ref({
   currentTabValue: '',
@@ -38,6 +49,7 @@ const changeBeginDate = (beginDate) => {
   } else {
     emit('update:beginDate', beginDate)
     // appendQuerys({ dateTerm: '', beginDate, endDate: state.value.endDate })
+    emit('onSearch')
   }
 }
 const changeEndDate = (endDate) => {
@@ -46,15 +58,18 @@ const changeEndDate = (endDate) => {
   } else {
     emit('update:endDate', endDate)
     // appendQuerys({ dateTerm: '', beginDate: state.value.beginDate, endDate })
+    emit('onSearch')
   }
 }
 
 const handleTabChanged = (dateTerm) => {
-  let endDate = new Date()
-  let beginDate = subMonths(endDate, dateTerm * 1)
+  const endDate = endOfMonth(new Date())
+  const beginDate = startOfMonth(subMonths(new Date(), dateTerm * 1 - 1))
 
   emit('update:beginDate', beginDate)
   emit('update:endDate', endDate)
+
+  emit('onSearch')
 }
 </script>
 <template>

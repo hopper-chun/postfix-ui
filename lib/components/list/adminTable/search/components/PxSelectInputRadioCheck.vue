@@ -152,10 +152,10 @@ watchEffect(() => {
       ></PxMultiCheckbox>
     </template>
     <template v-else-if="selectedFilter.group === 'date'">
-      <PxDateDuration :filterType="selectedFilter" v-model:beginDate="local.beginDate" v-model:endDate="local.endDate"></PxDateDuration>
+      <PxDateDuration :filterType="selectedFilter" v-model:beginDate="local.beginDate" v-model:endDate="local.endDate" @onSearch="search"></PxDateDuration>
     </template>
     <template v-else-if="selectedFilter.group === 'month'">
-      <PxMonthDuration :filterType="selectedFilter" v-model:beginDate="local.beginDate" v-model:endDate="local.endDate"></PxMonthDuration>
+      <PxMonthDuration :filterType="selectedFilter" v-model:beginDate="local.beginDate" v-model:endDate="local.endDate" @onSearch="search"></PxMonthDuration>
     </template>
     <template v-else-if="selectedFilter.group === 'datepicker'">
       <PxDatePicker size="xs" v-model="local.beginDate" @update:modelValue="search"></PxDatePicker>
