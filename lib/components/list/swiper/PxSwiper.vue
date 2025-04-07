@@ -71,7 +71,7 @@ defineExpose({ handleSlideTo, handleUpdate, handleTranslateTo })
 <template>
   <div class="px-swiper">
     <template v-if="custom">
-      <swiper-container init="false" ref="swiperRef" class="mySwiper" :style="[{ maxWidth: maxWidth }]"> <slot></slot> </swiper-container
+      <swiper-container init="false" ref="swiperRef" class="mySwiper" :style="[{ maxWidth: maxWidth }]"> <slot :options="options"></slot> </swiper-container
     ></template>
     <template v-else>
       <swiper-container init="false" ref="swiperRef" class="mySwiper" :style="[{ maxWidth: maxWidth }]">
