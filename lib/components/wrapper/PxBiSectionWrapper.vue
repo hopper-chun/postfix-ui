@@ -69,6 +69,12 @@ const handleTooltipClick = () => {
     emit('onClickTooltip', tooltipContentRef.value.innerHTML)
   }
 }
+
+const isExapnd = ref(false)
+
+const handleClickMargin = () => {
+  isExapnd.value = !isExapnd.value
+}
 </script>
 <template>
   <div class="px-biSectionWrapper" :class="{ 'overflow-hidden': acc.state }">
@@ -116,7 +122,9 @@ const handleTooltipClick = () => {
     <div ref="accContainer" class="px-sectionWrapper-accContainer">
       <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid }]">
         <slot :viewMode="!isEdit"></slot>
+        <slot v-if="isExapnd" name="expand" :viewMode="!isEdit"></slot>
       </div>
     </div>
+    <div class="absolute inset-y-0 opacity-0 right-[10px] w-[10px] h-full" @dblclick="handleClickMargin"></div>
   </div>
 </template>

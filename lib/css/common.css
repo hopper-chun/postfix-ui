@@ -3547,6 +3547,7 @@
   margin-bottom: 20px;
   border: 1px solid var(--px-slate-400);
   background-color: white;
+  position: relative;
 }
 
 .px-biSectionWrapper .px-sectionWrapper--body > * {
