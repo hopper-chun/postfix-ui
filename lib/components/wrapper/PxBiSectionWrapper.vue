@@ -118,6 +118,8 @@ const handleClickMargin = () => {
 
         <slot name="TOP-RIGHT"></slot>
       </div>
+
+      <div class="px-sectionWrapper--header-margin" @dblclick="handleClickMargin"></div>
     </div>
     <div ref="accContainer" class="px-sectionWrapper-accContainer">
       <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid }]">
@@ -125,6 +127,5 @@ const handleClickMargin = () => {
         <slot v-if="isExapnd" name="expand" :viewMode="!isEdit"></slot>
       </div>
     </div>
-    <div class="absolute inset-y-0 opacity-0 right-[10px] w-[10px] h-full" @dblclick="handleClickMargin"></div>
   </div>
 </template>

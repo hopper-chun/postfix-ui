@@ -3547,7 +3547,6 @@
   margin-bottom: 20px;
   border: 1px solid var(--px-slate-400);
   background-color: white;
-  position: relative;
 }
 
 .px-biSectionWrapper .px-sectionWrapper--body > * {
@@ -3578,6 +3577,20 @@
 .px-biSectionWrapper .px-sectionWrapper--body.isGrid > * > *:nth-child(even) {
   border-left: 1px solid rgb(216, 216, 216);
   margin-left: -1px;
+}
+
+.px-biSectionWrapper .px-sectionWrapper--header {
+  position: relative;
+}
+
+.px-biSectionWrapper .px-sectionWrapper--header-margin {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  left: 0;
+  width: 10px;
+  height: 100%;
 }
 
 @media (max-width: 639px) {
