@@ -10,6 +10,8 @@ const props = defineProps({
   custom: { type: Boolean },
 })
 
+const emit = defineEmits(['onChangeSlide'])
+
 const swiperRef = ref('')
 
 const randomKey = Math.floor(Math.random() * 1000000)
@@ -40,8 +42,18 @@ const swiperParams = computed(() => {
   } else
     return {
       ...props.params,
+      on: {
+        slideChangeTransitionEnd: handleSlideChange,
+      },
     }
 })
+
+const handleSlideChange = () => {
+  // 슬라이드 change가 끝났을 때 호출
+  const swiper = swiperRef.value?.swiper
+
+  emit('onChangeSlide', swiper?.realIndex)
+}
 
 const loadSwiper = () => {
   Object.assign(swiperRef.value, swiperParams.value)
