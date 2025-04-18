@@ -3,4 +3,4 @@
 로그인:     npm adduser or npm login
 로그아웃:   npm logout
 확인:       npm whoami
-배포:       npm publish
+배포:       npm publish --access public
