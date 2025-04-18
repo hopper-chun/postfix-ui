@@ -3328,6 +3328,9 @@
   background-color: white;
 }
 
+.red-title.px-sectionWrapper {
+  border: 1px solid #fca5a5;
+}
 .px-sectionWrapper--tooltip {
   margin-left: 4px;
   width: 18px;
@@ -3355,6 +3358,7 @@
 
 .red-title .px-sectionWrapper--header {
   background-color: rgb(254 226 226);
+  border-bottom: 1px solid rgb(254 226 226);
 }
 
 .px-sectionWrapper--title {
@@ -3551,6 +3555,10 @@
   margin-bottom: 20px;
   border: 1px solid var(--px-slate-400);
   background-color: white;
+}
+
+.red-title.px-biSectionWrapper {
+  border: 1px solid #fca5a5;
 }
 
 .px-biSectionWrapper .px-sectionWrapper--body > * {
