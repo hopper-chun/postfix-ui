@@ -15,6 +15,7 @@ const props = defineProps({
   helperText: { type: String },
   useGrid: { type: Boolean, default: undefined },
   md: { type: String },
+  redTitle: { type: Boolean, default: false },
 })
 const emit = defineEmits(['onEdit', 'onSave', 'onClickTooltip'])
 
@@ -77,7 +78,7 @@ const handleClickMargin = () => {
 }
 </script>
 <template>
-  <div class="px-biSectionWrapper" :class="{ 'overflow-hidden': acc.state }">
+  <div class="px-biSectionWrapper" :class="[{ 'overflow-hidden': acc.state }, { 'red-title': redTitle }]">
     <div class="px-sectionWrapper--header">
       <div class="px-sectionWrapper--title">
         <div style="display: flex; align-items: center; flex-shrink: 0">

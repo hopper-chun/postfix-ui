@@ -14,6 +14,7 @@ const props = defineProps({
   badge: { type: String },
   helperText: { type: String },
   useGrid: { type: Boolean },
+  redTitle: { type: Boolean, default: false },
 })
 const emit = defineEmits(['onEdit', 'onSave'])
 
@@ -48,7 +49,7 @@ const handleEdit = () => {
 }
 </script>
 <template>
-  <div class="px-multiSectionWrapper" :class="{ 'overflow-hidden': acc.state }">
+  <div class="px-multiSectionWrapper" :class="[{ 'overflow-hidden': acc.state }, { 'red-title': redTitle }]">
     <div class="px-sectionWrapper--header">
       <div class="px-sectionWrapper--title">
         <div style="display: flex; align-items: center; flex-shrink: 0">

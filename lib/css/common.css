@@ -3353,6 +3353,10 @@
   padding: 0 24px;
 }
 
+.red-title .px-sectionWrapper--header {
+  background-color: rgb(254 226 226);
+}
+
 .px-sectionWrapper--title {
   display: flex;
   align-items: center;
