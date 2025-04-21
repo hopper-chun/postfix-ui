@@ -4406,11 +4406,13 @@
 
 .control-group .HList .is-active {
   color: var(--px-pri-600);
+}
+
+.control-group .HList .is-active .is-list {
   font-weight: 700;
   background-color: #eee;
   border-radius: 20px;
 }
-
 .control-group .CList {
   background: white;
   display: inline-block;
