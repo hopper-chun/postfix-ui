@@ -4394,6 +4394,9 @@
 
 .control-group .HList .is-active {
   color: var(--px-pri-600);
+  font-weight: 700;
+  background-color: #eee;
+  border-radius: 20px;
 }
 
 .control-group .CList {
@@ -4480,6 +4483,9 @@
 
 .ProseMirror {
   padding: 8px;
+  min-height: 220px;
+  max-height: screen;
+  overflow-y: auto;
 }
 
 .ProseMirror-focused {
