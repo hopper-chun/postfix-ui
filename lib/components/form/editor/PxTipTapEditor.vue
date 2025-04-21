@@ -181,6 +181,7 @@ watch(
           <div v-if="isHListOpen" ref="HList" class="tiptap HList">
             <!-- 여기 클래스 주고, 이 클래스 이하 isActive랑 div들한테도 각각 효과를(디자인이랑 호버 등) 주기 -->
             <div
+              class="cursor-pointer"
               @click="
                 () => {
                   editor.chain().focus().setParagraph().run()
