@@ -12,6 +12,7 @@ const props = defineProps({
 테일윈드 사용자는 여기에 원하는 tailwind css를 기입하면 그 클래스가 디폴트 값을 대체한다. -->
 <template>
   <div class="whitespace-nowrap px-colorTableCell">
-    <div :class="[extraClass, { activeClass: active }]">{{ text }}</div>
+    {{ activeClass }}
+    <div :class="[extraClass, { [activeClass]: active }]">{{ text }}</div>
   </div>
 </template>

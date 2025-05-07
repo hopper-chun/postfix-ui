@@ -102,7 +102,7 @@ const handleDownload = async (file) => {
             <div class="icon" @click="handleDownload(file)">
               <PxIcon name="icon-download-rounded"></PxIcon>
             </div>
-            <div class="icon" @click="handleRemove(index)" v-if="disabled">
+            <div class="icon" @click="handleRemove(index)" v-if="!disabled">
               <PxIcon name="icon-close"></PxIcon>
             </div>
           </div>
