@@ -1,5 +1,7 @@
 <script setup>
-import { ref, watchEffect, computed } from 'vue'
+import { toRefs, ref, watchEffect, computed } from 'vue'
+import { useError, useSelect, useFunctionRef, useMakeId } from '@/composables'
+ 
 
 const props = defineProps({
   label: { type: String },
@@ -15,12 +17,22 @@ const props = defineProps({
   viewMode: { type: Boolean },
   prevent: { type: Boolean },
   clearButton: { type: String },
+  labelHelper: { type: String },
+  helperText:{ type: String },
   md: { type: String },
+  required :{ type: Boolean },
+  
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const local = ref([])
+
+const { functionRef: buttonRefFunc, element: buttonRef } = useFunctionRef()
+
+const { id, modelValue, format } = toRefs(props)
+const { error } = useError(id, buttonRef)
+
 
 const selectedValue = computed(() => {
   let curOption = []
@@ -59,17 +71,19 @@ const handleClear = () => {
 <template>
   <div class="px-multiButtonList">
     <template v-if="viewMode">
-      <PxFormForView :viewMode="viewMode" :md="md" :label="label">
+      <PxFormForView :viewMode="viewMode" :required="required" :md="md" :label="label">
         {{ selectedValue.join(', ') }}
       </PxFormForView>
     </template>
     <template v-else>
       <div class="labelSwitch">
-        <PxLabel v-if="label" :md="md" :label="label"></PxLabel>
-        <div class="px-buttonList--wrapper">
+        <PxLabel v-if="label" :md="md" :required="required"  :labelHelper="labelHelper" :label="label"></PxLabel>
+      
+        <div class="px-buttonList--wrapper" :ref="buttonRefFunc">
           <div v-if="clearButton">
             <PxButton @click="handleClear" :size="size" :color="modelValue.length === 0 ? color : subColor">{{ clearButton }}</PxButton>
           </div>
+          
           <div v-for="option in options">
             <div @click="() => handleClick(optionsValue(option))">
               <slot :isSelect="modelValue.includes(optionsValue(option))" :optionsLabel="optionsLabel(option)">
@@ -79,8 +93,15 @@ const handleClear = () => {
               </slot>
             </div>
           </div>
-        </div>
+        
+       
+         </div>
+
       </div>
+       
+         <HelperText :id="id" :error="error" :helperText="helperText" >
+          <template #helperIcon> <slot name="helperIcon"></slot> </template>
+         </HelperText>
     </template>
   </div>
 </template>

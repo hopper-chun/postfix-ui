@@ -110,7 +110,9 @@ const randomId = useMakeId()
           <slot name="inputIcon"></slot>
         </div>
       </div>
+
     </div>
+
     <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxLength" :localValue="localValue">
       <template #helperIcon> <slot name="helperIcon"></slot> </template>
     </HelperText>
