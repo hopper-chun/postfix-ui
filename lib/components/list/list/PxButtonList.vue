@@ -1,5 +1,6 @@
 <script setup>
-import { computed } from 'vue'
+import { toRefs, computed } from 'vue'
+import { useError, useFunctionRef } from '@/composables'
 
 const props = defineProps({
   label: { type: String },
@@ -17,8 +18,14 @@ const props = defineProps({
   size: { type: String },
   required: { type: Boolean },
   md: { type: String },
+  helperText: { type: String },
 })
 const emit = defineEmits(['update:modelValue'])
+
+const { id, modelValue, format } = toRefs(props)
+const { functionRef: buttonRefFunc, element: buttonRef } = useFunctionRef()
+
+const { error } = useError(id, buttonRef)
 
 const handleClick = (value) => {
   if (!props.disabled) {
@@ -50,7 +57,7 @@ const selectedValue = computed(() => {
     <template v-else>
       <div class="labelSwitch">
         <PxLabel v-if="label" :md="md" :label="label" :labelHelper="labelHelper" :required="required"></PxLabel>
-        <div class="px-buttonList--wrapper" :class="[{ nowrap }]">
+        <div class="px-buttonList--wrapper" :ref="buttonRefFunc" :class="[{ nowrap }]">
           <div v-for="option in options" style="flex-shrink: 0">
             <div @click="handleClick(optionsValue(option))">
               <slot :isSelect="optionsValue(option) === modelValue" :optionsLabel="optionsLabel(option)">
@@ -62,6 +69,9 @@ const selectedValue = computed(() => {
           </div>
         </div>
       </div>
+      <HelperText :id="id" :error="error" :helperText="helperText">
+        <template #helperIcon> <slot name="helperIcon"></slot> </template>
+      </HelperText>
     </template>
   </div>
 </template>
