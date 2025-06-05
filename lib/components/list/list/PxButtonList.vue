@@ -22,7 +22,11 @@ const emit = defineEmits(['update:modelValue'])
 
 const handleClick = (value) => {
   if (!props.disabled) {
-    emit('update:modelValue', value)
+    if (props.modelValue === value) {
+      emit('update:modelValue', undefined)
+    } else {
+      emit('update:modelValue', value)
+    }
   }
 }
 
@@ -44,7 +48,7 @@ const selectedValue = computed(() => {
       </PxFormForView>
     </template>
     <template v-else>
-      <div>
+      <div class="labelSwitch">
         <PxLabel v-if="label" :md="md" :label="label" :labelHelper="labelHelper" :required="required"></PxLabel>
         <div class="px-buttonList--wrapper" :class="[{ nowrap }]">
           <div v-for="option in options" style="flex-shrink: 0">
