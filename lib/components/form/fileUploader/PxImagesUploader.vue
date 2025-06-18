@@ -236,7 +236,7 @@ watch(
             </div>
 
             <!-- 업로드 버튼 -->
-            <div>
+            <div v-if="!removeButton">
               <PxFileUpload
                 :fileSize="fileSize"
                 :extensions="extensions"
@@ -257,6 +257,6 @@ watch(
         </div>
       </div>
     </template>
-    <PxDialogImage v-if="!removeButton" :viewMode="viewMode" ref="imageDialog"></PxDialogImage>
+    <PxDialogImage :viewMode="viewMode" ref="imageDialog"></PxDialogImage>
   </div>
 </template>
