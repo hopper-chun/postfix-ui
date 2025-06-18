@@ -24,6 +24,7 @@ const props = defineProps({
   minResolution: { type: Object },
   ratio: { type: Object },
   md: { type: String },
+  extraQuery: { type: Object },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
@@ -87,7 +88,18 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
       return
     }
 
-    const ret = await axiosInstance.post(`${props.apiUrl}/${props.public ? '?public=1' : ''}`, formData)
+    const options = { params: {} }
+    if (props.public) {
+      options.params.public = 1
+    }
+    if (props.extraQuery) {
+      options.params = {
+        ...props.extraQuery,
+        ...options.params,
+      }
+    }
+
+    const ret = await axiosInstance.post(props.apiUrl, formData, options)
     console.log('==========================', ret)
 
     // if(props.fileSize) {
