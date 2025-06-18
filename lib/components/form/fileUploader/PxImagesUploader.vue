@@ -18,6 +18,7 @@ const props = defineProps({
   label: { type: String },
   extensions: { type: String },
   buttonOnly: { type: Boolean, default: false },
+  removeButton: { type: Boolean, default: false },
   moveItem: { type: Boolean, default: false },
   maxResolution: { type: Object },
   minResolution: { type: Object },
@@ -256,6 +257,6 @@ watch(
         </div>
       </div>
     </template>
-    <PxDialogImage :viewMode="viewMode" ref="imageDialog"></PxDialogImage>
+    <PxDialogImage v-if="!removeButton" :viewMode="viewMode" ref="imageDialog"></PxDialogImage>
   </div>
 </template>
