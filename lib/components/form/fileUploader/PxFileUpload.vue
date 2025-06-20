@@ -51,6 +51,22 @@ const loadImg = (file) => {
     reader.readAsDataURL(file)
   })
 }
+
+function formatFileSize(bytes, decimals = 2) {
+  // 0 바이트인 경우
+  if (bytes === 0) return '0 Bytes'
+
+  // 음수인 경우 처리
+  if (bytes < 0) return 'Invalid size'
+
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
 const selectFile = async (event) => {
   clearError()
 
@@ -71,12 +87,13 @@ const selectFile = async (event) => {
       }
     }
 
+    const errStr = `파일 사이즈가 너무 큽니다. 최대 ${formatFileSize(props.fileSize)}까지 허용됩니다.`
     if (!props.multiple) {
       const file = event.target.files[0]
 
       if (props.fileSize && event.target.files[0].size > props.fileSize) {
-        emit('onError', `파일 사이즈가 너무 큽니다`)
-        causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
+        emit('onError', errStr)
+        causeError({ id: props.id, msg: errStr })
         return
       }
 
@@ -89,8 +106,8 @@ const selectFile = async (event) => {
     } else {
       const files = Array.from(event.target.files).map((file) => {
         if (props.fileSize && files.size > props.fileSize) {
-          emit('onError', `파일 사이즈가 너무 큽니다`)
-          causeError({ id: props.id, msg: '파일 사이즈가 너무 큽니다' })
+          emit('onError', errStr)
+          causeError({ id: props.id, msg: errStr })
           return
         }
 
