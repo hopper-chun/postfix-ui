@@ -122,7 +122,7 @@ const handleClickMargin = () => {
 
       <div class="px-sectionWrapper--header-margin" @dblclick="handleClickMargin"></div>
     </div>
-    <div ref="accContainer" class="px-sectionWrapper-accContainer">
+    <div ref="accContainer" class="px-sectionWrapper-accContainer" :style="acc.state ? 'max-height:0px' : 'max-height:100%; margin: _16px 0'">
       <div class="px-sectionWrapper--body" :class="[{ isWide }, { isGrid }]">
         <slot :viewMode="!isEdit"></slot>
         <slot v-if="isExapnd" name="expand" :viewMode="!isEdit"></slot>

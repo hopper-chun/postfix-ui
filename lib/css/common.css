@@ -3436,7 +3436,7 @@
 }
 
 .px-sectionWrapper--fold .fold__icon {
-  width: 9px;
+  width: 24px;
   color: var(--px-slate-600);
   transform: rotate(-90deg);
 }
@@ -3869,16 +3869,16 @@
 
 /* scroll */
 
- /* 스크롤 감추기 */ 
- .SCROLLHIDE {
-    -ms-overflow-style: none;     /* IE and Edge */
-    scrollbar-width: none;        /* Firefox */
-  }
- .SCROLLHIDE::-webkit-scrollbar {
-    display: none;                /* Chrome, Safari, Opera */
-  }
+/* 스크롤 감추기 */
+.SCROLLHIDE {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.SCROLLHIDE::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 
-  /* 스크롤 디자인 */
+/* 스크롤 디자인 */
 .SCROLLDESIGN::-webkit-scrollbar {
   width: 5px;
   height: 8px;
