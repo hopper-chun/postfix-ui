@@ -2,9 +2,11 @@
 import _ from 'lodash'
 import { format } from 'date-fns'
 
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, inject } from 'vue'
 import PxDateDuration from './PxDateDuration.vue'
 import PxMonthDuration from './PxMonthDuration.vue'
+
+const LocalUserPicker = inject('LocalUserPicker')
 
 const props = defineProps({
   options: { type: Array, required: true },
@@ -94,6 +96,8 @@ function search() {
     value = format(local.value.beginDate, 'yyyyMM')
   } else if (group === 'yearpicker') {
     value = format(local.value.beginDate, 'yyyy')
+  } else if (group === 'userSeq') {
+    value = local.value.text
   } else {
     throw '잘못된 filterType 입니다.'
   }
@@ -165,6 +169,9 @@ watchEffect(() => {
     </template>
     <template v-else-if="selectedFilter.group === 'yearpicker'">
       <PxMonthPicker size="xs" isYear v-model="local.beginDate" @update:modelValue="search"></PxMonthPicker>
+    </template>
+    <template v-else-if="selectedFilter.group === 'userSeq'">
+      <component :is="LocalUserPicker" v-model="local.text" @update:modelValue="search" />
     </template>
     <template v-else>
       <div class="search_input">
