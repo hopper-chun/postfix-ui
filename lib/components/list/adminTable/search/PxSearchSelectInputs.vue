@@ -14,8 +14,10 @@ const props = defineProps({
 const emit = defineEmits(['onAppendQuerys', 'onRemoveQuery', 'onSearch'])
 
 const selectInputRadioCheckRef = ref(null)
+const selectFilterGroup = ref('')
 
 const remainedFilterTypes = computed(() => {
+  console.log('이게 바껴?')
   if (props.filters.length === 0) {
     return props.filterTypes
   }
@@ -81,6 +83,7 @@ const handleRemove = (key) => {
 const handleReset = () => {
   emit('onRemoveQuery')
   selectInputRadioCheckRef.value.clearDate()
+  selectFilterGroup.value = ''
 }
 
 const handleSearch = () => {
@@ -91,6 +94,10 @@ const handleSearch = () => {
   emit('onSearch')
   // }
 }
+
+const onSelectedFilter = (value) => {
+  selectFilterGroup.value = value
+}
 </script>
 
 <template>
@@ -98,13 +105,15 @@ const handleSearch = () => {
     <div class="px-searchSelectInputs--field" v-if="remainedFilterTypes.length > 0">
       <PxSelectInputRadioCheck
         ref="selectInputRadioCheckRef"
-        style="flex: 1 1 0%"
+        style_="flex: 1 1 0%"
         v-bind="$attrs"
-        :options="_.cloneDeep(remainedFilterTypes)"
+        :options="remainedFilterTypes"
         @onKeyDownEnter="handleSearch"
         @onAppendQuerys="emit('onAppendQuerys', $event)"
+        @onSelectedFilter="onSelectedFilter"
       ></PxSelectInputRadioCheck>
-      <PxButton :size="buttonSize" color="sec" @click="handleSearch">검색</PxButton>
+
+      <PxButton :size="buttonSize" color="sec" @click="handleSearch" v-if="selectFilterGroup !== 'user'">검색</PxButton>
       <PxButton :size="buttonSize" color="gray" class="clear" @click="handleReset">초기화</PxButton>
     </div>
 

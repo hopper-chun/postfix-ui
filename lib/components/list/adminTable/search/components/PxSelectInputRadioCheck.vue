@@ -2,11 +2,11 @@
 import _ from 'lodash'
 import { format } from 'date-fns'
 
-import { ref, watchEffect, inject } from 'vue'
+import { ref, watch, inject } from 'vue'
 import PxDateDuration from './PxDateDuration.vue'
 import PxMonthDuration from './PxMonthDuration.vue'
 
-const LocalUserPicker = inject('LocalUserPicker')
+const LocalUserPicker = inject('LocalUserPicker', undefined)
 
 const props = defineProps({
   options: { type: Array, required: true },
@@ -14,7 +14,7 @@ const props = defineProps({
   modelValue: { type: String },
   disabled: { type: Boolean, default: false },
 })
-const emit = defineEmits(['update:option', 'update:modelValue', 'onKeyDownEnter', 'onAppendQuerys'])
+const emit = defineEmits(['update:option', 'update:modelValue', 'onKeyDownEnter', 'onAppendQuerys', 'onSelectedFilter'])
 
 defineExpose({ search, clearDate })
 
@@ -96,7 +96,7 @@ function search() {
     value = format(local.value.beginDate, 'yyyyMM')
   } else if (group === 'yearpicker') {
     value = format(local.value.beginDate, 'yyyy')
-  } else if (group === 'userSeq') {
+  } else if (group === 'user') {
     value = local.value.text
   } else {
     throw '잘못된 filterType 입니다.'
@@ -106,10 +106,19 @@ function search() {
   clearLocalValue()
 }
 
-watchEffect(() => {
-  selectedFilter.value = props.options.length > 0 ? props.options[0] : {}
+watch(
+  () => props.options,
+  () => {
+    selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
+    clearLocalValue()
+  }
+)
+selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
+
+const onSelectedFilter = (value) => {
+  emit('onSelectedFilter', value?.group === 'user' ? 'user' : '')
   clearLocalValue()
-})
+}
 </script>
 
 <template>
@@ -117,7 +126,7 @@ watchEffect(() => {
     <div class="searchOption">
       <PxSelect
         v-model="selectedFilter"
-        @update:modelValue="clearLocalValue"
+        @update:modelValue="onSelectedFilter"
         :options="options"
         :optionsLabel="(option) => option.title"
         :optionsValue="(option) => option"
@@ -170,8 +179,10 @@ watchEffect(() => {
     <template v-else-if="selectedFilter.group === 'yearpicker'">
       <PxMonthPicker size="xs" isYear v-model="local.beginDate" @update:modelValue="search"></PxMonthPicker>
     </template>
-    <template v-else-if="selectedFilter.group === 'userSeq'">
-      <component :is="LocalUserPicker" v-model="local.text" @update:modelValue="search" />
+    <template v-else-if="selectedFilter.group === 'user'">
+      <template v-if="LocalUserPicker">
+        <component :is="LocalUserPicker" v-model="local.text" @update:modelValue="search" />
+      </template>
     </template>
     <template v-else>
       <div class="search_input">
