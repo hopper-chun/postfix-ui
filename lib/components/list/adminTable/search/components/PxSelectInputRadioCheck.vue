@@ -116,7 +116,7 @@ watch(
 selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
 
 const onSelectedFilter = (value) => {
-  emit('onSelectedFilter', value?.group === 'user' ? 'user' : '')
+  emit('onSelectedFilter', value)
   clearLocalValue()
 }
 </script>
@@ -181,7 +181,7 @@ const onSelectedFilter = (value) => {
     </template>
     <template v-else-if="selectedFilter.group === 'user'">
       <template v-if="LocalUserPicker">
-        <component :is="LocalUserPicker" v-model="local.text" @update:modelValue="search" />
+        <component :is="LocalUserPicker" v-model="local.text" @update:modelValue="search" :params="selectedFilter.params" />
       </template>
     </template>
     <template v-else>

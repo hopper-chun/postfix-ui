@@ -14,7 +14,7 @@ const props = defineProps({
 const emit = defineEmits(['onAppendQuerys', 'onRemoveQuery', 'onSearch'])
 
 const selectInputRadioCheckRef = ref(null)
-const selectFilterGroup = ref('')
+// const selectFilterGroup = ref('')
 
 const remainedFilterTypes = computed(() => {
   console.log('이게 바껴?')
@@ -83,7 +83,7 @@ const handleRemove = (key) => {
 const handleReset = () => {
   emit('onRemoveQuery')
   selectInputRadioCheckRef.value.clearDate()
-  selectFilterGroup.value = ''
+  // selectFilterGroup.value = remainedFilterTypes.value?.[0]?.group || ''
 }
 
 const handleSearch = () => {
@@ -96,7 +96,7 @@ const handleSearch = () => {
 }
 
 const onSelectedFilter = (value) => {
-  selectFilterGroup.value = value
+  // selectFilterGroup.value = value?.group || ''
 }
 </script>
 
@@ -113,7 +113,8 @@ const onSelectedFilter = (value) => {
         @onSelectedFilter="onSelectedFilter"
       ></PxSelectInputRadioCheck>
 
-      <PxButton :size="buttonSize" color="sec" @click="handleSearch" v-if="selectFilterGroup !== 'user'">검색</PxButton>
+      <!-- v-if="selectFilterGroup !== 'user'" -->
+      <PxButton :size="buttonSize" color="sec" @click="handleSearch">검색</PxButton>
       <PxButton :size="buttonSize" color="gray" class="clear" @click="handleReset">초기화</PxButton>
     </div>
 
