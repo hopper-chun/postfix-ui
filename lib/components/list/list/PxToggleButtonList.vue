@@ -29,7 +29,11 @@ const { error } = useError(id, buttonRef)
 
 const handleClick = (value) => {
   if (!props.disabled) {
-    emit('update:modelValue', value)
+    if (props.modelValue === value) {
+      emit('update:modelValue', undefined)
+    } else {
+      emit('update:modelValue', value)
+    }
   }
 }
 
