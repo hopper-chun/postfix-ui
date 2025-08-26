@@ -35,6 +35,8 @@ const handleClickAcc = (arg) => {
     isOpen.value = !isOpen.value
   }
 }
+
+defineExpose({ handleClickAcc })
 </script>
 
 <template>
