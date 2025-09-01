@@ -2044,6 +2044,10 @@
   padding: 0 6px;
 }
 
+.px-table--header.isSpanHeader {
+  justify-content: center;
+}
+
 .px-table--header:not(:first-child) {
   margin-left: 12px;
 }
