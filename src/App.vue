@@ -12,13 +12,16 @@ const headers = [
 
 const rows = []
 const aaa = ref([])
+const string = ref('')
 </script>
 
 <template>
   <div class_="w-[400px] h-[400px] bg-red-500">
-    <div class="p-[200px]">
-      <PxImagesUploader id="adf" v-model="aaa"></PxImagesUploader>
+    <div class="p-[200px] relative">
+      <PxTipTapEditor v-model="string"></PxTipTapEditor>
+      <div v-html="string" class="whitespace-pre-wrap"></div>
     </div>
+    <div></div>
     <!-- <PxTable :headers="headers" :checkboxes="[]" :spanHeaders="spanHeaders" :rows="rows"></PxTable> -->
     <!-- <PxButton> Hello World</PxButton> -->
 
