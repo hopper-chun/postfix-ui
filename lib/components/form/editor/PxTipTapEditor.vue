@@ -283,7 +283,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '12px' }) }"
             >
-              <div class="is-list text-[12px]">12px</div>
+              <div class="is-list" style="font-size: 12px">12px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -295,7 +295,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '14px' }) }"
             >
-              <div class="is-list text-[14px]">14px</div>
+              <div class="is-list" style="font-size: 14px">14px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -307,7 +307,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '16px' }) }"
             >
-              <div class="is-list text-[16px]">16px</div>
+              <div class="is-list" style="font-size: 16px">16px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -319,7 +319,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '18px' }) }"
             >
-              <div class="is-list text-[18px]">18px</div>
+              <div class="is-list" style="font-size: 18px">18px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -331,7 +331,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '20px' }) }"
             >
-              <div class="is-list text-[20px]">20px</div>
+              <div class="is-list" style="font-size: 20px">20px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -343,19 +343,19 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '24px' }) }"
             >
-              <div class="is-list text-[24px]">24px</div>
+              <div class="is-list" style="font-size: 24px">24px</div>
             </div>
             <div
               class="cursor-pointer"
               @click="
                 () => {
-                  editor.chain().focus().setFontSize('36px').run()
+                  editor.chain().focus().setFontSize('28px').run()
                   isHListOpen = false
                 }
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '28px' }) }"
             >
-              <div class="is-list text-[28px]">28px</div>
+              <div class="is-list text-[28px]" style="font-size: 28px; line-height: 100%">28px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -367,7 +367,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '36px' }) }"
             >
-              <div class="is-list text-[36px]">36px</div>
+              <div class="is-list" style="font-size: 36px; line-height: 100%">36px</div>
             </div>
             <div
               class="cursor-pointer"
@@ -379,7 +379,7 @@ watch(
               "
               :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '48px' }) }"
             >
-              <div class="is-list text-[48px]">48px</div>
+              <div class="is-list" style="font-size: 48px; line-height: 100%">48px</div>
             </div>
           </div>
         </div>
