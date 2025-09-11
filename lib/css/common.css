@@ -2044,6 +2044,10 @@
   padding: 0 6px;
 }
 
+.px-table--header.isSpanHeader {
+  justify-content: center;
+}
+
 .px-table--header:not(:first-child) {
   margin-left: 12px;
 }
@@ -3436,7 +3440,7 @@
 }
 
 .px-sectionWrapper--fold .fold__icon {
-  width: 9px;
+  width: 24px;
   color: var(--px-slate-600);
   transform: rotate(-90deg);
 }
@@ -3702,6 +3706,7 @@
 
 .px-accordion--body.open {
   grid-template-rows: 1fr;
+  overflow: visible;
 }
 
 .px-accordion--body .expandable {
@@ -3869,16 +3874,16 @@
 
 /* scroll */
 
- /* 스크롤 감추기 */ 
- .SCROLLHIDE {
-    -ms-overflow-style: none;     /* IE and Edge */
-    scrollbar-width: none;        /* Firefox */
-  }
- .SCROLLHIDE::-webkit-scrollbar {
-    display: none;                /* Chrome, Safari, Opera */
-  }
+/* 스크롤 감추기 */
+.SCROLLHIDE {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.SCROLLHIDE::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 
-  /* 스크롤 디자인 */
+/* 스크롤 디자인 */
 .SCROLLDESIGN::-webkit-scrollbar {
   width: 5px;
   height: 8px;
@@ -4356,6 +4361,11 @@
   border-radius: 8px;
 }
 
+.tiptap-editor.readOnly {
+  border: none;
+  border-radius: 8px;
+}
+
 .control-group {
   /* height: 30px; */
   border-bottom: 1px solid #ddd;
@@ -4499,6 +4509,9 @@
 .tiptap-icon {
   height: 20px;
   width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tiptap-icon.reverse {

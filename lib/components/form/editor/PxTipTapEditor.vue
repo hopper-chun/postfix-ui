@@ -1,18 +1,21 @@
 <script setup>
-import { watch, ref, nextTick } from 'vue'
+import { watch, ref, nextTick, readonly } from 'vue'
 
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
-import TextStyle from '@tiptap/extension-text-style'
+import { TextStyle, FontSize } from '@tiptap/extension-text-style'
 import ImageResize from 'tiptap-extension-resize-image'
 import Youtube from '@tiptap/extension-youtube'
-import Link from '@tiptap/extension-link'
+// import Link from '@tiptap/extension-link'
+import { Highlight } from '@tiptap/extension-highlight'
 import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { onClickOutside } from '@vueuse/core'
+import TextAlign from '@tiptap/extension-text-align'
 
 const props = defineProps({
   modelValue: { type: String, required: true },
+  readOnly: { type: Boolean },
 })
 
 const emit = defineEmits(['update:modelValue', 'onError'])
@@ -20,17 +23,27 @@ const emit = defineEmits(['update:modelValue', 'onError'])
 const editor = useEditor({
   content: props.modelValue,
   extensions: [
+    FontSize.configure({
+      types: ['textStyle'],
+    }),
+    Highlight.configure({ multicolor: true }),
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
     ImageResize,
     Youtube,
-    Link.configure({
-      openOnClick: false,
-
-      defaultProtocol: 'https://',
+    TextAlign.configure({
+      types: ['heading', 'paragraph'],
+      alignments: ['left', 'center', 'right', 'justify'],
+      defaultAlignment: 'left',
     }),
+    // Link.configure({
+    //   openOnClick: false,
+
+    //   defaultProtocol: 'https://',
+    // }),
     StarterKit,
   ],
+  editable: !props.readOnly,
   onUpdate: ({ editor }) => {
     emit('update:modelValue', editor.getHTML())
   },
@@ -41,6 +54,10 @@ const isHListOpen = ref(false)
 
 const CList = ref(null)
 const isCListOpen = ref(false)
+
+const highlightList = ref(null)
+const isHighlightListOpen = ref(false)
+
 const files = ref([])
 const colorCode = ref('')
 
@@ -52,8 +69,14 @@ const handleOpenCList = () => {
   colorCode.value = editor.value.getAttributes('textStyle').color
 }
 
+const handleOpenHighlightList = () => {
+  isHighlightListOpen.value = !isHighlightListOpen.value
+  colorCode.value = editor.value.getAttributes('highlight').color
+}
+
 onClickOutside(HList, () => (isHListOpen.value = false))
 onClickOutside(CList, () => (isCListOpen.value = false))
+onClickOutside(highlightList, () => (isHighlightListOpen.value = false))
 
 const handleAddImage = (file) => {
   const url = file[0].cdnPath
@@ -118,6 +141,16 @@ const handleSelectColor = (color) => {
   isCListOpen.value = false
 }
 
+const handleSelectHighlightColor = (color) => {
+  editor.value.chain().focus().setHighlight({ color }).run()
+  isHighlightListOpen.value = false
+}
+
+const handleSetHighlightColor = () => {
+  editor.value.chain().focus().setHighlight({ color: colorCode.value }).run()
+  isCListOpen.value = false
+}
+
 const handleSetColor = () => {
   editor.value.chain().focus().setColor(colorCode.value).run()
   isCListOpen.value = false
@@ -148,8 +181,8 @@ watch(
 </script>
 
 <template>
-  <div v-if="editor" class="tiptap-editor">
-    <div class="control-group">
+  <div v-if="editor" class="tiptap-editor" :class="{ readOnly }">
+    <div v-if="!readOnly" class="control-group">
       <div class="button-group">
         <div class="relative inline-block">
           <button @click="handleOpenCList">
@@ -180,7 +213,7 @@ watch(
           </button>
           <div v-if="isHListOpen" ref="HList" class="tiptap HList">
             <!-- 여기 클래스 주고, 이 클래스 이하 isActive랑 div들한테도 각각 효과를(디자인이랑 호버 등) 주기 -->
-            <div
+            <!-- <div
               class="cursor-pointer"
               @click="
                 () => {
@@ -191,8 +224,8 @@ watch(
               :class="{ 'is-active': editor.isActive('paragraph') }"
             >
               <p class="is-list">Paragraph</p>
-            </div>
-            <div
+            </div> -->
+            <!-- <div
               class="cursor-pointer"
               @click="
                 () => {
@@ -239,30 +272,114 @@ watch(
               :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
             >
               <h4 class="is-list">Heading4</h4>
+            </div> -->
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('12px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '12px' }) }"
+            >
+              <div class="is-list" style="font-size: 12px">12px</div>
             </div>
             <div
               class="cursor-pointer"
               @click="
                 () => {
-                  editor.chain().focus().toggleHeading({ level: 5 }).run()
+                  editor.chain().focus().setFontSize('14px').run()
                   isHListOpen = false
                 }
               "
-              :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '14px' }) }"
             >
-              <h5 class="is-list">Heading5</h5>
+              <div class="is-list" style="font-size: 14px">14px</div>
             </div>
             <div
               class="cursor-pointer"
               @click="
                 () => {
-                  editor.chain().focus().toggleHeading({ level: 6 }).run()
+                  editor.chain().focus().setFontSize('16px').run()
                   isHListOpen = false
                 }
               "
-              :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }"
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '16px' }) }"
             >
-              <h6 class="is-list">Heading6</h6>
+              <div class="is-list" style="font-size: 16px">16px</div>
+            </div>
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('18px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '18px' }) }"
+            >
+              <div class="is-list" style="font-size: 18px">18px</div>
+            </div>
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('20px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '20px' }) }"
+            >
+              <div class="is-list" style="font-size: 20px">20px</div>
+            </div>
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('24px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '24px' }) }"
+            >
+              <div class="is-list" style="font-size: 24px">24px</div>
+            </div>
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('28px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '28px' }) }"
+            >
+              <div class="is-list text-[28px]" style="font-size: 28px; line-height: 100%">28px</div>
+            </div>
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('36px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '36px' }) }"
+            >
+              <div class="is-list" style="font-size: 36px; line-height: 100%">36px</div>
+            </div>
+            <div
+              class="cursor-pointer"
+              @click="
+                () => {
+                  editor.chain().focus().setFontSize('48px').run()
+                  isHListOpen = false
+                }
+              "
+              :class="{ 'is-active': editor.isActive('textStyle', { fontSize: '48px' }) }"
+            >
+              <div class="is-list" style="font-size: 48px; line-height: 100%">48px</div>
             </div>
           </div>
         </div>
@@ -281,6 +398,13 @@ watch(
           <PxIcon name="icon-italic" class="tiptap-icon"></PxIcon>
         </button>
         <button
+          @click="editor.chain().focus().toggleUnderline().run()"
+          :disabled="!editor.can().chain().focus().toggleUnderline().run()"
+          :class="{ 'is-active': editor.isActive('underline') }"
+        >
+          <PxIcon name="icon-underline" class="tiptap-icon"></PxIcon>
+        </button>
+        <button
           @click="editor.chain().focus().toggleStrike().run()"
           :disabled="!editor.can().chain().focus().toggleStrike().run()"
           :class="{ 'is-active': editor.isActive('strike') }"
@@ -296,6 +420,39 @@ watch(
         </button>
         <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
           <PxIcon name="icon-code-bracket-square" class="tiptap-icon"></PxIcon>
+        </button>
+        <div class="relative inline-block">
+          <button @click="handleOpenHighlightList" :class="{ 'is-active': editor.isActive('highlight') }">
+            <div class="tiptap-icon">
+              <svg width="16" height="16" class="tiptap-button-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M14.7072 4.70711C15.0977 4.31658 15.0977 3.68342 14.7072 3.29289C14.3167 2.90237 13.6835 2.90237 13.293 3.29289L8.69294 7.89286L8.68594 7.9C8.13626 8.46079 7.82837 9.21474 7.82837 10C7.82837 10.2306 7.85491 10.4584 7.90631 10.6795L2.29289 16.2929C2.10536 16.4804 2 16.7348 2 17V20C2 20.5523 2.44772 21 3 21H12C12.2652 21 12.5196 20.8946 12.7071 20.7071L15.3205 18.0937C15.5416 18.1452 15.7695 18.1717 16.0001 18.1717C16.7853 18.1717 17.5393 17.8639 18.1001 17.3142L22.7072 12.7071C23.0977 12.3166 23.0977 11.6834 22.7072 11.2929C22.3167 10.9024 21.6835 10.9024 21.293 11.2929L16.6971 15.8887C16.5105 16.0702 16.2605 16.1717 16.0001 16.1717C15.7397 16.1717 15.4897 16.0702 15.303 15.8887L10.1113 10.697C9.92992 10.5104 9.82837 10.2604 9.82837 10C9.82837 9.73963 9.92992 9.48958 10.1113 9.30297L14.7072 4.70711ZM13.5858 17L9.00004 12.4142L4 17.4142V19H11.5858L13.5858 17Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+          </button>
+          <div v-if="isHighlightListOpen" ref="highlightList" class="tiptap CList">
+            <div v-for="colors in colorList" class="colors">
+              <div
+                v-for="color in colors"
+                @click="handleSelectHighlightColor(color)"
+                class="color-wrapper"
+                :class="{ 'is-active': editor.isActive('highlight', { color: color }) }"
+              >
+                <div class="color" :style="`background:${color}`"></div>
+              </div>
+            </div>
+            <div class="flex space-x-[4px] mt-[8px] items-center">
+              <PxInput v-model="colorCode" class="flex-1" placeholder="#000000"></PxInput>
+              <PxButton color="sec" class="w-[60px]" @click="handleSetHighlightColor">적용</PxButton>
+            </div>
+          </div>
+        </div>
+        <button @click="editor?.chain().focus().setHighlight({ color: '#ffcc00' }).run()" :disabled="!editor.can().chain().focus().setHighlight().run()">
+          <PxIcon name="icon-code-bracket" class="tiptap-icon"></PxIcon>
         </button>
 
         <button @click="handleSetLink">
@@ -340,6 +497,21 @@ watch(
           <PxIcon name="icon-line-break" class="tiptap-icon"></PxIcon>
         </button>
       </div>
+      <div class="button-group">
+        <button @click="editor?.chain().focus().setTextAlign('left').run()" :class="{ 'is-active': editor.isActive('paragraph', { textAlign: 'left' }) }">
+          <PxIcon name="icon-align-left" class="tiptap-icon"></PxIcon>
+        </button>
+        <button @click="editor?.chain().focus().setTextAlign('center').run()" :class="{ 'is-active': editor.isActive('paragraph', { textAlign: 'center' }) }">
+          <PxIcon name="icon-align-center" class="tiptap-icon"></PxIcon>
+        </button>
+        <button @click="editor?.chain().focus().setTextAlign('right').run()" :class="{ 'is-active': editor.isActive('paragraph', { textAlign: 'right' }) }">
+          <PxIcon name="icon-align-right" class="tiptap-icon"></PxIcon>
+        </button>
+        <button @click="editor?.chain().focus().setTextAlign('justify').run()" :class="{ 'is-active': editor.isActive('paragraph', { textAlign: 'justify' }) }">
+          <PxIcon name="icon-align-justify" class="tiptap-icon"></PxIcon>
+        </button>
+      </div>
+
       <div class="button-group">
         <!-- clearMarks -->
         <!-- <button @click="editor.chain().focus().unsetAllMarks().run()">

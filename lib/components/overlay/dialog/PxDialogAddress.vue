@@ -66,9 +66,11 @@ const handleAppendAddr = (closeDialog, value) => {
 </script>
 <template>
   <div class="px-dialog-address">
-    <slot>
-      <PxButton color="gray_border" @click="handleOpenDialog">주소검색</PxButton>
-    </slot>
+    <div @click="handleOpenDialog">
+      <slot>
+        <PxButton color="gray_border">주소검색</PxButton>
+      </slot>
+    </div>
     <PxDialog title="주소검색" :ref="functionRef" v-slot="{ closeDialog }">
       <div>
         <div class="px-dialog--contents">

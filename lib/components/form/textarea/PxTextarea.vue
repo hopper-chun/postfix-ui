@@ -14,7 +14,7 @@ const props = defineProps({
   helperText: { type: String },
   resize: { type: Boolean, default: false },
   rows: { type: Number },
-  maxlength: { type: [String, Number] },
+  maxLength: { type: [String, Number] },
   autoGrow: { type: Boolean, default: false },
   viewMode: { type: Boolean },
   // isHtml: { type: Boolean },
@@ -91,12 +91,12 @@ const randomId = useMakeId()
             @keyup="resizeHeight"
             @paste="($event) => $emit('onPaste', $event)"
             spellcheck="false"
-            :maxlength="maxlength"
+            :maxLength="maxLength"
             :style="{ cursor: `${cursor}` }"
           ></textarea>
         </div>
         <div></div>
-        <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxlength" :localValue="localValue">
+        <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxLength" :localValue="localValue">
           <template #helperIcon> <slot name="helperIcon"></slot> </template>
         </HelperText>
       </div>
