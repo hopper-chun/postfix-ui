@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { useResize } from '@/composables'
 
@@ -159,6 +159,15 @@ onMounted(() => {
 onBeforeUnmount(() => {
   ro.disconnect(targetElement)
 })
+
+watch(
+  () => props.checkboxes,
+  () => {
+    if (props.checkboxes && arr.includes(false)) {
+      checkedAll.value = false
+    }
+  }
+)
 
 const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
 </script>
