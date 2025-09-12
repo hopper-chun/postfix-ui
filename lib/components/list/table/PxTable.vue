@@ -171,6 +171,8 @@ watch(
       } else {
         checkedAll.value = false
       }
+    } else {
+      checkedAll.value = false
     }
   }
 )
