@@ -47,7 +47,7 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
   clearError()
   try {
     const ret = await axiosInstance.post(`${props.apiUrl}/${props.public ? '?public=1' : ''}`, formData)
-    console.log('==========================', ret)
+    // console.log('==========================', ret)
     if (ret) {
       // local.files.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
       if (props.single) {
