@@ -45,7 +45,7 @@ const hasRoom = computed(() => {
 
 const load = () => {
   local.images = props.modelValue.map((image) => {
-    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename }
+    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename, fileSize: image.fileSize }
     // return { seq: image.seq, localPath: image.localPath, cdnPath: image.cdnPath }
   })
 }
@@ -61,6 +61,7 @@ const updateModelValue = () => {
         originalFilename: image.originalFilename,
         width: image.width,
         height: image.height,
+        fileSize: image.fileSize,
       }
     })
   )
@@ -102,13 +103,9 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
     const ret = await axiosInstance.post(props.apiUrl, formData, options)
     console.log('==========================', ret)
 
-    // if(props.fileSize) {
-
-    // }
-
     if (ret) {
       // local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
-      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height })
+      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height, fileSize: ret.data.fileSize })
       updateModelValue()
     }
   } catch (ex) {
