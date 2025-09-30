@@ -25,6 +25,7 @@ const props = defineProps({
   ratio: { type: Object },
   md: { type: String },
   extraQuery: { type: Object },
+  showFileSize: { type: Boolean },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
@@ -184,6 +185,8 @@ watch(
               <div v-else @click="handleOpen(image.cdnPath)">
                 <img :src="image.cdnPath" alt="" class="px-imageUpload--label" />
               </div>
+
+              <div v-if="showFileSize && local.images?.[index]?.cdnPath" class="text-[13px]">{{ (local.images[index].fileSize / 1000).toFixed(1) }}KB</div>
             </div>
           </template>
         </div>
@@ -242,6 +245,8 @@ watch(
                   </button>
                 </div>
               </div>
+
+              <div v-if="showFileSize && local.images?.[index]?.cdnPath" class="text-[13px]">{{ (local.images[index].fileSize / 1000).toFixed(1) }}KB</div>
             </div>
 
             <!-- 업로드 버튼 -->
