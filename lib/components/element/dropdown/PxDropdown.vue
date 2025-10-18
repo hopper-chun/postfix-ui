@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useFunctionRef, useResize } from '@/composables'
 
 const props = defineProps({
@@ -76,7 +76,7 @@ onMounted(() => {
   window.addEventListener(clickHandler, outsideClick)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   window.removeEventListener(clickHandler, outsideClick)
 })
 </script>

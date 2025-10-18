@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { useResize } from '@/composables'
 
@@ -161,6 +161,21 @@ onBeforeUnmount(() => {
 })
 
 const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
+
+watch(
+  () => props.checkboxes,
+  () => {
+    if (hasCheckboxes.value && props.checkboxes.length > 0) {
+      if (props.checkboxes.every((item) => item === true)) {
+        checkedAll.value = true
+      } else {
+        checkedAll.value = false
+      }
+    } else {
+      checkedAll.value = false
+    }
+  }
+)
 </script>
 
 <template>
@@ -201,7 +216,13 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
               :style="'text-align: center'"
               :class="header.class ? header.class : ''"
             >
-              {{ header.PX_SPAN[spanIndex].label }}
+              <a
+                @click="handleClickHeader(header, headerIndex)"
+                class="px-table--header isSpanHeader"
+                :class="[{ hasSort: !!header.sort }, { center: header.align === 'center' }, { right: header.align === 'right' }]"
+              >
+                {{ header.PX_SPAN[spanIndex].label }}
+              </a>
             </th>
             <!-- 나머지는 슬롯 해더인데 혹시 rowspan있으면 값 넣어준다 -->
             <th

@@ -25,6 +25,7 @@ const props = defineProps({
   ratio: { type: Object },
   md: { type: String },
   extraQuery: { type: Object },
+  showFileSize: { type: Boolean },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
@@ -45,7 +46,7 @@ const hasRoom = computed(() => {
 
 const load = () => {
   local.images = props.modelValue.map((image) => {
-    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename }
+    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename, fileSize: image.fileSize }
     // return { seq: image.seq, localPath: image.localPath, cdnPath: image.cdnPath }
   })
 }
@@ -61,6 +62,7 @@ const updateModelValue = () => {
         originalFilename: image.originalFilename,
         width: image.width,
         height: image.height,
+        fileSize: image.fileSize,
       }
     })
   )
@@ -102,13 +104,9 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
     const ret = await axiosInstance.post(props.apiUrl, formData, options)
     console.log('==========================', ret)
 
-    // if(props.fileSize) {
-
-    // }
-
     if (ret) {
       // local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
-      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height })
+      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height, fileSize: ret.data.fileSize })
       updateModelValue()
     }
   } catch (ex) {
@@ -187,6 +185,8 @@ watch(
               <div v-else @click="handleOpen(image.cdnPath)">
                 <img :src="image.cdnPath" alt="" class="px-imageUpload--label" />
               </div>
+
+              <div v-if="showFileSize && local.images?.[index]?.cdnPath" class="text-[13px]">{{ (local.images[index].fileSize / 1000).toFixed(1) }}KB</div>
             </div>
           </template>
         </div>
@@ -245,6 +245,8 @@ watch(
                   </button>
                 </div>
               </div>
+
+              <div v-if="showFileSize && local.images?.[index]?.cdnPath" class="text-[13px]">{{ (local.images[index].fileSize / 1000).toFixed(1) }}KB</div>
             </div>
 
             <!-- 업로드 버튼 -->

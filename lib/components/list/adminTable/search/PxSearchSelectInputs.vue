@@ -17,7 +17,6 @@ const selectInputRadioCheckRef = ref(null)
 // const selectFilterGroup = ref('')
 
 const remainedFilterTypes = computed(() => {
-  console.log('이게 바껴?')
   if (props.filters.length === 0) {
     return props.filterTypes
   }

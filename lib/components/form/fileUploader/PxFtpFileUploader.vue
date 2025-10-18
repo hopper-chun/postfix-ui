@@ -24,7 +24,7 @@ const handleAppendFiles = async (files) => {
     files.map(async (file) => {
       try {
         const ret = await axiosInstance.patch(`${props.apiUrl}/${props.ftpFolderSeq}`, file.formData)
-        console.log('==========================', ret)
+        // console.log('==========================', ret)
         if (ret) {
           emit('onAppend')
         }
@@ -32,7 +32,7 @@ const handleAppendFiles = async (files) => {
         //   // emit('update:cdnPath', ret.data.cdnPath)
         // }
       } catch (ex) {
-        console.error('=================', ex)
+        // console.error('=================', ex)
         setError(ex)
       }
     })
