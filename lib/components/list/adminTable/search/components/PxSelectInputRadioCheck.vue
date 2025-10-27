@@ -1,6 +1,6 @@
 <script setup>
 import _ from 'lodash'
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 
 import { ref, watch, inject } from 'vue'
 import PxDateDuration from './PxDateDuration.vue'
@@ -12,6 +12,7 @@ const props = defineProps({
   options: { type: Array, required: true },
   option: { type: [String, Number, Object] },
   modelValue: { type: String },
+  route: { type: Object },
   disabled: { type: Boolean, default: false },
 })
 const emit = defineEmits(['update:option', 'update:modelValue', 'onKeyDownEnter', 'onAppendQuerys', 'onSelectedFilter'])
@@ -109,16 +110,74 @@ function search() {
 watch(
   () => props.options,
   () => {
-    selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
+    // selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
     clearLocalValue()
+    setSelectedFilter()
   }
 )
-selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
 
 const onSelectedFilter = (value) => {
   emit('onSelectedFilter', value)
   clearLocalValue()
 }
+
+const setSelectedFilter = () => {
+  selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
+
+  const { key, group } = selectedFilter.value
+  if (props.route) {
+    if (group === 'text') {
+      return
+      // local.value.text = props.route?.query?.[key]
+    } else if (group === 'radio') {
+      local.value.radio = props.route?.query?.[key]
+    } else if (group === 'select') {
+      local.value.radio = props.route?.query?.[key]
+    } else if (group === 'check') {
+      local.value.checkes = props.route?.query?.[key].split(',')
+    } else if (group === 'date') {
+      const [begin, end] = props.route?.query?.[key].split(',')
+      local.value.beginDate = parse(begin, 'yyyyMMdd', new Date())
+      local.value.endDate = parse(end, 'yyyyMMdd', new Date())
+      // [format(local.value.beginDate, 'yyyyMMdd'), format(local.value.endDate, 'yyyyMMdd')].join(',')
+    } else if (group === 'month') {
+      const [begin, end] = props.route?.query?.[key].split(',')
+      local.value.beginDate = parse(begin, 'yyyyMM', new Date())
+      local.value.endDate = parse(end, 'yyyyMM', new Date())
+      // props.route?.query?.[key] = [format(local.value.beginDate, 'yyyyMM'), format(local.value.endDate, 'yyyyMM')].join(',')
+    } else if (group === 'datepicker') {
+      local.value.beginDate = parse(props.route?.query?.[key], 'yyyyMMdd', new Date())
+      // props.route?.query?.[key] = format(local.value.beginDate, 'yyyyMMdd')
+    } else if (group === 'monthpicker') {
+      local.value.beginDate = parse(props.route?.query?.[key], 'yyyyMM', new Date())
+      // props.route?.query?.[key] = format(local.value.beginDate, 'yyyyMM')
+    } else if (group === 'yearpicker') {
+      local.value.beginDate = parse(props.route?.query?.[key], 'yyyy', new Date())
+      // props.route?.query?.[key] = format(local.value.beginDate, 'yyyy')
+    } else if (group === 'user') {
+      local.value.text = props.route?.query?.[key]
+    } else {
+      throw '잘못된 filterType 입니다.'
+    }
+  }
+}
+
+setSelectedFilter()
+
+// watch(
+//   () => props.route?.query,
+//   () => {
+//     if (props.route?.query) {
+//       const { key, group } = selectedFilter.value
+//       if (group === 'radio') {
+//         local.value.radio = props.route?.query?.[key]
+//         console.log('여긴 안봐?')
+//       }
+//       console.log('??', props.route.query, 'group', group, 'key', key, 'selectedFilter.value?', selectedFilter.value, 'local.value.radio ', local.value.radio)
+//     }
+//   },
+//   { immediate: true }
+// )
 </script>
 
 <template>
@@ -135,6 +194,7 @@ const onSelectedFilter = (value) => {
       ></PxSelect>
     </div>
     <template v-if="selectedFilter.group === 'radio'">
+      {{ local.radio }}
       <PxRadio
         :options="selectedFilter.options"
         :optionsValue="(option) => option[0]"

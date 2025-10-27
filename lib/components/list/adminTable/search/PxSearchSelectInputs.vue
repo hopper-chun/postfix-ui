@@ -9,6 +9,7 @@ const props = defineProps({
   filters: { type: Array, required: true },
   filterTypes: { type: Array, required: true },
   buttonSize: { type: String },
+  route: { type: Object },
 })
 
 const emit = defineEmits(['onAppendQuerys', 'onRemoveQuery', 'onSearch'])
@@ -110,6 +111,7 @@ const onSelectedFilter = (value) => {
         @onKeyDownEnter="handleSearch"
         @onAppendQuerys="emit('onAppendQuerys', $event)"
         @onSelectedFilter="onSelectedFilter"
+        :route
       ></PxSelectInputRadioCheck>
 
       <!-- v-if="selectFilterGroup !== 'user'" -->
