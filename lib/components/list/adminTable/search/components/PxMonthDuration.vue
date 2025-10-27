@@ -44,22 +44,37 @@ const calenderTextColor = computed(() => {
 })
 
 const changeBeginDate = (beginDate) => {
+  // if (isAfter(startOfMonth(beginDate), startOfMonth(props.endDate))) {
+  //   alert('시작일은 종료일 이전이여야 합니다.')
+  // } else {
+  //   emit('update:beginDate', beginDate)
+  //   // appendQuerys({ dateTerm: '', beginDate, endDate: state.value.endDate })
+  //   emit('onSearch')
+  // }
+
+  // alert 대신에 종료일을 시작일과 맞추도록 한다.
   if (isAfter(startOfMonth(beginDate), startOfMonth(props.endDate))) {
-    alert('시작일은 종료일 이전이여야 합니다.')
-  } else {
-    emit('update:beginDate', beginDate)
-    // appendQuerys({ dateTerm: '', beginDate, endDate: state.value.endDate })
-    emit('onSearch')
+    emit('update:endDate', beginDate)
   }
+  emit('update:beginDate', beginDate)
+  emit('onSearch')
 }
+
 const changeEndDate = (endDate) => {
+  // if (isAfter(startOfMonth(props.beginDate), startOfMonth(endDate))) {
+  //   alert('종료일은 시작일 이후여야 합니다.')
+  // } else {
+  //   emit('update:endDate', endDate)
+  //   // appendQuerys({ dateTerm: '', beginDate: state.value.beginDate, endDate })
+  //   emit('onSearch')
+  // }
+
+  // alert 대신에 시작일을 종료일과 맞추도록 한다.
   if (isAfter(startOfMonth(props.beginDate), startOfMonth(endDate))) {
-    alert('종료일은 시작일 이후여야 합니다.')
-  } else {
-    emit('update:endDate', endDate)
-    // appendQuerys({ dateTerm: '', beginDate: state.value.beginDate, endDate })
-    emit('onSearch')
+    emit('update:beginDate', endDate)
   }
+  emit('update:endDate', endDate)
+  emit('onSearch')
 }
 
 const handleTabChanged = (dateTerm) => {
