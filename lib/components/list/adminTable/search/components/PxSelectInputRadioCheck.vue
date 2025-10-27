@@ -119,13 +119,16 @@ watch(
 const onSelectedFilter = (value) => {
   emit('onSelectedFilter', value)
   clearLocalValue()
+  setSelectedFilter()
 }
 
-const setSelectedFilter = () => {
-  selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
+selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
 
+const setSelectedFilter = () => {
+  // selectedFilter.value = props.options?.length > 0 ? props.options[0] : {}
+  //
   const { key, group } = selectedFilter.value
-  if (props.route) {
+  if (props.route && props.route?.query?.[key]) {
     if (group === 'text') {
       return
       // local.value.text = props.route?.query?.[key]
@@ -194,7 +197,6 @@ setSelectedFilter()
       ></PxSelect>
     </div>
     <template v-if="selectedFilter.group === 'radio'">
-      {{ local.radio }}
       <PxRadio
         :options="selectedFilter.options"
         :optionsValue="(option) => option[0]"
