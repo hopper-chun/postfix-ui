@@ -2899,10 +2899,7 @@
 
 .px-selectinputradiocheck .search_select {
   /* flex min-h-[34px] items-center justify-center */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
+  /* display: flex; */
 }
 
 .px-selectinputradiocheck .search_radio {

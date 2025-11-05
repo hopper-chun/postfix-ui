@@ -208,6 +208,7 @@ setSelectedFilter()
       <!-- @update:modelValue="() => handleRadioUpdate(selectedFilter.key)" -->
     </template>
     <template v-else-if="selectedFilter.group === 'select'">
+      <!-- 모바일에서 형태가 이상해져서 수정 + css 커스텀할때 이쪽 셀렉트만 타게팅하기 위해 클래스 부여 -->
       <PxSelect
         :options="selectedFilter.options"
         :optionsValue="(option) => option[0]"
