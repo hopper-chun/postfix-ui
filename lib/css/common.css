@@ -2786,6 +2786,7 @@
 
 .px-searchSelectInputs--field button {
   margin-left: 8px;
+  flex-shrink: 0;
 }
 .px-searchSelectInputs--field button.clear {
   display: inline-block;
@@ -2894,6 +2895,14 @@
   z-index: 10;
   width: 180px;
   flex-shrink: 0;
+}
+
+.px-selectinputradiocheck .search_select {
+  /* flex min-h-[34px] items-center justify-center */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
 }
 
 .px-selectinputradiocheck .search_radio {

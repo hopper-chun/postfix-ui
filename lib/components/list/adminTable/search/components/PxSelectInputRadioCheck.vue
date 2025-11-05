@@ -213,7 +213,7 @@ setSelectedFilter()
         :optionsValue="(option) => option[0]"
         :optionsLabel="(option) => option[1]"
         v-model="local.radio"
-        class="flex min-h-[34px] items-center justify-center"
+        class="search_select"
         @update:modelValue="search"
         :defaultLabel="selectedFilter.defaultLabel || '선택해주세요'"
       ></PxSelect>
