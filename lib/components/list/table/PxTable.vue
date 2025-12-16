@@ -262,8 +262,8 @@ watch(
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']" @click="() => $emit('onClickRow', row)">
-          <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes">
+        <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']" @click="(e) => $emit('onClickRow', row, e)">
+          <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes" data-checkbox>
             <PxCheckbox :id="`cb_${id}_${rowIndex}`" :modelValue="checkboxes[rowIndex]" @update:modelValue="handleCheckbox(rowIndex)" />
           </td>
           <template v-for="(header, columnIndex) in computedHeaders" :key="header">
