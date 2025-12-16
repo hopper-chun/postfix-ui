@@ -264,7 +264,11 @@ watchEffect(() => {
           :isSearching="isSearching"
           :tableHeight="tableHeight"
           :fnClass4Row="fnClass4Row"
-          @onClickRow="$emit('onClickRow', $event, $event2)"
+          @onClickRow="
+            (row, e) => {
+              $emit('onClickRow', row, e)
+            }
+          "
         >
           <template v-for="(fn, name) in $slots" v-slot:[name]="{ row, index, handleCheckbox }">
             <slot v-if="!name.startsWith('SHELL-')" :name="name" :row="row" :index="index" :handleCheckbox="handleCheckbox" />
