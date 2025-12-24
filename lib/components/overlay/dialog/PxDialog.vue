@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onBeforeUnmount, onMounted } from 'vue'
+import { ref, watch, onBeforeUnmount, onMounted, inject } from 'vue'
 
 const props = defineProps({
   header: { type: Boolean, default: true },

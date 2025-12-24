@@ -106,7 +106,15 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
 
     if (ret) {
       // local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
-      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height, fileSize: ret.data.fileSize })
+      local.images.push({
+        seq: ret.data.seq,
+        cdnPath: ret.data.cdnPath,
+        originalFilename,
+        width,
+        height,
+        fileSize: ret.data.fileSize,
+        imageSize: ret.data?.imageSize ? ret.data.imageSize : undefined,
+      })
       updateModelValue()
     }
   } catch (ex) {
