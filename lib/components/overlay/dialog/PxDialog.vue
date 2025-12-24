@@ -12,6 +12,8 @@ const props = defineProps({
 
 const emit = defineEmits(['onOpen', 'onClose'])
 
+const closeOnOutside = inject('DIALOG_CLICK_OUTSIDE', ref(true)) // 기본값
+
 const active = ref(false)
 const isMouseDown = ref(false) // dialog 안에서 클릭 드래그 하다 자꾸 dialog 밖에서 up을 할때, dialog가 닫히는것을 방지
 const bodyState = ref('')
@@ -37,7 +39,7 @@ const onMouseDown = () => {
 
 const onMouseUp = () => {
   if (isMouseDown.value) {
-    props.closeClickOutside && close()
+    props.closeClickOutside && closeOnOutside.value && close()
   }
   isMouseDown.value = false
 }
