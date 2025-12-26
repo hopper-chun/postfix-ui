@@ -63,6 +63,7 @@ const updateModelValue = () => {
         width: image.width,
         height: image.height,
         fileSize: image.fileSize,
+        imageSize: image.imageSize || undefined,
       }
     })
   )
@@ -113,7 +114,7 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
         width,
         height,
         fileSize: ret.data.fileSize,
-        imageSize: ret.data?.imageSize ? ret.data.imageSize : undefined,
+        imageSize: ret.data.imageSize || undefined,
       })
       updateModelValue()
     }
