@@ -57,7 +57,7 @@ const updateModelValue = () => {
         cdnPath: image.cdnPath || '',
         originalFilename: image.originalFilename,
       }
-    })
+    }),
   )
 }
 
@@ -164,12 +164,12 @@ const handleDragEnd = () => {
 load()
 watch(
   () => props.modelValue,
-  () => load()
+  () => load(),
 )
 </script>
 
 <template>
-  <div class="px-imagesUploader">
+  <div class="px-imagesUploader" :data-testid="id">
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :label="label" :md="md">
         <div class="px-imagesUploader--container">

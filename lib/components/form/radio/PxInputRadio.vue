@@ -30,7 +30,7 @@ const { localValue } = useInput(id, modelValue, format, emit)
 </script>
 
 <template>
-  <div class="px-inputRadio">
+  <div class="px-inputRadio" :data-testid="id">
     <div :class="{ viewMode }">
       <div class="labelSwitch">
         <PxLabel

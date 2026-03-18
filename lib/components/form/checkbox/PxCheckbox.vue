@@ -46,7 +46,7 @@ const handleCheck = () => {
         <slot name="tooltip"></slot>
       </template>
     </PxLabel>
-    <div class="px-checkbox">
+    <div class="px-checkbox" :data-testid="id">
       <input :ref="functionRef" type="checkbox" :id="id" :checked="localValue" @input="handleCheck" :disabled="disabled || viewMode" style="display: none" />
       <label :for="id" style="display: inline-block">
         <div class="px-checkbox--wrapper" :class="[{ disabled, viewMode }]">

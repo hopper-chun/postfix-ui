@@ -59,7 +59,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-textarea">
+  <div class="px-textarea" :data-testid="id">
     <template v-if="viewMode">
       <div class="px-textarea--view">
         <PxFormForView :md="md" :viewMode="viewMode" :label="label">

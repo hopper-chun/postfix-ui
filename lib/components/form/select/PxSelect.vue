@@ -77,7 +77,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-select">
+  <div class="px-select" :data-testid="id">
     <template v-if="viewMode">
       <div class="px-select--view labelSwitch" :class="[{ viewMode }]">
         <PxLabel :md="md" :id="id" :label="label" :labelHelper="labelHelper"> </PxLabel>

@@ -65,7 +65,7 @@ const updateModelValue = () => {
         fileSize: image.fileSize,
         imageSize: image.imageSize || undefined,
       }
-    })
+    }),
   )
 }
 
@@ -170,7 +170,7 @@ load()
 watch(
   () => props.modelValue,
   () => load(),
-  { deep: true }
+  { deep: true },
 )
 </script>
 
@@ -179,7 +179,7 @@ watch(
 1. 이미지를 미리보기했을 때, 어느 방향이든 에러가 나면, 해당 index의 상태를 true로 둠.
 -->
 <template>
-  <div class="px-imagesUploader">
+  <div class="px-imagesUploader" :data-testid="id">
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :label="label" :md="md">
         <div class="px-imagesUploader--container">

@@ -69,7 +69,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-floatInput">
+  <div class="px-floatInput" :data-testid="id">
     <div class="px-floatInput--wrapper">
       <div style="height: 100%; width: 100%; position: relative">
         <input
@@ -110,7 +110,6 @@ const randomId = useMakeId()
           <slot name="inputIcon"></slot>
         </div>
       </div>
-
     </div>
 
     <HelperText :id="id" :error="error" :helperText="helperText" :maxLength="maxLength" :localValue="localValue">

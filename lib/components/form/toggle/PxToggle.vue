@@ -46,7 +46,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div @click="handleClick" @update:modelValue="handleToggle" class="px-toggle" :class="[{ hasText: label }]">
+  <div @click="handleClick" @update:modelValue="handleToggle" class="px-toggle" :class="[{ hasText: label }]" :data-testid="id">
     <div v-if="label" class="px-toggle--label">
       {{ label }}
     </div>

@@ -36,7 +36,7 @@ const load = () => {
 load()
 watch(
   () => props.modelValue,
-  () => load()
+  () => load(),
 )
 
 const { clearError, setError } = useError()
@@ -68,7 +68,7 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
 </script>
 
 <template>
-  <div class="px-fileUploader labelSwitch start">
+  <div class="px-fileUploader labelSwitch start" :data-testid="id">
     <div v-if="label">
       <div :class="{ viewMode }">
         <PxLabel :label="label" :md="md" :labelHelper="labelHelper" :required="required"></PxLabel>

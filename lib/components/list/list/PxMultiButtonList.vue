@@ -66,7 +66,7 @@ const handleClear = () => {
 }
 </script>
 <template>
-  <div class="px-multiButtonList">
+  <div class="px-multiButtonList" :data-testid="id">
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :required="required" :md="md" :label="label">
         {{ selectedValue.join(', ') }}

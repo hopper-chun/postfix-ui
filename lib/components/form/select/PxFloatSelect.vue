@@ -58,7 +58,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="px-floatSelect" :ref="containerRefFunc">
+  <div class="px-floatSelect" :ref="containerRefFunc" :data-testid="id">
     <div style="position: relative; user-select: none">
       <div style="position: relative">
         <div :ref="selectRefFunc" :id="randomId" @click="handleOpen" class="px-input--field" :class="[{ disabled }, { error }]" tabindex="0">

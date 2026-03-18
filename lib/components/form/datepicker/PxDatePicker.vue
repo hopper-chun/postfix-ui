@@ -116,7 +116,7 @@ const handlerKeyEnter = () => {
 </script>
 
 <template>
-  <div class="px-datepicker labelSwitch" :ref="functionRef">
+  <div class="px-datepicker labelSwitch" :ref="functionRef" :data-testid="id">
     <PxLabel
       :viewMode="viewMode"
       :label="label"
