@@ -37,7 +37,7 @@ const load = () => {
 load()
 watch(
   () => props.modelValue,
-  () => load()
+  () => load(),
 )
 
 const { clearError, setError } = useError()
@@ -68,18 +68,18 @@ const handleRemove = (index) => {
 }
 
 const handleDownload = async (file) => {
-  console.log('file', file)
+  // console.log('file', file)
   const url = file.cdnPath
   const filename = file.originalFilename
   //
-  console.log('url', url, filename)
+  // console.log('url', url, filename)
 
   await download(url, filename)
 }
 </script>
 
 <template>
-  <div class="px-fileUploader labelSwitch start">
+  <div class="px-fileUploader labelSwitch start" :data-testid="id">
     <div v-if="label">
       <div :class="{ viewMode }">
         <PxLabel :label="label" :labelHelper="labelHelper" :md="md" :required="required"></PxLabel>

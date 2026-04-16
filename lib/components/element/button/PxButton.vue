@@ -20,6 +20,7 @@ const props = defineProps({
         class="px-btn"
         :disabled="disabled || isDoing"
         :class="[{ isWide: isWide }, { disabled: disabled || isDoing }, { rounded: rounded }, color, size]"
+        :data-testid="id"
       >
         <div v-if="isDoing" class="px-btn--container">
           <div class="SEARCHING">
@@ -38,6 +39,7 @@ const props = defineProps({
     class="px-btn"
     :disabled="disabled || isDoing"
     :class="[{ isWide: isWide }, { disabled: disabled || isDoing }, { rounded: rounded }, color, size]"
+    :data-testid="id"
   >
     <div v-if="isDoing" class="px-btn--container">
       <div class="SEARCHING">

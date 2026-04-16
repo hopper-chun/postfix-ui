@@ -36,7 +36,7 @@ const load = () => {
 load()
 watch(
   () => props.modelValue,
-  () => load()
+  () => load(),
 )
 
 const { clearError, setError } = useError()
@@ -47,7 +47,7 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
   clearError()
   try {
     const ret = await axiosInstance.post(`${props.apiUrl}/${props.public ? '?public=1' : ''}`, formData)
-    console.log('==========================', ret)
+    // console.log('==========================', ret)
     if (ret) {
       // local.files.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
       if (props.single) {
@@ -68,7 +68,7 @@ const handleAppendFile = async ({ originalFilename, formData, fileBuffer }) => {
 </script>
 
 <template>
-  <div class="px-fileUploader labelSwitch start">
+  <div class="px-fileUploader labelSwitch start" :data-testid="id">
     <div v-if="label">
       <div :class="{ viewMode }">
         <PxLabel :label="label" :md="md" :labelHelper="labelHelper" :required="required"></PxLabel>

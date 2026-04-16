@@ -27,7 +27,7 @@ const { localValue, handleInput } = useInput(id, modelValue, format, emit)
 </script>
 
 <template>
-  <div class="px-radio labelSwitch" :class="{ viewMode }">
+  <div class="px-radio labelSwitch" :class="{ viewMode }" :data-testid="id">
     <PxLabel :md="md" :label="label" :labelHelper="labelHelper" :required="required" :hover="hover" :id="id" @onClickTooltip="$emit('onClickTooltip', $event)">
       <template v-if="!!slots.tooltip" #tooltip>
         <slot name="tooltip"></slot>

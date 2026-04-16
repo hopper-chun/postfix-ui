@@ -31,7 +31,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-inputToggle" :class="{ viewMode: viewMode }">
+  <div class="px-inputToggle" :class="{ viewMode: viewMode }" :data-testid="id">
     <div class="labelSwitch">
       <PxLabel
         :md="md"

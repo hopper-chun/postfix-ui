@@ -25,6 +25,7 @@ const props = defineProps({
   ratio: { type: Object },
   md: { type: String },
   extraQuery: { type: Object },
+  showFileSize: { type: Boolean },
 })
 const emit = defineEmits(['update:modelValue', 'onError'])
 const { clearError, causeError } = useError()
@@ -45,7 +46,7 @@ const hasRoom = computed(() => {
 
 const load = () => {
   local.images = props.modelValue.map((image) => {
-    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename }
+    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename, fileSize: image.fileSize }
     // return { seq: image.seq, localPath: image.localPath, cdnPath: image.cdnPath }
   })
 }
@@ -61,8 +62,10 @@ const updateModelValue = () => {
         originalFilename: image.originalFilename,
         width: image.width,
         height: image.height,
+        fileSize: image.fileSize,
+        imageSize: image.imageSize || undefined,
       }
-    })
+    }),
   )
 }
 
@@ -102,13 +105,17 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
     const ret = await axiosInstance.post(props.apiUrl, formData, options)
     console.log('==========================', ret)
 
-    // if(props.fileSize) {
-
-    // }
-
     if (ret) {
       // local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, src: fileBuffer })
-      local.images.push({ seq: ret.data.seq, cdnPath: ret.data.cdnPath, originalFilename, width, height })
+      local.images.push({
+        seq: ret.data.seq,
+        cdnPath: ret.data.cdnPath,
+        originalFilename,
+        width,
+        height,
+        fileSize: ret.data.fileSize,
+        imageSize: ret.data.imageSize || undefined,
+      })
       updateModelValue()
     }
   } catch (ex) {
@@ -163,7 +170,7 @@ load()
 watch(
   () => props.modelValue,
   () => load(),
-  { deep: true }
+  { deep: true },
 )
 </script>
 
@@ -172,7 +179,7 @@ watch(
 1. 이미지를 미리보기했을 때, 어느 방향이든 에러가 나면, 해당 index의 상태를 true로 둠.
 -->
 <template>
-  <div class="px-imagesUploader">
+  <div class="px-imagesUploader" :data-testid="id">
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :label="label" :md="md">
         <div class="px-imagesUploader--container">
@@ -187,6 +194,8 @@ watch(
               <div v-else @click="handleOpen(image.cdnPath)">
                 <img :src="image.cdnPath" alt="" class="px-imageUpload--label" />
               </div>
+
+              <div v-if="showFileSize && local.images?.[index]?.cdnPath" class="text-[13px]">{{ (local.images[index].fileSize / 1000).toFixed(1) }}KB</div>
             </div>
           </template>
         </div>
@@ -245,6 +254,8 @@ watch(
                   </button>
                 </div>
               </div>
+
+              <div v-if="showFileSize && local.images?.[index]?.cdnPath" class="text-[13px]">{{ (local.images[index].fileSize / 1000).toFixed(1) }}KB</div>
             </div>
 
             <!-- 업로드 버튼 -->

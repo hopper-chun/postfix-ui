@@ -106,7 +106,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-input">
+  <div class="px-input" :data-testid="id">
     <template v-if="viewMode">
       <div class="px-input--view labelSwitch" :class="[{ viewMode }]">
         <PxLabel :id="id" :md="md" :label="label" :labelHelper="labelHelper"> </PxLabel>

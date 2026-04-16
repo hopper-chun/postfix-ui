@@ -127,7 +127,7 @@ const selectFile = async (event) => {
 }
 </script>
 <template>
-  <div v-if="!!slots.button" class="px-customUpload">
+  <div v-if="!!slots.button" class="px-customUpload" :data-testid="id">
     <label :for="id" class="px-customUpload--label">
       <div>
         <slot name="button" :isDoing="isDoing"></slot>
@@ -135,7 +135,7 @@ const selectFile = async (event) => {
       <input v-if="!disabled && !isDoing" :id="id" ref="fileRef" :multiple="multiple" type="file" :accept="extensions" @change="selectFile" />
     </label>
   </div>
-  <div v-else-if="fileType === 'image'" class="px-imageUpload">
+  <div v-else-if="fileType === 'image'" class="px-imageUpload" :data-testid="id">
     <label :for="id" class="px-imageUpload--label">
       <div class="px-imageUpload--icon">
         <!-- <PxIcon name="icon-plus" class="w-[21px]"></PxIcon> -->
@@ -143,7 +143,7 @@ const selectFile = async (event) => {
       <input :id="id" type="file" :accept="extensions" @change="selectFile" />
     </label>
   </div>
-  <div v-else class="px-fileUpload">
+  <div v-else class="px-fileUpload" :data-testid="id">
     <label :for="id" class="px-fileUpload--label" :class="{ disabled: disabled || isDoing }">
       <div v-if="isDoing" class="SEARCHING">
         <PxIcon name="icon-refresh" isLib class="px-adminTable--refresh_icon"></PxIcon>

@@ -35,7 +35,7 @@ const randomId = useMakeId()
 </script>
 
 <template>
-  <div class="px-floatTextarea">
+  <div class="px-floatTextarea" :data-testid="id">
     <div :ref="containerRefFunc" style="width: 100%">
       <div class="px-floatTextarea--wrapper" :class="[{ disabled }, { error }]">
         <textarea

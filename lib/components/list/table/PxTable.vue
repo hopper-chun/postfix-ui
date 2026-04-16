@@ -170,6 +170,21 @@ watch(
 )
 
 const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
+
+watch(
+  () => props.checkboxes,
+  () => {
+    if (hasCheckboxes.value && props.checkboxes.length > 0) {
+      if (props.checkboxes.every((item) => item === true)) {
+        checkedAll.value = true
+      } else {
+        checkedAll.value = false
+      }
+    } else {
+      checkedAll.value = false
+    }
+  }
+)
 </script>
 
 <template>
@@ -256,8 +271,8 @@ const isSpanHeader = computed(() => !!computedHeaders.value?.[0]?.PX_SPAN)
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']" @click="() => $emit('onClickRow', row)">
-          <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes">
+        <tr v-for="(row, rowIndex) in rows" :key="row" :class="[fnClass4Row ? fnClass4Row(row, rowIndex) : '']" @click="(e) => $emit('onClickRow', row, e)">
+          <td v-if="hasCheckboxes" :class="[{ isNarrow: narrow }]" class="hasCheckboxes" data-checkbox>
             <PxCheckbox :id="`cb_${id}_${rowIndex}`" :modelValue="checkboxes[rowIndex]" @update:modelValue="handleCheckbox(rowIndex)" />
           </td>
           <template v-for="(header, columnIndex) in computedHeaders" :key="header">

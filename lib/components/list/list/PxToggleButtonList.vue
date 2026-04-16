@@ -48,7 +48,7 @@ const selectedValue = computed(() => {
 })
 </script>
 <template>
-  <div class="px-buttonList">
+  <div class="px-buttonList" :data-testid="id">
     <template v-if="viewMode">
       <PxFormForView :viewMode="viewMode" :md="md" :label="label" :labelHelper="labelHelper" :required="required">
         {{ selectedValue }}

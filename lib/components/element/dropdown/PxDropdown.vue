@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useFunctionRef, useResize } from '@/composables'
 
 const props = defineProps({
@@ -8,6 +8,7 @@ const props = defineProps({
   options: { type: [Array, Object] },
   optionsLabel: { type: Function, default: (option) => option },
   optionsValue: { type: Function, default: (option) => option },
+  id: { type: String },
 })
 const emit = defineEmits(['update:modelValue'])
 const { functionRef, element } = useFunctionRef()
@@ -76,13 +77,13 @@ onMounted(() => {
   window.addEventListener(clickHandler, outsideClick)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   window.removeEventListener(clickHandler, outsideClick)
 })
 </script>
 
 <template>
-  <div class="px-dropdown" :ref="functionRef">
+  <div class="px-dropdown" :ref="functionRef" :data-testid="id">
     <div ref="containerRef" @click="handleClick" @mouseover="handleHover('on')" @mouseleave="handleHover('off')" class="px-dropdown--container">
       <slot></slot>
       <!-- 옵션이 있다면 -->

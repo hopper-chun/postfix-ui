@@ -28,7 +28,7 @@ if (props.isFocusable && props.id) {
 }
 </script>
 <template>
-  <p v-if="error" class="px-error" :tabindex="isFocusable ? 0 : -1" ref="mySelf">
+  <p v-if="error" class="px-error" :tabindex="isFocusable ? 0 : -1" ref="mySelf" :data-errorid="id">
     {{ staticErrorMessage || error }}
   </p>
 </template>

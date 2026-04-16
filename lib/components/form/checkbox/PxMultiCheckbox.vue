@@ -53,7 +53,7 @@ const selected = (value) => {
         <slot name="tooltip"></slot>
       </template>
     </PxLabel>
-    <div class="px-multiCheckbox" :class="[{ isRow: row }]">
+    <div class="px-multiCheckbox" :class="[{ isRow: row }]" :data-testid="id">
       <div v-for="(option, index) in options" style="font-size: 0px">
         <input
           :ref="functionRef"
