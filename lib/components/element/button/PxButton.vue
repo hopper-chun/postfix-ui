@@ -8,6 +8,7 @@ const props = defineProps({
   rounded: { type: Boolean },
   isDoing: { type: Boolean },
   hasLabel: { type: Boolean },
+  id: { type: String },
 })
 </script>
 
