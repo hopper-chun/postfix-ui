@@ -9,10 +9,8 @@ const props = defineProps({
   modelValue: { type: [String, Number], required: true },
   disabled: { type: Boolean, default: false },
   helperText: { type: String },
-  resize: { type: Boolean, default: false },
   rows: { type: Number },
   maxlength: { type: [String, Number] },
-  autoGrow: { type: Boolean, default: false },
 })
 const emit = defineEmits(['update:modelValue', 'onBlur'])
 

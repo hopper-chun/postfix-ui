@@ -1,0 +1,157 @@
+import Button from './Button.vue'
+import Icon from './Icon.vue'
+import PageHeader from './PageHeader.vue'
+import Error from './Error.vue'
+import Label from './Label.vue'
+import Tag from './Tag.vue'
+import FormForView from './FormForView.vue'
+import CountdownTimer from './CountdownTimer.vue'
+
+export default [
+  {
+    name: 'button',
+    path: '/element/button',
+    component: Button,
+    meta: {
+      title: 'PxButton',
+      description: '버튼 컴포넌트',
+      keywords: ['PxButton', 'button', '버튼', 'px-btn', 'size', 'color'],
+    },
+  },
+  {
+    name: 'icon',
+    path: '/element/icon',
+    component: Icon,
+    meta: {
+      title: 'PxIcon',
+      category: 'ELEMENT',
+      description: 'Postfix UI에 포함된 SVG 아이콘을 이름으로 불러오는 컴포넌트',
+      keywords: ['PxIcon', 'icon', '아이콘', 'SVG', 'name', 'isLocal', 'flex', 'items-center', 'justify-center', 'Phosphor Icons'],
+    },
+  },
+  {
+    name: 'pageHeader',
+    path: '/element/page-header',
+    component: PageHeader,
+    meta: {
+      title: 'PxPageHeader',
+      category: 'ELEMENT',
+      description: '페이지 제목과 우측 동작 영역을 한 줄에 배치하는 페이지 헤더',
+      keywords: [
+        'PxPageHeader',
+        'page header',
+        '페이지 헤더',
+        '제목',
+        '액션',
+        'button',
+        'slot',
+        'px-pageHeader',
+        'layout',
+      ],
+    },
+  },
+  {
+    name: 'label',
+    path: '/element/label',
+    component: Label,
+    meta: {
+      title: 'PxLabel',
+      category: 'ELEMENT',
+      description: '입력 항목의 라벨, 필수 표시, 보조 문구 및 툴팁을 구성하는 컴포넌트',
+      keywords: [
+        'PxLabel',
+        'label',
+        '라벨',
+        'required',
+        'labelHelper',
+        'tooltip',
+        'hover',
+        'md',
+        'onClickTooltip',
+        'px-label',
+        'labelFlex',
+        'labelSwitch',
+        'form label',
+        '분리 라벨',
+      ],
+    },
+  },
+  {
+    name: 'tag',
+    path: '/element/tag',
+    component: Tag,
+    meta: {
+      title: 'PxTag',
+      category: 'ELEMENT',
+      description: '상태나 분류를 표시하고 수정·삭제 동작을 제공하는 태그 컴포넌트',
+      keywords: ['PxTag', 'tag', '태그', 'badge', 'color', 'filled', 'remove', 'modify', 'onRemove', 'onModify', 'px-tag'],
+    },
+  },
+  {
+    name: 'formForView',
+    path: '/element/form-for-view',
+    component: FormForView,
+    meta: {
+      title: 'PxFormForView',
+      category: 'ELEMENT',
+      description: '폼의 조회 모드와 편집 모드에서 라벨과 본문 배치를 맞추는 래퍼',
+      keywords: ['PxFormForView', 'form for view', '조회 모드', '편집 모드', 'viewMode', 'label', 'labelHelper', 'required', 'px-formForView'],
+    },
+  },
+  {
+    name: 'countdownTimer',
+    path: '/element/countdown-timer',
+    component: CountdownTimer,
+    meta: {
+      title: 'PxCountdownTimer',
+      category: 'ELEMENT',
+      description: '초 단위 남은 시간을 분과 초 형식으로 표시하는 카운트다운 타이머',
+      keywords: ['PxCountdownTimer', 'countdown timer', '카운트다운', '타이머', 'start', 'stop', 'seconds', 'px-countdownTimer'],
+    },
+  },
+  {
+    name: 'error',
+    path: '/element/error',
+    component: Error,
+    meta: {
+      title: 'PxError',
+      description: '전역 에러 상태를 ID로 연결해 표시하는 컴포넌트',
+      keywords: [
+        'PxError',
+        'error',
+        '에러',
+        '오류',
+        'validation',
+        '검증',
+        'px-error',
+        'element',
+        'useError',
+        'causeError',
+        'clearError',
+        'HelperText',
+        '내장 PxError',
+        'PxInput',
+        'PxFloatInput',
+        'PxSelect',
+        'PxFloatSelect',
+        'PxTextarea',
+        'PxFloatTextarea',
+        'PxInputRadio',
+        'PxInputToggle',
+        'PxButtonList',
+        'PxMultiButtonList',
+        'PxToggleButtonList',
+        'PxFileUploader',
+        'PxFilesUploader',
+        'PxImagesUploader',
+        'PxImagesUploaderDraggable',
+        'PxCheckbox',
+        'PxMultiCheckbox',
+        'PxRadio',
+        'PxToggle',
+        'staticErrorMessage',
+        'isFocusable',
+      ],
+    },
+  },
+]

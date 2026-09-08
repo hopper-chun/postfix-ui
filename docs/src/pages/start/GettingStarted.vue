@@ -1,5 +1,5 @@
 <script setup>
-import CodeBlock from '../components/CodeBlock.vue'
+import CodeBlock from '../../components/CodeBlock.vue'
 
 const installCode = `yarn add @postfix/ui axios`
 
@@ -30,9 +30,6 @@ app.mount('#app')`
     <section class="docs-section">
       <h2>2. 애플리케이션에 등록</h2>
       <CodeBlock :code="setupCode" />
-      <div class="docs-note">
-        현재 버전은 설치 시 HTTP 클라이언트를 요구합니다. 이 제약이 변경되면 가이드도 함께 수정합니다.
-      </div>
     </section>
   </article>
 </template>
