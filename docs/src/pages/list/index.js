@@ -2,6 +2,7 @@ import Accordion from './Accordion.vue'
 import ButtonList from './ButtonList.vue'
 import MultiButtonList from './MultiButtonList.vue'
 import Pagination from './Pagination.vue'
+import Swiper from './Swiper.vue'
 
 export default [
   {
@@ -113,6 +114,41 @@ export default [
         'current',
         'prev',
         'next',
+      ],
+    },
+  },
+  {
+    name: 'swiper',
+    path: '/list/swiper',
+    component: Swiper,
+    meta: {
+      title: 'PxSwiper',
+      category: 'LIST',
+      description: 'Swiper Element를 감싸 목록 렌더링, 이동 버튼과 외부 제어 메서드를 제공하는 슬라이더',
+      keywords: [
+        'PxSwiper',
+        'swiper',
+        '스와이퍼',
+        '슬라이더',
+        '캐러셀',
+        'carousel',
+        'options',
+        'params',
+        'slidesPerView',
+        'spaceBetween',
+        'useNavigation',
+        'onChangeSlide',
+        'handleSlideTo',
+        'handleUpdate',
+        'handleTranslateTo',
+        'loop',
+        '루프 카드 수',
+        'slidesPerView 2배',
+        'autoplay',
+        'pagination',
+        'custom',
+        'swiper-container',
+        'swiper-slide',
       ],
     },
   },

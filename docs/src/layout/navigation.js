@@ -33,6 +33,7 @@ const navigation = [
       { label: 'PxMultiCheckbox', to: { name: 'multiCheckbox' } },
       { label: 'PxDatePicker', to: { name: 'datePicker' } },
       { label: 'PxMonthPicker', to: { name: 'monthPicker' } },
+      { label: 'PxTipTapEditor', to: { name: 'tipTapEditor' } },
       { label: 'HelperText', to: { name: 'helperText' } },
     ],
   },
@@ -53,6 +54,7 @@ const navigation = [
       { label: 'PxButtonList', to: { name: 'buttonList' } },
       { label: 'PxMultiButtonList', to: { name: 'multiButtonList' } },
       { label: 'PxPagination', to: { name: 'pagination' } },
+      { label: 'PxSwiper', to: { name: 'swiper' } },
     ],
   },
   {
@@ -67,10 +69,24 @@ const navigation = [
     items: [{ label: 'PxDialog', to: { name: 'dialog' } }],
   },
   {
+    title: 'Notification',
+    items: [
+      { label: 'PxNotification', to: { name: 'notification' } },
+      { label: 'PxSimpleNotification', to: { name: 'simpleNotification' } },
+    ],
+  },
+  {
     title: 'Table',
     items: [
       { label: 'PxTable', to: { name: 'table' } },
       { label: 'PxAdminTable', to: { name: 'adminTable' } },
+      { label: 'BoardListConfig', to: { name: 'boardListConfig' } },
+      { label: 'PxSearchOrder', to: { name: 'searchOrder' } },
+      { label: 'PxSearchPageLimit', to: { name: 'searchPageLimit' } },
+      { label: 'PxSearchSelectInputs', to: { name: 'searchSelectInputs' } },
+      { label: 'PxSearchDay · Month · Year', to: { name: 'searchDate' } },
+      { label: 'PxUserInfoTableCell', to: { name: 'userInfoTableCell' } },
+      { label: 'PxRouterLinkTableCell', to: { name: 'routerLinkTableCell' } },
       { label: 'PxColorTableCell', to: { name: 'colorTableCell' } },
       { label: 'PxCustomMergeTable', to: { name: 'customMergeTable' } },
       { label: 'PxCustomBoard', to: { name: 'customBoard' } },

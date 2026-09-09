@@ -369,6 +369,50 @@ const requiredRows = [
   },
 ];
 
+const childHeaders = [
+  { field: "name", label: "컴포넌트", code: true },
+  { field: "placement", label: "PxAdminTable 내 위치" },
+  { field: "render", label: "연결 방식" },
+];
+
+const childRows = [
+  {
+    name: "PxSearchOrder",
+    placement: "상단 도구 모음 오른쪽",
+    render: "조건을 만족하면 내부에서 자동 렌더링",
+  },
+  {
+    name: "PxSearchPageLimit",
+    placement: "테이블 설정 다이얼로그 왼쪽",
+    render: "내부에서 자동 렌더링",
+  },
+  {
+    name: "BoardListConfig",
+    placement: "테이블 설정 다이얼로그 오른쪽",
+    render: "내부에서 자동 렌더링",
+  },
+  {
+    name: "PxSearchSelectInputs",
+    placement: "SHELL-SEARCH 슬롯",
+    render: "사용처에서 직접 배치",
+  },
+  {
+    name: "PxSearchDay · PxSearchMonth · PxSearchYear",
+    placement: "SHELL-SEARCH 슬롯",
+    render: "사용처에서 직접 배치",
+  },
+  {
+    name: "PxUserInfoTableCell",
+    placement: "내부 PxTable의 tbody 셀",
+    render: "headers[].component로 지정",
+  },
+  {
+    name: "PxRouterLinkTableCell",
+    placement: "내부 PxTable의 tbody 셀",
+    render: "headers[].component로 지정",
+  },
+];
+
 const propHeaders = [
   { field: "name", label: "이름", code: true },
   { field: "type", label: "타입" },
@@ -732,6 +776,19 @@ const classRows = [
       </p>
       <CodeBlock :code="setupCode" />
       <DocsTable :headers="requiredHeaders" :rows="requiredRows" />
+    </section>
+
+    <section class="docs-section">
+      <h2>하위 컴포넌트 위치</h2>
+      <p
+        class="m-[0px] max-w-[760px] text-[14px] leading-[1.75] text-[#69707e]"
+      >
+        모두 PxAdminTable과 함께 쓰이지만 연결 방식은 서로 다릅니다. 정렬과
+        설정 요소는 내부에서 렌더링되고, 검색 요소는
+        <code>SHELL-SEARCH</code>에 직접 배치하며, 셀 요소는
+        <code>tableConfig.state.headers[].component</code>로 지정합니다.
+      </p>
+      <DocsTable :headers="childHeaders" :rows="childRows" />
     </section>
 
     <section class="docs-section">

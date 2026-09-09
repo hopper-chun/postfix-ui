@@ -5,6 +5,13 @@ import CustomMergeTable from './CustomMergeTable.vue'
 import CustomBoard from './CustomBoard.vue'
 import AdminFormWrapper from './AdminFormWrapper.vue'
 import AdminFormWrapperRow from './AdminFormWrapperRow.vue'
+import BoardListConfig from './BoardListConfig.vue'
+import SearchOrder from './SearchOrder.vue'
+import SearchPageLimit from './SearchPageLimit.vue'
+import SearchSelectInputs from './SearchSelectInputs.vue'
+import SearchDate from './SearchDate.vue'
+import UserInfoTableCell from './UserInfoTableCell.vue'
+import RouterLinkTableCell from './RouterLinkTableCell.vue'
 
 export default [
   {
@@ -71,6 +78,108 @@ export default [
         'defaultTable',
         'shellTable',
       ],
+    },
+  },
+  {
+    name: 'boardListConfig',
+    path: '/table/board-list-config',
+    component: BoardListConfig,
+    meta: {
+      title: 'BoardListConfig',
+      category: 'TABLE',
+      description: 'useTableConfig의 헤더 표시 여부를 토글로 설정하는 컬럼 설정 컴포넌트',
+      keywords: ['BoardListConfig', 'board list config', '테이블 설정', '컬럼 설정', 'headers', 'using', 'essential', 'useTableConfig', 'onToggle', 'px-boardListConfig'],
+    },
+  },
+  {
+    name: 'searchOrder',
+    path: '/table/search-order',
+    component: SearchOrder,
+    meta: {
+      title: 'PxSearchOrder',
+      category: 'TABLE',
+      description: '테이블 정렬 조건을 선택하고 orderField·orderType 객체를 전달하는 컴포넌트',
+      keywords: ['PxSearchOrder', 'search order', '정렬', 'orderState', 'orderOptions', 'orderField', 'orderType', 'onSetSearchOrder', 'defaultLabel', 'px-searchOrder'],
+    },
+  },
+  {
+    name: 'searchPageLimit',
+    path: '/table/search-page-limit',
+    component: SearchPageLimit,
+    meta: {
+      title: 'PxSearchPageLimit',
+      category: 'TABLE',
+      description: '테이블의 페이지당 표시 개수를 고정 선택지에서 바꾸는 라디오 컴포넌트',
+      keywords: ['PxSearchPageLimit', 'page limit', '페이지 크기', '표시 개수', 'limit', '10개', '20개', '30개', '50개', '100개', 'onChangeLimit'],
+    },
+  },
+  {
+    name: 'searchSelectInputs',
+    path: '/table/search-select-inputs',
+    component: SearchSelectInputs,
+    meta: {
+      title: 'PxSearchSelectInputs',
+      category: 'TABLE',
+      description: '검색 종류별 입력과 적용된 query 조건을 함께 관리하는 통합 검색 컴포넌트',
+      keywords: [
+        'PxSearchSelectInputs',
+        'search select inputs',
+        '통합 검색',
+        'filters',
+        'filterTypes',
+        'text',
+        'radio',
+        'select',
+        'check',
+        'date',
+        'month',
+        'datepicker',
+        'monthpicker',
+        'yearpicker',
+        'LocalUserPicker',
+        'onAppendQuerys',
+        'onRemoveQuery',
+        'onSearch',
+      ],
+    },
+  },
+  {
+    name: 'searchDate',
+    path: '/table/search-date',
+    component: SearchDate,
+    meta: {
+      title: 'PxSearchDay · PxSearchMonth · PxSearchYear',
+      category: 'TABLE',
+      description: '라우트 query와 연결된 일·월·연 단위의 테이블 검색 픽커',
+      keywords: ['PxSearchDay', 'PxSearchMonth', 'PxSearchYear', '일별 검색', '월별 검색', '연도 검색', 'yyyymmdd', 'yyyymm', 'yyyy', 'onAppendQuerys', 'px-searchDate'],
+    },
+  },
+  {
+    name: 'userInfoTableCell',
+    path: '/table/user-info-table-cell',
+    component: UserInfoTableCell,
+    meta: {
+      title: 'PxUserInfoTableCell',
+      category: 'TABLE',
+      description: '사용자 이름과 ID를 userView 라우트 링크와 함께 표시하는 테이블 셀',
+      keywords: ['PxUserInfoTableCell', 'user info', '사용자 정보', 'table cell', 'userName', 'userId', 'userSeq', 'userView', 'viewMode', 'md', 'px-userInfoTableCell'],
+    },
+  },
+  {
+    name: 'userView',
+    path: '/table/user-info-table-cell/user/:userSeq',
+    redirect: { name: 'userInfoTableCell' },
+    meta: { searchable: false },
+  },
+  {
+    name: 'routerLinkTableCell',
+    path: '/table/router-link-table-cell',
+    component: RouterLinkTableCell,
+    meta: {
+      title: 'PxRouterLinkTableCell',
+      category: 'TABLE',
+      description: '테이블 셀의 텍스트를 Vue Router 링크로 표시하는 컴포넌트',
+      keywords: ['PxRouterLinkTableCell', 'router link', '테이블 링크', 'table cell', 'label', 'to', 'addClass', 'onClick'],
     },
   },
   {

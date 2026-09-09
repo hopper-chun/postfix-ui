@@ -12,6 +12,7 @@ import Checkbox from "./Checkbox.vue";
 import MultiCheckbox from "./MultiCheckbox.vue";
 import DatePicker from "./DatePicker.vue";
 import MonthPicker from "./MonthPicker.vue";
+import TipTapEditor from "./TipTapEditor.vue";
 
 export default [
   {
@@ -416,6 +417,39 @@ export default [
         "md",
         "slot",
         "tooltip",
+      ],
+    },
+  },
+  {
+    name: "tipTapEditor",
+    path: "/form/tiptap-editor",
+    component: TipTapEditor,
+    meta: {
+      title: "PxTipTapEditor",
+      category: "FORM",
+      description: "HTML 문자열을 편집하고 이미지와 동영상을 삽입할 수 있는 Tiptap 기반 리치 텍스트 에디터",
+      keywords: [
+        "PxTipTapEditor",
+        "TipTap",
+        "editor",
+        "에디터",
+        "리치 텍스트",
+        "WYSIWYG",
+        "HTML",
+        "v-model",
+        "readOnly",
+        "bold",
+        "italic",
+        "underline",
+        "highlight",
+        "text color",
+        "font size",
+        "image upload",
+        "youtube",
+        "text align",
+        "blockquote",
+        "code block",
+        "ProseMirror",
       ],
     },
   },
