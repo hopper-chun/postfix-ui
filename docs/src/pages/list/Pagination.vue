@@ -57,7 +57,6 @@ const propRows = [
   { name: 'total', type: 'Number', defaultValue: '-', description: '전체 항목 수. 필수값' },
   { name: 'currentPage', type: 'Number', defaultValue: '-', description: '현재 페이지 번호. 필수값' },
   { name: 'isNarrow', type: 'Boolean', defaultValue: 'true', description: '좁은 화면용 클래스 적용 여부' },
-  { name: 'align', type: 'String', defaultValue: '-', description: '현재 컴포넌트 내부에서는 사용하지 않는 호환용 Prop' },
 ]
 
 const eventHeaders = [

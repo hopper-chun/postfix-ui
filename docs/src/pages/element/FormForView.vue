@@ -57,7 +57,7 @@ const propRows = [
   { name: "id", type: "String", defaultValue: "-", description: "조회 모드 라벨의 입력 연결 ID" },
   { name: "required", type: "Boolean", defaultValue: "false", description: "편집 모드에서 필수 표시" },
   { name: "labelHelper", type: "String", defaultValue: "-", description: "라벨 옆 보조 문구" },
-  { name: "md", type: "String", defaultValue: "-", description: "PxLabel에 전달할 툴팁 문구" },
+  { name: "md", type: "String", defaultValue: "-", description: "라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원" },
 ];
 
 const classHeaders = [

@@ -166,7 +166,7 @@ const propRows = [
   { name: 'required', defaultValue: 'false', description: '제목에 필수 표시점 추가' },
   { name: 'badge', defaultValue: '-', description: '제목 옆 배지 문구' },
   { name: 'helperText', defaultValue: '-', description: '제목 옆 보조 문구' },
-  { name: 'md', defaultValue: '-', description: '클릭 시 전역 툴팁 다이얼로그에 표시할 Markdown 문구' },
+  { name: 'md', defaultValue: '-', description: '제목 옆 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
   { name: 'isFold', defaultValue: 'false', description: '본문 접기 버튼 표시' },
   { name: 'isWide', defaultValue: 'false', description: '본문 안쪽 자식의 기본 여백 제거' },
   { name: 'useGrid', defaultValue: '자동', description: 'true는 2열, false는 단일 흐름. 생략하면 조회 모드만 2열' },

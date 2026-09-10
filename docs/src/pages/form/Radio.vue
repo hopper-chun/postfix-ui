@@ -137,7 +137,7 @@ const propRows = [
   { name: 'required', type: 'Boolean', defaultValue: 'false', description: '라벨에 필수 표시' },
   { name: 'viewMode', type: 'Boolean', defaultValue: 'false', description: '현재 선택 상태를 유지한 채 옵션 변경 차단' },
   { name: 'hover', type: 'Boolean', defaultValue: 'true', description: '라벨 툴팁의 hover 동작 여부' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '라벨 툴팁 다이얼로그에 표시할 콘텐츠' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
   { name: 'format', type: 'Function', defaultValue: 'value => value', description: '컴포넌트 내부 선택값을 초기화하거나 동기화할 때 적용할 함수' },
 ]
 

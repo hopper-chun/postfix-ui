@@ -165,7 +165,7 @@ const propRows = [
   { name: 'viewMode', type: 'Boolean', defaultValue: 'false', description: '날짜를 조회용 텍스트로 표시하고 달력 열기 차단' },
   { name: 'dotDays', type: 'Array', defaultValue: '-', description: '현재 표시 월에서 별도 색상으로 강조할 일(day) 숫자 배열' },
   { name: 'cbMonth', type: 'Function', defaultValue: '-', description: '표시 월이 바뀔 때 <code>yyyyMM</code> 문자열을 받는 콜백' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '라벨 툴팁 다이얼로그에 표시할 콘텐츠' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
 ]
 
 const eventHeaders = [

@@ -196,7 +196,7 @@ const propRows = [
   { name: 'labelHelper', type: 'String', defaultValue: '-', description: '편집 모드의 라벨 옆 보조 문구' },
   { name: 'helperText', type: 'String', defaultValue: '-', description: '버튼 목록 아래 안내 문구' },
   { name: 'required', type: 'Boolean', defaultValue: 'false', description: '라벨에 필수 표시' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '라벨 도움말 다이얼로그에 표시할 Markdown 문구' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
   { name: 'disabled', type: 'Boolean', defaultValue: 'false', description: '선택 변경 차단. 내부 PxButton에는 disabled 스타일이 전달되지 않음' },
   { name: 'prevent', type: 'Boolean', defaultValue: 'false', description: 'disabled 스타일 없이 선택 변경만 차단' },
   { name: 'clearButton', type: 'String', defaultValue: '-', description: '선택 배열을 비우는 첫 번째 버튼의 문구' },

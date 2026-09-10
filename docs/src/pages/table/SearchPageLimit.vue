@@ -22,7 +22,6 @@ const propHeaders = [
 
 const propRows = [
   { name: 'limit', type: 'Number', defaultValue: '필수', description: '현재 페이지당 표시 개수' },
-  { name: 'size', type: 'String', defaultValue: '-', description: '선언되어 있지만 현재 템플릿에서 사용하지 않음' },
 ]
 
 const optionRows = [

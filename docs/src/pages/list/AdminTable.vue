@@ -482,12 +482,6 @@ const propRows = [
     description: "체크박스를 하나만 선택하도록 제한",
   },
   {
-    name: "defaultLabel4Sort",
-    type: "String",
-    defaultValue: "기본 정렬",
-    description: "정렬 Select의 초기 항목 문구",
-  },
-  {
     name: "defaultTable",
     type: "Boolean",
     defaultValue: "true",
@@ -581,19 +575,13 @@ const propRows = [
     name: "md",
     type: "String",
     defaultValue: "-",
-    description: "제목 옆 도움말에 표시할 Markdown 문구",
+    description: "제목 옆 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원",
   },
   {
     name: "useLocale",
     type: "Boolean",
     defaultValue: "false",
     description: "빈 결과와 설정 다이얼로그의 일부 문구를 영문으로 표시",
-  },
-  {
-    name: "inactiveCheckbox / checkboxDisables",
-    type: "Boolean / Array",
-    defaultValue: "false / -",
-    description: "현재 내부 PxTable에서 사용하지 않는 레거시 Props",
   },
 ];
 

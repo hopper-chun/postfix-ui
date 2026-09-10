@@ -277,7 +277,6 @@ const propRows = [
   { name: 'useNavigation', type: 'Boolean', defaultValue: 'false', description: '컴포넌트 양쪽의 이전·다음 버튼 사용' },
   { name: 'maxWidth', type: 'String', defaultValue: '-', description: '내부 swiper-container의 max-width 인라인 스타일' },
   { name: 'custom', type: 'Boolean', defaultValue: 'false', description: '자동 swiper-slide 생성을 끄고 슬롯에서 전체 슬라이드 구조 작성' },
-  { name: 'styles', type: 'Array | Object', defaultValue: '-', description: '선언되어 있지만 현재 템플릿에서 사용하지 않음' },
 ]
 
 const slotHeaders = [

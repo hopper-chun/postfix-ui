@@ -132,10 +132,8 @@ const propRows = [
   { name: 'disabled', type: 'Boolean', defaultValue: 'false', description: '내부 입력창 비활성화. 현재 바깥 클릭으로 패널이 열리는 동작은 차단하지 못함' },
   { name: 'viewMode', type: 'Boolean', defaultValue: 'false', description: '조회용 텍스트로 표시. 현재 바깥 클릭으로 패널이 열리는 동작은 차단하지 못함' },
   { name: 'lang', type: 'String', defaultValue: 'ko', description: '<code>ko</code>, <code>jp</code> 또는 영문 패널 문구 설정' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '라벨 툴팁 다이얼로그에 표시할 콘텐츠' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
   { name: 'clear', type: 'Boolean', defaultValue: 'false', description: '현재 버튼은 표시되지만 초기화 동작에는 연결되지 않음' },
-  { name: 'rounded', type: 'String', defaultValue: '-', description: '현재 Props에만 선언되어 있으며 스타일에는 연결되지 않음' },
-  { name: 'hover', type: 'Boolean', defaultValue: 'true', description: '현재 Props에만 선언되어 있으며 내부 라벨에는 전달되지 않음' },
 ]
 
 const eventHeaders = [
@@ -247,7 +245,7 @@ const classRows = [
     <section class="docs-section">
       <h2>현재 구현 참고</h2>
       <div class="rounded-[10px] border-[1px] border-[#ead9a2] bg-[#fffaf0] px-[20px] py-[18px] text-[14px] leading-[1.75] text-[#665526]">
-        <code>clear</code>, <code>rounded</code>, <code>hover</code>는 현재 정상 동작에 연결되어 있지 않습니다.
+        <code>clear</code>는 초기화 버튼을 표시하지만, 현재 클릭 시 값을 초기화하는 동작은 구현되어 있지 않습니다.
         또한 <code>disabled</code>와 <code>viewMode</code>도 입력은 막지만 바깥 래퍼 클릭에 의한 패널 열기까지 차단하지는 않습니다.
       </div>
     </section>

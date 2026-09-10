@@ -44,9 +44,6 @@ const propRows = [
   { name: 'ftpFolderSeq', type: 'Number', defaultValue: '-', description: '업로드 대상 FTP 폴더 식별자' },
   { name: 'apiUrl', type: 'String', defaultValue: '/api/v1/file-uploads', description: 'PATCH 요청의 기본 주소' },
   { name: 'disabled', type: 'Boolean', defaultValue: 'false', description: '파일 선택 비활성화' },
-  { name: 'label', type: 'String', defaultValue: '-', description: '현재 템플릿에서 사용하지 않음' },
-  { name: 'labelHelper', type: 'String', defaultValue: '-', description: '현재 템플릿에서 사용하지 않음' },
-  { name: 'viewMode', type: 'Boolean', defaultValue: 'false', description: '현재 템플릿에서 사용하지 않음' },
 ]
 
 const eventHeaders = [
@@ -86,8 +83,8 @@ const classRows = [
       </div>
       <CodeBlock :code="basicCode" />
       <p class="docs-note">
-        내부 PxFileUpload에 <code>multiple</code>이 고정되어 있습니다. 선택한 파일을 한 요청에 합치지 않고 각각 별도의 PATCH 요청으로 전송합니다.
-        따라서 목록을 다시 불러오는 작업은 <code>onAppend</code>에서 처리합니다.
+        내부 PxFileUpload에 <code>multiple</code>이 고정되어 있습니다. 선택한 파일을 한 요청에 합치지 않고 각각 별도의 PATCH 요청으로 전송합니다. 따라서 목록을
+        다시 불러오는 작업은 <code>onAppend</code>에서 처리합니다.
       </p>
     </section>
 

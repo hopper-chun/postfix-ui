@@ -191,7 +191,7 @@ const propRows = [
     name: 'md',
     type: 'String',
     defaultValue: '-',
-    description: '라벨 툴팁 다이얼로그에 표시할 콘텐츠',
+    description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원',
   },
 ]
 

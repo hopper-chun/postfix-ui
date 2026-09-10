@@ -259,13 +259,6 @@ const propRows = [
     defaultValue: "-",
     description: "선택창 아래 보조 문구",
   },
-  {
-    name: "required",
-    type: "Boolean",
-    defaultValue: "false",
-    description:
-      "필수 입력 여부. 현재 기본 템플릿에서는 별도 표시를 렌더링하지 않습니다.",
-  },
 ];
 
 const eventHeaders = [

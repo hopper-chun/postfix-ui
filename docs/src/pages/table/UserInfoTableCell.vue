@@ -60,7 +60,7 @@ const propHeaders = [
 const propRows = [
   { name: 'user', type: 'Object', defaultValue: '-', description: 'userName·userId·userSeq를 가진 사용자 객체' },
   { name: 'viewMode', type: 'Boolean', defaultValue: 'false', description: 'PxFormForView로 감싸 이름 라벨과 함께 표시' },
-  { name: 'md', type: 'String', defaultValue: '-', description: 'viewMode의 PxFormForView·PxLabel에 전달할 도움말' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '조회 모드에서 라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
 ]
 
 const classHeaders = [

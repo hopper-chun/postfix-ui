@@ -21,10 +21,7 @@ const propHeaders = [
   { field: 'description', label: '설명' },
 ]
 
-const propRows = [
-  { name: 'name', type: 'String', defaultValue: '필수', description: '표시할 아이콘 이름. kebab-case로 입력' },
-  { name: 'isLocal', type: 'Boolean', defaultValue: 'false', description: '현재 프로젝트에 로컬 등록된 아이콘 컴포넌트를 이름으로 사용' },
-]
+const propRows = [{ name: 'name', type: 'String', defaultValue: '필수', description: '표시할 아이콘 이름. kebab-case로 입력' }]
 </script>
 
 <template>
@@ -64,8 +61,8 @@ const propRows = [
     <section class="docs-section">
       <h2>신규 사용 권장 사항</h2>
       <p class="docs-note">
-        <code>PxIcon</code>은 아이콘마다 SVG 크기와 형태가 달라 정렬과 크기를 직접 보정해야 하는 한계가 있습니다. 기존 화면을 유지할 때 사용하고,
-        새로운 아이콘을 추가하거나 신규 화면을 만들 때는 일관된 크기와 스타일을 제공하는 <strong>Phosphor Icons</strong> 사용을 권장합니다.
+        <code>PxIcon</code>은 아이콘마다 SVG 크기와 형태가 달라 정렬과 크기를 직접 보정해야 하는 한계가 있습니다. 기존 화면을 유지할 때 사용하고, 새로운
+        아이콘을 추가하거나 신규 화면을 만들 때는 일관된 크기와 스타일을 제공하는 <strong>Phosphor Icons</strong> 사용을 권장합니다.
       </p>
     </section>
   </article>

@@ -56,7 +56,7 @@ const propRows = [
   { name: 'label', type: 'String', defaultValue: '-', description: 'PxLabel 문구' },
   { name: 'labelHelper', type: 'String', defaultValue: '-', description: '라벨 보조 문구' },
   { name: 'required', type: 'Boolean', defaultValue: 'false', description: '필수 표시' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '모바일 라벨 배치 설정' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
 ]
 
 const eventHeaders = [

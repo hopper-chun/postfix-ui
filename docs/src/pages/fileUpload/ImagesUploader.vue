@@ -89,9 +89,7 @@ const propRows = [
   { name: 'extraQuery', type: 'Object', defaultValue: '-', description: '업로드 요청에 추가할 쿼리 객체' },
   { name: 'label', type: 'String', defaultValue: '-', description: 'PxLabel 문구' },
   { name: 'required', type: 'Boolean', defaultValue: 'false', description: '필수 표시' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '모바일 라벨 배치 설정' },
-  { name: 'style', type: 'String', defaultValue: 'h-[80px] w-[80px]', description: '현재 템플릿에서 사용하지 않음' },
-  { name: 'buttonOnly', type: 'Boolean', defaultValue: 'false', description: '현재 템플릿에서 사용하지 않음' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
 ]
 
 const eventHeaders = [
@@ -144,7 +142,8 @@ const classRows = [
       <h2>API 응답 형태</h2>
       <CodeBlock :code="responseCode" />
       <p class="docs-note">
-        <code>seq</code>, <code>cdnPath</code>, <code>fileSize</code>를 사용하며 <code>imageSize</code>와 <code>saveFilename</code>은 응답에 있을 때 v-model에도 보존합니다.
+        <code>seq</code>, <code>cdnPath</code>, <code>fileSize</code>를 사용하며 <code>imageSize</code>와 <code>saveFilename</code>은 응답에 있을 때 v-model에도
+        보존합니다.
       </p>
     </section>
 

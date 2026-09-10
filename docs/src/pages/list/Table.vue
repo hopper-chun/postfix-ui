@@ -239,12 +239,6 @@ const propRows = [
     defaultValue: 'false',
     description: '표 대신 <code>grid</code> 슬롯을 그리드로 표시',
   },
-  {
-    name: 'spanHeaders',
-    type: 'Array',
-    defaultValue: '-',
-    description: '선언되어 있으나 현재 렌더링에서는 참조하지 않는 레거시 Prop',
-  },
 ]
 
 const headerOptionHeaders = [

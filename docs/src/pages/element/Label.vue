@@ -94,7 +94,7 @@ const propRows = [
   { name: 'required', type: 'Boolean', defaultValue: 'false', description: '필수 입력 표시점 노출' },
   { name: 'labelHelper', type: 'String', defaultValue: '-', description: '라벨 옆에 표시할 짧은 보조 문구' },
   { name: 'hover', type: 'Boolean', defaultValue: 'true', description: '툴팁 아이콘 호버로 내용을 표시할지 여부' },
-  { name: 'md', type: 'String', defaultValue: '-', description: '툴팁 내용. 클릭하면 전역 툴팁 다이얼로그로 전달' },
+  { name: 'md', type: 'String', defaultValue: '-', description: '라벨의 도움말 아이콘을 눌렀을 때 다이얼로그에 표시할 콘텐츠. Markdown 지원' },
 ]
 
 const slotHeaders = [

@@ -40,7 +40,6 @@ const propHeaders = [
 const propRows = [
   { name: 'orderState', type: 'Object', defaultValue: '필수', description: 'orderField와 orderType을 가진 현재 정렬 상태' },
   { name: 'orderOptions', type: 'Array', defaultValue: '필수', description: 'label과 value 객체로 구성한 정렬 선택지' },
-  { name: 'defaultLabel', type: 'String', defaultValue: '필수', description: '선언되어 있지만 현재 템플릿은 분류로 고정 표시' },
 ]
 
 const eventRows = [{ name: 'onSetSearchOrder', payload: 'option.value', description: '선택한 정렬 value 객체를 전달' }]
