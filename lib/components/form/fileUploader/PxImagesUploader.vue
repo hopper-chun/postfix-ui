@@ -46,7 +46,7 @@ const hasRoom = computed(() => {
 
 const load = () => {
   local.images = props.modelValue.map((image) => {
-    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename, fileSize: image.fileSize }
+    return { seq: image.seq, cdnPath: image.cdnPath, originalFilename: image.originalFilename, fileSize: image.fileSize, saveFilename: image.saveFilename }
     // return { seq: image.seq, localPath: image.localPath, cdnPath: image.cdnPath }
   })
 }
@@ -64,6 +64,7 @@ const updateModelValue = () => {
         height: image.height,
         fileSize: image.fileSize,
         imageSize: image.imageSize || undefined,
+        saveFilename: image.saveFilename || undefined,
       }
     }),
   )
@@ -115,6 +116,7 @@ const handleSelect = async ({ originalFilename, formData, fileBuffer, width, hei
         height,
         fileSize: ret.data.fileSize,
         imageSize: ret.data.imageSize || undefined,
+        saveFilename: ret.data.saveFilename || undefined,
       })
       updateModelValue()
     }

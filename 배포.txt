@@ -4,3 +4,5 @@
 로그아웃:   npm logout
 확인:       npm whoami
 배포:       npm publish --access public
+
+npm config set //registry.npmjs.org/:_authToken=AAAAA

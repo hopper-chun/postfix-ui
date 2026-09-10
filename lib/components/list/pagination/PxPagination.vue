@@ -6,7 +6,6 @@ const props = defineProps({
   limit: { type: Number, required: true },
   total: { type: Number, required: true },
   currentPage: { type: Number, required: true },
-  align: { type: String },
   isNarrow: { type: Boolean, default: true },
 })
 const emit = defineEmits(['onChangePage'])
