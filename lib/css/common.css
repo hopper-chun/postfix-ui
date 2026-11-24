@@ -1324,11 +1324,6 @@
 .px-inputRadio .px-input--field {
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.px-inputRadio .px-input--field > label:not(:first-child) {
-  margin-left: 16px;
 }
 
 /* form - toggle */

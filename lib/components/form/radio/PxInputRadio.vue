@@ -46,13 +46,14 @@ const { localValue } = useInput(id, modelValue, format, emit)
             <slot name="tooltip"></slot>
           </template>
         </PxLabel>
-        <div style="position: relative">
+        <div class="px-input--input_wrapper" style="position: relative">
           <div :ref="functionRef" class="px-input--field" :class="[{ disabled }, { error }]">
             <PxRadio
               v-model="localValue"
               @update:modelValue="$emit('update:modelValue', $event)"
               :disabled="disabled"
               :required="required"
+              :id="`${id}_radio`"
               :name="id"
               :format="format"
               :options="options"
