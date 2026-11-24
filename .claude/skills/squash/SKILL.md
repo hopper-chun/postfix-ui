@@ -34,7 +34,7 @@ Checklist format:
 3. **Squash Merge** (approval required)
    - Ask user: "main에 squash merge할까요?"
      - **Yes**:
-       1. `gh pr merge <number> --squash --delete-branch --subject "<PR title>"`
+       1. `gh pr merge <number> --squash --delete-branch --subject "<PR title>" --body ""` (empty body: no Co-authored-by trailers)
        2. `git checkout main && git pull`
        3. If the local branch still exists: `git branch -D <branch>`
        4. `git fetch --prune`
