@@ -53,6 +53,7 @@ const { localValue } = useInput(id, modelValue, format, emit)
               @update:modelValue="$emit('update:modelValue', $event)"
               :disabled="disabled"
               :required="required"
+              :id="`${id}_radio`"
               :name="id"
               :format="format"
               :options="options"
